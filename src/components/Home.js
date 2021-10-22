@@ -16,9 +16,10 @@ export default function Home() {
 			<h1>Home</h1>
 			{user && <button onClick={() => dispatch(logoutUser())}>Logout</button>}
 
-			{user && restaurants && <button onClick={() => history.push('/add-restaurant')}>Add Restaurant</button>}
+			{user && <button onClick={() => history.push('/new')}>Add Restaurant</button>}
 
 			{user &&
+			restaurants &&
 			restaurants.length > 0 && <button onClick={() => history.push('/restaurants')}>My Restaurants</button>}
 
 			{!user && <button onClick={() => history.push('/login')}>Login</button>}

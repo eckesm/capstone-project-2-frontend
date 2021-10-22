@@ -41,7 +41,6 @@ export function logoutUser() {
 		dispatch({
 			type : LOGOUT_USER
 		});
-		// localStorage.removeItem('email_address');
 		localStorage.removeItem('token');
 	};
 }

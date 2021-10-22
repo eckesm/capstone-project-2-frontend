@@ -1,40 +1,55 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router';
 
 import useFields from '../../hooks/useFields';
 
-import { registerRestaurant } from '../../actions/restaurants';
+import { updateRestaurant } from '../../actions/restaurants';
 
-export default function NewRestaurantForm() {
+import CancelButton from '../buttons/EditButton';
+
+export default function EditRestaurantForm({
+	id,
+	name,
+	address,
+	phone,
+	email,
+	website,
+	notes,
+	// setRestaurant,
+	setEditing
+}) {
 	const dispatch = useDispatch();
-	const history = useHistory();
 
 	const initialState = {
-		name    : '',
-		address : '',
-		phone   : '',
-		email   : '',
-		website : '',
-		notes   : ''
+		name    : name,
+		address : address === null ? '' : address,
+		phone   : phone === null ? '' : phone,
+		email   : email === null ? '' : email,
+		website : website === null ? '' : website,
+		notes   : notes === null ? '' : notes
 	};
 	const [ formData, handleChange, resetFormData ] = useFields(initialState);
 
 	async function handleSubmit(evt) {
 		evt.preventDefault();
 		try {
-			const res = await dispatch(registerRestaurant(formData));
-			if (res.status === 201) {
-				history.push(`/restaurants/${res.data.restaurant.id}`);
+			const res = await dispatch(updateRestaurant(id, formData));
+			if (res.status === 200) {
+				// setRestaurant(res.data.restaurant);
+				setEditing(false);
 			}
 		} catch (err) {
-			console.log('handleSubmit() > registerRestaurant() error:', err);
+			console.log('handleSubmit() > updateRestaurant() error:', err);
 		}
+	}
+
+	function handleCancel(evt) {
+		evt.preventDefault();
+		setEditing(false);
 	}
 
 	return (
 		<div>
-			<h1>New Restaurant</h1>
 			<form onSubmit={handleSubmit}>
 				<div>
 					<label htmlFor="name">Name:</label>
@@ -60,7 +75,8 @@ export default function NewRestaurantForm() {
 					<label htmlFor="notes">Notes:</label>
 					<input type="text" id="notes" value={formData.notes} name="notes" onChange={handleChange} />
 				</div>
-				<button type="submit">Add Restaurant</button>
+				<button type="submit">Update Restaurant</button>
+				<CancelButton text="Don't Update" onClick={handleCancel} />
 			</form>
 		</div>
 	);
