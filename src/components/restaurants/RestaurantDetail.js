@@ -6,6 +6,7 @@ import { useParams } from 'react-router-dom';
 import { deleteRestaurant } from '../../actions/restaurants';
 
 import AllMealPeriods from '../mealPeriods/AllMealPeriods';
+import AllCategoryGroups from '../categoryGroups/AllCategoryGroups';
 import DeleteButton from '../buttons/DeleteButton';
 import EditButton from '../buttons/CancelButton';
 import EditRestaurantForm from './EditRestaurantForm';
@@ -59,11 +60,15 @@ export default function RestaurantDetail() {
 						<h2>Meal Periods</h2>
 						<AllMealPeriods />
 					</div>
+					<div>
+						<h2>Category Groups</h2>
+						<AllCategoryGroups />
+					</div>
 					{active &&
 					active.isAdmin && (
 						<div>
-							<EditButton onClick={() => setEditing(true)} text="Edit Restaurant" />
-							<DeleteButton text="Delete Restaurant" onClick={handleDelete} />
+							{active.isAdmin && <EditButton onClick={() => setEditing(true)} text="Edit Restaurant" />}
+							{active.isAdmin && <DeleteButton text="Delete Restaurant" onClick={handleDelete} />}
 							<GoButton text="Go to All Restaurants" onClick={() => history.push(`/restaurants/`)} />
 						</div>
 					)}

@@ -16,7 +16,7 @@ export default function Home() {
 			<h1>Home</h1>
 			{user && <button onClick={() => dispatch(logoutUser())}>Logout</button>}
 
-			{user && <button onClick={() => history.push('/new')}>Add Restaurant</button>}
+			{user && <button onClick={() => history.push('/restaurants/new')}>Add Restaurant</button>}
 
 			{user &&
 			restaurants &&

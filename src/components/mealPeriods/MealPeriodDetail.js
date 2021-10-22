@@ -53,8 +53,8 @@ export default function MealPeriodDetail() {
 					{active &&
 					active.isAdmin && (
 						<div>
-							<EditButton onClick={() => setEditing(true)} text="Edit Meal Period" />
-							<DeleteButton text="Delete Meal Period" onClick={handleDelete} />
+							{active.isAdmin && <EditButton onClick={() => setEditing(true)} text="Edit Meal Period" />}
+							{active.isAdmin && <DeleteButton text="Delete Meal Period" onClick={handleDelete} />}
 							<GoButton
 								text="Go to All Meal Periods"
 								onClick={() => history.push(`/restaurants/${mealPeriod.restaurantId}/meal-periods`)}

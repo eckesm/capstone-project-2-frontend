@@ -1,11 +1,14 @@
 import {
+	ADD_CATEGORY_GROUP,
 	ADD_MEAL_PERIOD,
 	ADD_NEW_RESTAURANT,
+	DELETE_CATEGORY_GROUP,
 	DELETE_MEAL_PERIOD,
 	DELETE_RESTAURANT,
 	LOGOUT_USER,
 	STORE_ACTIVE_RESTAURANT,
 	STORE_USER_RESTAURANTS,
+	UPDATE_CATEGORY_GROUP,
 	UPDATE_MEAL_PERIOD,
 	UPDATE_RESTAURANT
 } from '../actions/types';
@@ -19,16 +22,23 @@ const INITIAL_STATE = {
 };
 
 export default function restaurants(state = INITIAL_STATE, action) {
-	let mealPeriod,
+	let catGroups,
 		mealPeriods,
 		restaurant,
 		restaurants,
 		restaurantsAdmin,
 		restaurantsUser,
+		adjustedCatGroups,
 		adjustedMealPeriods,
 		adjustedRestaurants;
 
 	switch (action.type) {
+		case ADD_CATEGORY_GROUP:
+			return {
+				...state,
+				active : { ...state.active, catGroups: [ ...state.active.catGroups, action.catGroup ] }
+			};
+
 		case ADD_MEAL_PERIOD:
 			return {
 				...state,
@@ -48,13 +58,23 @@ export default function restaurants(state = INITIAL_STATE, action) {
 				restaurantsUser
 			};
 
+		case DELETE_CATEGORY_GROUP:
+			const deletedCatGroupId = Number(action.deleted);
+			return {
+				...state,
+				active : {
+					...state.active,
+					catGroups : state.active.catGroups.filter(c => c.id !== deletedCatGroupId)
+				}
+			};
+
 		case DELETE_MEAL_PERIOD:
 			const deletedMealPeriodId = Number(action.deleted);
 			return {
 				...state,
 				active : {
 					...state.active,
-					mealPeriods: state.active.mealPeriods.filter(m => m.id !== deletedMealPeriodId)
+					mealPeriods : state.active.mealPeriods.filter(m => m.id !== deletedMealPeriodId)
 				}
 			};
 
@@ -96,6 +116,23 @@ export default function restaurants(state = INITIAL_STATE, action) {
 				restaurants,
 				restaurantsAdmin,
 				restaurantsUser
+			};
+
+		case UPDATE_CATEGORY_GROUP:
+			const updatedCatGroup = action.catGroup;
+			catGroups = state.active.catGroups;
+			adjustedCatGroups = [];
+			for (let i = 0; i < catGroups.length; i++) {
+				if (catGroups[i].id === updatedCatGroup.id) {
+					adjustedCatGroups.push(updatedCatGroup);
+				}
+				else {
+					adjustedCatGroups.push(catGroups[i]);
+				}
+			}
+			return {
+				...state,
+				active : { ...state.active, catGroups: adjustedCatGroups }
 			};
 
 		case UPDATE_MEAL_PERIOD:

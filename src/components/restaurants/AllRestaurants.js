@@ -12,12 +12,20 @@ export default function AllRestaurants() {
 	return (
 		<div>
 			<h1>My Restaurants</h1>
-			{restaurants.map(r => {
-				return (
-					<RestaurantCard key={r.id} restaurantId={r.id} name={r.name} notes={r.notes} isAdmin={r.isAdmin} />
-				);
-			})}
-			<AddButton text="Add New Restaurant" onClick={() => history.push('/new')} />
+			<div>
+				{restaurants.map(r => {
+					return (
+						<RestaurantCard
+							key={r.id}
+							restaurantId={r.id}
+							name={r.name}
+							notes={r.notes}
+							isAdmin={r.isAdmin}
+						/>
+					);
+				})}
+			</div>
+			<AddButton text="Add New Restaurant" onClick={() => history.push('/restaurants/new')} />
 		</div>
 	);
 }

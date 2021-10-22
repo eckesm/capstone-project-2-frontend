@@ -4,9 +4,9 @@ import { useHistory } from 'react-router';
 
 import useFields from '../../hooks/useFields';
 
-import { registerMealPeriod } from '../../actions/mealPeriods';
+import { registerCategoryGroup } from '../../actions/categoryGroups';
 
-export default function NewMealPeriodForm() {
+export default function NewCategoryGroupForm() {
 	const dispatch = useDispatch();
 	const history = useHistory();
 	const { active } = useSelector(store => store.restaurants);
@@ -20,12 +20,12 @@ export default function NewMealPeriodForm() {
 	async function handleSubmit(evt) {
 		evt.preventDefault();
 		try {
-			const res = await dispatch(registerMealPeriod(active.id, formData));
+			const res = await dispatch(registerCategoryGroup(active.id, formData));
 			if (res.status === 201) {
-				history.push(`/restaurants/${active.id}/meal-periods/${res.data.mealPeriod.id}`);
+				history.push(`/restaurants/${active.id}/category-groups/${res.data.catGroup.id}`);
 			}
 		} catch (err) {
-			console.log('handleSubmit() > registerMealPeriod() error:', err);
+			console.log('handleSubmit() > registerCategoryGroup() error:', err);
 		}
 	}
 
@@ -39,7 +39,7 @@ export default function NewMealPeriodForm() {
 				<label htmlFor="notes">Notes:</label>
 				<input type="text" id="notes" value={formData.notes} name="notes" onChange={handleChange} />
 			</div>
-			<button type="submit">Add Meal Period</button>
+			<button type="submit">Add Category Group</button>
 		</form>
 	);
 }

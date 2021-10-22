@@ -2,11 +2,11 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 
-import MealPeriodCard from './MealPeriodCard';
+import CatGroupCard from './CategoryGroupCard';
 import AddButton from '../buttons/AddButton';
 import GoButton from '../buttons/GoButton';
 
-export default function AllMealPeriods() {
+export default function AllCategoryGroups() {
 	const history = useHistory();
 
 	const { active } = useSelector(store => store.restaurants);
@@ -15,9 +15,9 @@ export default function AllMealPeriods() {
 		<div>
 			<div>
 				{active &&
-					active.mealPeriods.map(m => {
+					active.catGroups.map(m => {
 						return (
-							<MealPeriodCard
+							<CatGroupCard
 								key={m.id}
 								id={m.id}
 								restaurantId={m.restaurantId}
@@ -28,15 +28,16 @@ export default function AllMealPeriods() {
 					})}
 			</div>
 			<div>
-				{active.isAdmin && (
+				{active &&
+				active.isAdmin && (
 					<AddButton
-						text="Add Meal Period"
-						onClick={() => history.push(`/restaurants/${active.id}/meal-periods/new`)}
+						text="Add Category Group"
+						onClick={() => history.push(`/restaurants/${active.id}/category-groups/new`)}
 					/>
 				)}
 				<GoButton
-					text="Go to All Meal Periods"
-					onClick={() => history.push(`/restaurants/${active.id}/meal-periods`)}
+					text="Go to All Category Groups"
+					onClick={() => history.push(`/restaurants/${active.id}/category-groups`)}
 				/>
 				<GoButton text="Go to Restaurant" onClick={() => history.push(`/restaurants/${active.id}`)} />
 			</div>

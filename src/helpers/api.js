@@ -116,3 +116,14 @@ export async function getMealPeriodApi(id) {
 		console.log('getMealPeriodInfo() error:', err);
 	}
 }
+
+// catGroups API calls
+
+export async function getCategoryGroupApi(id) {
+	try {
+		const res = await makeGetRequest(`catgroups/${id}`);
+		return res;
+	} catch (err) {
+		console.log('getCategoryGroupApi() error:', err);
+	}
+}
