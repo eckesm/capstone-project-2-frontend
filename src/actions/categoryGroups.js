@@ -1,4 +1,4 @@
-import { makeDeleteRequest, makeGetRequest, makePostRequest, makePutRequest } from '../helpers/api';
+import { makeDeleteRequest, makePostRequest, makePutRequest } from '../helpers/api';
 
 import { ADD_CATEGORY_GROUP, DELETE_CATEGORY_GROUP, UPDATE_CATEGORY_GROUP } from './types';
 

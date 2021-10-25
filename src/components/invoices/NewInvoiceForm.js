@@ -15,7 +15,7 @@ export default function NewInvoiceForm() {
 		invoice : '',
 		date    : '',
 		vendor  : '',
-		total  : '0',
+		total   : '0',
 		notes   : ''
 	};
 	const [ formData, handleChange, resetFormData ] = useFields(initialState);
@@ -25,7 +25,7 @@ export default function NewInvoiceForm() {
 		try {
 			const res = await dispatch(registerInvoice(active.id, formData));
 			if (res.status === 201) {
-				history.push(`/restaurants/${active.id}/invoices`);
+				history.push(`/restaurants/${active.id}/invoices/${res.data.invoice.id}`);
 			}
 			else if (res.status === 400 || res.status === 404 || res.status === 500) {
 				console.log(res.message);

@@ -1,4 +1,4 @@
-import { makeDeleteRequest, makeGetRequest, makePostRequest, makePutRequest } from '../helpers/api';
+import { makeDeleteRequest, makePostRequest, makePutRequest } from '../helpers/api';
 
 import { ADD_MEAL_PERIOD, DELETE_MEAL_PERIOD, UPDATE_MEAL_PERIOD } from './types';
 

@@ -6,10 +6,10 @@ export function filterInvoiceId(expenses = [], invoiceId = null) {
 	return expenses.filter(e => e.invoiceId == invoiceId);
 }
 
-export function getNameFromId(catGroups, catGroupId) {
-	if (catGroupId) {
+export function getNameFromId(array, id) {
+	if (id) {
 		try {
-			return catGroups.filter(cg => cg.id == catGroupId)[0].name;
+			return array.filter(cg => cg.id == id)[0].name;
 		} catch (err) {
 			console.log(err);
 		}

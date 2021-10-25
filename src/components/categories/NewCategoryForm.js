@@ -43,16 +43,6 @@ export default function NewCategoryForm() {
 				<label htmlFor="name">Name:</label>
 				<input type="text" id="name" value={formData.name} name="name" onChange={handleChange} required />
 			</div>
-			{/* <div>
-				<label htmlFor="catGroupId">catGroupId:</label>
-				<input
-					type="text"
-					id="catGroupId"
-					value={formData.catGroupId}
-					name="catGroupId"
-					onChange={handleChange}
-				/>
-			</div> */}
 			{active &&
 			active.catGroups.length > 0 && (
 				<div>

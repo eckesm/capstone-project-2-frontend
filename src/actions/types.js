@@ -37,3 +37,8 @@ export const UPDATE_DEFAULT_SALE = 'UPDATE_DEFAULT_SALE';
 export const ADD_INVOICE = 'ADD_INVOICE';
 export const DELETE_INVOICE = 'DELETE_INVOICE';
 export const UPDATE_INVOICE = 'UPDATE_INVOICE';
+
+// expenses
+export const ADD_EXPENSE = 'ADD_EXPENSE';
+export const DELETE_EXPENSE = 'DELETE_EXPENSE';
+export const UPDATE_EXPENSE = 'UPDATE_EXPENSE';

@@ -1,4 +1,4 @@
-import { makeDeleteRequest, makeGetRequest, makePostRequest, makePutRequest } from '../helpers/api';
+import { makeDeleteRequest, makePostRequest, makePutRequest } from '../helpers/api';
 
 import { ADD_INVOICE, DELETE_INVOICE, UPDATE_INVOICE } from './types';
 

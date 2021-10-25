@@ -6,10 +6,13 @@ import { Link, useParams } from 'react-router-dom';
 import { getInvoiceApi } from '../../helpers/api';
 import { deleteInvoice } from '../../actions/invoices';
 
+import AddButton from '../buttons/AddButton';
+import AllExpenses from '../expenses/AllExpenses';
 import DeleteButton from '../buttons/DeleteButton';
 import EditButton from '../buttons/EditButton';
 import EditInvoiceForm from './EditInvoiceForm';
 import GoButton from '../buttons/GoButton';
+import NewExpenseForm from '../expenses/NewExpenseForm';
 
 export default function InvoiceDetail() {
 	const dispatch = useDispatch();
@@ -20,6 +23,7 @@ export default function InvoiceDetail() {
 
 	const [ invoice, setInvoice ] = useState(null);
 	const [ editing, setEditing ] = useState(false);
+	const [ showNewExpenseForm, setShowNewExpenseForm ] = useState(false);
 
 	useEffect(
 		async () => {
@@ -51,7 +55,8 @@ export default function InvoiceDetail() {
 						<p>Date: {invoice.date}</p>
 						<p>Total: {invoice.total}</p>
 						<h3>Expenses</h3>
-						<ul>
+						<AllExpenses invoiceId={invoice.id} />
+						{/* <ul>
 							{invoice.expenses.map(e => {
 								return (
 									<li key={e.id}>
@@ -59,7 +64,10 @@ export default function InvoiceDetail() {
 									</li>
 								);
 							})}
-						</ul>
+						</ul> */}
+						{showNewExpenseForm && (
+							<NewExpenseForm invoiceId={invoice.id} setShowNewExpenseForm={setShowNewExpenseForm} />
+						)}
 						{invoice.notes && (
 							<div>
 								<h3>Notes:</h3>
@@ -69,6 +77,7 @@ export default function InvoiceDetail() {
 					</div>
 					{invoice && (
 						<div>
+							<AddButton text="Add Expense" onClick={() => setShowNewExpenseForm(true)} />
 							<EditButton onClick={() => setEditing(true)} text="Edit Invoice" />
 							<DeleteButton text="Delete Invoice" onClick={handleDelete} />
 							<GoButton

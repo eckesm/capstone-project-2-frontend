@@ -1,4 +1,4 @@
-import { makeDeleteRequest, makeGetRequest, makePostRequest, makePutRequest } from '../helpers/api';
+import { makeDeleteRequest, makePostRequest, makePutRequest } from '../helpers/api';
 
 import { ADD_DEFAULT_SALE, DELETE_DEFAULT_SALE, UPDATE_DEFAULT_SALE } from './types';
 

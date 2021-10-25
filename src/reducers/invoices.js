@@ -1,9 +1,12 @@
 import {
+	ADD_EXPENSE,
 	ADD_INVOICE,
+	DELETE_EXPENSE,
 	DELETE_INVOICE,
 	LOGOUT_USER,
 	REMOVE_ACTIVE,
 	STORE_ACTIVE_RESTAURANT,
+	UPDATE_EXPENSE,
 	UPDATE_INVOICE
 } from '../actions/types';
 
@@ -22,13 +25,26 @@ function sortByName(array) {
 }
 
 export default function invoices(state = INITIAL_STATE, action) {
-	let invoices, restaurant, adjustedInvoices;
+	let adjustedExpenses, adjustedInvoices, expenses, invoices, restaurant;
 
 	switch (action.type) {
+		case ADD_EXPENSE:
+			return {
+				...state,
+				expenses : [ ...state.expenses, action.expense ]
+			};
+
 		case ADD_INVOICE:
 			return {
 				...state,
 				invoices : [ ...state.invoices, action.invoice ]
+			};
+
+		case DELETE_EXPENSE:
+			const deletedExpenseId = Number(action.deleted);
+			return {
+				...state,
+				expenses : state.expenses.filter(e => e.id !== deletedExpenseId)
 			};
 
 		case DELETE_INVOICE:
@@ -49,6 +65,23 @@ export default function invoices(state = INITIAL_STATE, action) {
 			return {
 				invoices : restaurant.invoices,
 				expenses : restaurant.expenses
+			};
+
+		case UPDATE_EXPENSE:
+			const updatedExpense = action.expense;
+			expenses = state.expenses;
+			adjustedExpenses = [];
+			for (let i = 0; i < expenses.length; i++) {
+				if (expenses[i].id === updatedExpense.id) {
+					adjustedExpenses.push(updatedExpense);
+				}
+				else {
+					adjustedExpenses.push(expenses[i]);
+				}
+			}
+			return {
+				...state,
+				expenses : adjustedExpenses
 			};
 
 		case UPDATE_INVOICE:
