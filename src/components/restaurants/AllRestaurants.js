@@ -1,17 +1,10 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import { useHistory } from 'react-router';
 
 import RestaurantCard from './RestaurantCard';
-import AddButton from '../buttons/AddButton';
 
-export default function AllRestaurants() {
-	const history = useHistory();
-	const { restaurants } = useSelector(store => store.restaurants);
+export default function AllRestaurants({restaurants}) {
 
 	return (
-		<div>
-			<h1>My Restaurants</h1>
 			<div>
 				{restaurants.map(r => {
 					return (
@@ -25,7 +18,5 @@ export default function AllRestaurants() {
 					);
 				})}
 			</div>
-			<AddButton text="Add New Restaurant" onClick={() => history.push('/restaurants/new')} />
-		</div>
 	);
 }

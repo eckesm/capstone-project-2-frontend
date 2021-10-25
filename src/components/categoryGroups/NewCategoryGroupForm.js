@@ -9,7 +9,7 @@ import { registerCategoryGroup } from '../../actions/categoryGroups';
 export default function NewCategoryGroupForm() {
 	const dispatch = useDispatch();
 	const history = useHistory();
-	const { active } = useSelector(store => store.restaurants);
+	const active = useSelector(store => store.active);
 
 	const initialState = {
 		name  : '',
@@ -22,7 +22,7 @@ export default function NewCategoryGroupForm() {
 		try {
 			const res = await dispatch(registerCategoryGroup(active.id, formData));
 			if (res.status === 201) {
-				history.push(`/restaurants/${active.id}/category-groups/${res.data.catGroup.id}`);
+				history.push(`/restaurants/${active.id}/category-groups`);
 			}
 		} catch (err) {
 			console.log('handleSubmit() > registerCategoryGroup() error:', err);

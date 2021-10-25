@@ -1,50 +1,33 @@
 import {
-	ADD_CATEGORY_GROUP,
-	ADD_MEAL_PERIOD,
 	ADD_NEW_RESTAURANT,
-	DELETE_CATEGORY_GROUP,
-	DELETE_MEAL_PERIOD,
 	DELETE_RESTAURANT,
 	LOGOUT_USER,
-	STORE_ACTIVE_RESTAURANT,
 	STORE_USER_RESTAURANTS,
-	UPDATE_CATEGORY_GROUP,
-	UPDATE_MEAL_PERIOD,
 	UPDATE_RESTAURANT
 } from '../actions/types';
 
 const INITIAL_STATE = {
-	active           : null,
-	// activeAccess     : null,
-	restaurants      : [],
-	restaurantsAdmin : [],
-	restaurantsUser  : []
+	restaurants : []
 };
+// const INITIAL_STATE = {
+// 	restaurants      : [],
+// 	restaurantsAdmin : [],
+// 	restaurantsUser  : []
+// };
+
+function sortByName(array) {
+	// https://stackoverflow.com/questions/8900732/sort-objects-in-an-array-alphabetically-on-one-property-of-the-array for help with sorting objects in an array on a property in the array
+	return array.sort((a, b) => {
+		var textA = a.name.toUpperCase();
+		var textB = b.name.toUpperCase();
+		return textA < textB ? -1 : textA > textB ? 1 : 0;
+	});
+}
 
 export default function restaurants(state = INITIAL_STATE, action) {
-	let catGroups,
-		mealPeriods,
-		restaurant,
-		restaurants,
-		restaurantsAdmin,
-		restaurantsUser,
-		adjustedCatGroups,
-		adjustedMealPeriods,
-		adjustedRestaurants;
+	let restaurant, restaurants, restaurantsAdmin, restaurantsUser, adjustedRestaurants;
 
 	switch (action.type) {
-		case ADD_CATEGORY_GROUP:
-			return {
-				...state,
-				active : { ...state.active, catGroups: [ ...state.active.catGroups, action.catGroup ] }
-			};
-
-		case ADD_MEAL_PERIOD:
-			return {
-				...state,
-				active : { ...state.active, mealPeriods: [ ...state.active.mealPeriods, action.mealPeriod ] }
-			};
-
 		case ADD_NEW_RESTAURANT:
 			restaurant = action.restaurant;
 			restaurantsAdmin = [ ...state.restaurantsAdmin ];
@@ -53,29 +36,9 @@ export default function restaurants(state = INITIAL_STATE, action) {
 			restaurantsUser.push(restaurant.id);
 			return {
 				...state,
-				restaurants      : [ ...restaurants, action.restaurant ],
+				restaurants      : sortByName([ ...state.restaurants, action.restaurant ]),
 				restaurantsAdmin,
 				restaurantsUser
-			};
-
-		case DELETE_CATEGORY_GROUP:
-			const deletedCatGroupId = Number(action.deleted);
-			return {
-				...state,
-				active : {
-					...state.active,
-					catGroups : state.active.catGroups.filter(c => c.id !== deletedCatGroupId)
-				}
-			};
-
-		case DELETE_MEAL_PERIOD:
-			const deletedMealPeriodId = Number(action.deleted);
-			return {
-				...state,
-				active : {
-					...state.active,
-					mealPeriods : state.active.mealPeriods.filter(m => m.id !== deletedMealPeriodId)
-				}
 			};
 
 		case DELETE_RESTAURANT:
@@ -92,19 +55,8 @@ export default function restaurants(state = INITIAL_STATE, action) {
 		case LOGOUT_USER:
 			return INITIAL_STATE;
 
-		case STORE_ACTIVE_RESTAURANT:
-			// let access = 'user';
-			restaurant = action.restaurant;
-			// if (restaurant.isAdmin) access = 'admin';
-			if (restaurant.id)
-				return {
-					...state,
-					active : restaurant
-					// activeAccess : access
-				};
-
 		case STORE_USER_RESTAURANTS:
-			restaurants = action.restaurants;
+			restaurants = sortByName(action.restaurants);
 			restaurantsAdmin = [];
 			restaurantsUser = [];
 			for (let i = 0; i < restaurants.length; i++) {
@@ -118,42 +70,10 @@ export default function restaurants(state = INITIAL_STATE, action) {
 				restaurantsUser
 			};
 
-		case UPDATE_CATEGORY_GROUP:
-			const updatedCatGroup = action.catGroup;
-			catGroups = state.active.catGroups;
-			adjustedCatGroups = [];
-			for (let i = 0; i < catGroups.length; i++) {
-				if (catGroups[i].id === updatedCatGroup.id) {
-					adjustedCatGroups.push(updatedCatGroup);
-				}
-				else {
-					adjustedCatGroups.push(catGroups[i]);
-				}
-			}
-			return {
-				...state,
-				active : { ...state.active, catGroups: adjustedCatGroups }
-			};
-
-		case UPDATE_MEAL_PERIOD:
-			const updatedMealPeriod = action.mealPeriod;
-			mealPeriods = state.active.mealPeriods;
-			adjustedMealPeriods = [];
-			for (let i = 0; i < mealPeriods.length; i++) {
-				if (mealPeriods[i].id === updatedMealPeriod.id) {
-					adjustedMealPeriods.push(updatedMealPeriod);
-				}
-				else {
-					adjustedMealPeriods.push(mealPeriods[i]);
-				}
-			}
-			return {
-				...state,
-				active : { ...state.active, mealPeriods: adjustedMealPeriods }
-			};
-
 		case UPDATE_RESTAURANT:
 			const updatedRestaurant = action.restaurant;
+			restaurants = state.restaurants;
+			adjustedRestaurants = [];
 			for (let i = 0; i < restaurants.length; i++) {
 				if (restaurants[i].id === updatedRestaurant.id) {
 					adjustedRestaurants.push(updatedRestaurant);

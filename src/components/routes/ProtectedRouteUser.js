@@ -10,16 +10,20 @@ export default function ProtectedRouteUser({ component: Component, path, ...rest
 	const dispatch = useDispatch();
 
 	const { user } = useSelector(store => store.auth);
-	const { active, restaurantsUser } = useSelector(store => store.restaurants);
+	const active = useSelector(store => store.active);
+	const { restaurantsUser } = useSelector(store => store.restaurants);
 
 	const [ error, setError ] = useState(false);
 	const [ loading, setLoading ] = useState(true);
 	const [ restaurantId, setRestaurantId ] = useState(null);
 	const [ activeRestaurant, setActiveRestaurant ] = useState(null);
 
-	useEffect(() => {
-		setRestaurantId(Number(rest.computedMatch.params.restaurantId));
-	}, [rest.computedMatch.params.restaurantId]);
+	useEffect(
+		() => {
+			setRestaurantId(Number(rest.computedMatch.params.restaurantId));
+		},
+		[ rest.computedMatch.params.restaurantId ]
+	);
 
 	useEffect(
 		() => {

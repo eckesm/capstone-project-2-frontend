@@ -2,18 +2,21 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
 
-import useFields from '../hooks/useFields';
-import useLocalStorageState from '../hooks/useLocalStorageState';
+import useFields from '../../hooks/useFields';
+import useLocalStorageState from '../../hooks/useLocalStorageState';
 
-import { getAndStoreToken, getAndStoreUserInfo } from '../actions/auth';
+import { getAndStoreUserInfo } from '../../actions/auth';
+import { registerUserApi } from '../../helpers/api';
 
-export default function LoginForm() {
+export default function RegisterUserForm() {
 	const dispatch = useDispatch();
 	const history = useHistory();
 
 	const [ emailAddress, setEmailAddress ] = useLocalStorageState('email_address') || '';
 	const initialState = {
-		emailAddress : emailAddress || '',
+		firstName    : '',
+		lastName     : '',
+		emailAddress : '',
 		password     : ''
 	};
 	const [ formData, handleChange, resetFormData ] = useFields(initialState);
@@ -21,9 +24,9 @@ export default function LoginForm() {
 	async function handleSubmit(evt) {
 		evt.preventDefault();
 		try {
-			const res = await dispatch(getAndStoreToken(formData.emailAddress, formData.password));
-			if (res.status === 200) {
-				setEmailAddress(formData.emailAddress);
+			const res = await registerUserApi(formData);
+			setEmailAddress(formData.emailAddress);
+			if (res.status === 201) {
 				try {
 					const userRes = await dispatch(getAndStoreUserInfo());
 					if (userRes.status === 200) {
@@ -34,14 +37,36 @@ export default function LoginForm() {
 				}
 			}
 		} catch (err) {
-			console.log('handleSubmit() error:', err);
+			console.log('handleSubmit() > registerUserApi() error:', err);
 		}
 	}
 
 	return (
 		<div>
-			<h1>Login</h1>
+			<h1>New Restaurant</h1>
 			<form onSubmit={handleSubmit}>
+				<div>
+					<label htmlFor="firstName"> First Name:</label>
+					<input
+						type="text"
+						id="firstName"
+						value={formData.firstName}
+						name="firstName"
+						onChange={handleChange}
+						required
+					/>
+				</div>
+				<div>
+					<label htmlFor="lastName">Last Name:</label>
+					<input
+						type="text"
+						id="lastName"
+						value={formData.lastName}
+						name="lastName"
+						onChange={handleChange}
+						required
+					/>
+				</div>
 				<div>
 					<label htmlFor="emailAddress">Email Address:</label>
 					<input
@@ -62,7 +87,8 @@ export default function LoginForm() {
 						onChange={handleChange}
 					/>
 				</div>
-				<button type="submit">Login</button>
+
+				<button type="submit">Register</button>
 			</form>
 		</div>
 	);

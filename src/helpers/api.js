@@ -106,6 +106,34 @@ export async function makeDeleteRequest(path = '') {
 	}
 }
 
+// auth API calls
+
+export async function getAndStoreTokenApi(emailAddress, password) {
+	try {
+		const res = await makePostRequest('auth/token', { emailAddress, password });
+		if (res.data.hasOwnProperty('token')) {
+			localStorage.setItem('token', res.data.token);
+		}
+		return res;
+	} catch (err) {
+		console.log('getAndStoreToken() error:', err);
+	}
+}
+
+// users API calls
+
+export async function registerUserApi(data) {
+	try {
+		const res = await makePostRequest(`users`, data);
+		if (res.data.hasOwnProperty('token')) {
+			localStorage.setItem('token', res.data.token);
+		}
+		return res;
+	} catch (err) {
+		console.log('registerUserApi()', err);
+	}
+}
+
 // mealperiods API calls
 
 export async function getMealPeriodApi(id) {
@@ -125,5 +153,26 @@ export async function getCategoryGroupApi(id) {
 		return res;
 	} catch (err) {
 		console.log('getCategoryGroupApi() error:', err);
+	}
+}
+
+// categories API calls
+
+export async function getCategoryApi(id) {
+	try {
+		const res = await makeGetRequest(`categories/${id}`);
+		return res;
+	} catch (err) {
+		console.log('getCategoryApi() error:', err);
+	}
+}
+// invoices API calls
+
+export async function getInvoiceApi(id) {
+	try {
+		const res = await makeGetRequest(`invoices/${id}`);
+		return res;
+	} catch (err) {
+		console.log('getInvoiceApi() error:', err);
 	}
 }

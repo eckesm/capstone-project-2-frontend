@@ -16,7 +16,7 @@ export default function MealPeriodDetail() {
 	const history = useHistory();
 
 	const { mealPeriodId } = useParams();
-	const { active } = useSelector(store => store.restaurants);
+	const active = useSelector(store => store.active);
 
 	const [ mealPeriod, setMealPeriod ] = useState(null);
 	const [ editing, setEditing ] = useState(false);
@@ -45,18 +45,15 @@ export default function MealPeriodDetail() {
 			{mealPeriod &&
 			!editing && (
 				<div>
-					<h1>Meal Period Detail {mealPeriod.id}</h1>
-					<div>
-						{mealPeriod.name && <p>Name: {mealPeriod.name}</p>}
-						{mealPeriod.notes && <p>Notes: {mealPeriod.notes}</p>}
-					</div>
+					<h1>{mealPeriod.name}</h1>
+					<div>{mealPeriod.notes && <p>Notes: {mealPeriod.notes}</p>}</div>
 					{active &&
 					active.isAdmin && (
 						<div>
 							{active.isAdmin && <EditButton onClick={() => setEditing(true)} text="Edit Meal Period" />}
 							{active.isAdmin && <DeleteButton text="Delete Meal Period" onClick={handleDelete} />}
 							<GoButton
-								text="Go to All Meal Periods"
+								text="All Meal Periods"
 								onClick={() => history.push(`/restaurants/${mealPeriod.restaurantId}/meal-periods`)}
 							/>
 						</div>
@@ -67,7 +64,7 @@ export default function MealPeriodDetail() {
 			{mealPeriod &&
 			editing && (
 				<div>
-					<h1>Meal Period Form {mealPeriod.id}</h1>
+					<h1>Edit Meal Period</h1>
 					<EditMealPeriodForm
 						id={mealPeriod.id}
 						name={mealPeriod.name}

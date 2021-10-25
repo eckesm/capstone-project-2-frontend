@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 import { getCategoryGroupApi } from '../../helpers/api';
 import { deleteCategoryGroup } from '../../actions/categoryGroups';
+import { filterCatGroupId } from '../../helpers/filterArrays';
 
 import DeleteButton from '../buttons/DeleteButton';
 import EditButton from '../buttons/EditButton';
@@ -16,9 +17,10 @@ export default function CategoryGroupDetail() {
 	const history = useHistory();
 
 	const { catGroupId } = useParams();
-	const { active } = useSelector(store => store.restaurants);
+	const active = useSelector(store => store.active);
 
 	const [ categoryGroup, setCategoryGroup ] = useState(null);
+	const [ categories, setCategories ] = useState([]);
 	const [ editing, setEditing ] = useState(false);
 
 	useEffect(
@@ -27,6 +29,15 @@ export default function CategoryGroupDetail() {
 			setCategoryGroup(res.data.catGroup);
 		},
 		[ catGroupId ]
+	);
+
+	useEffect(
+		() => {
+			if (catGroupId && active) {
+				setCategories(filterCatGroupId(active.categories, catGroupId));
+			}
+		},
+		[ active ]
 	);
 
 	async function handleDelete() {
@@ -45,17 +56,25 @@ export default function CategoryGroupDetail() {
 			{categoryGroup &&
 			!editing && (
 				<div>
-					<h1>Meal Period Detail {categoryGroup.id}</h1>
-					<div>
-						{categoryGroup.name && <p>Name: {categoryGroup.name}</p>}
-						{categoryGroup.notes && <p>Notes: {categoryGroup.notes}</p>}
-					</div>
+					<h1>{categoryGroup.name}</h1>
+					{categories.length > 0 && (
+						<ul>
+							{categories.map(c => {
+								return (
+									<li key={c.id}>
+										<Link to={`/restaurants/${c.restaurantId}/categories/${c.id}`}>{c.name}</Link>
+									</li>
+								);
+							})}
+						</ul>
+					)}
+					<div>{categoryGroup.notes && <p>Notes: {categoryGroup.notes}</p>}</div>
 					<div>
 						{active &&
 						active.isAdmin && <EditButton onClick={() => setEditing(true)} text="Edit Category Group" />}
 						{active.isAdmin && <DeleteButton text="Delete Category Group" onClick={handleDelete} />}
 						<GoButton
-							text="Go to All Category Groups"
+							text="All Groups"
 							onClick={() => history.push(`/restaurants/${categoryGroup.restaurantId}/category-groups`)}
 						/>
 					</div>
@@ -65,7 +84,7 @@ export default function CategoryGroupDetail() {
 			{categoryGroup &&
 			editing && (
 				<div>
-					<h1>Meal Period Form {categoryGroup.id}</h1>
+					<h1>Edit Category Group</h1>
 					<EditCategoryGroupForm
 						id={categoryGroup.id}
 						name={categoryGroup.name}

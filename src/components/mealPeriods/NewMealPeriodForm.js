@@ -9,7 +9,7 @@ import { registerMealPeriod } from '../../actions/mealPeriods';
 export default function NewMealPeriodForm() {
 	const dispatch = useDispatch();
 	const history = useHistory();
-	const { active } = useSelector(store => store.restaurants);
+	const active  = useSelector(store => store.restaurants);
 
 	const initialState = {
 		name  : '',
@@ -22,7 +22,7 @@ export default function NewMealPeriodForm() {
 		try {
 			const res = await dispatch(registerMealPeriod(active.id, formData));
 			if (res.status === 201) {
-				history.push(`/restaurants/${active.id}/meal-periods/${res.data.mealPeriod.id}`);
+				history.push(`/restaurants/${active.id}/meal-periods`);
 			}
 		} catch (err) {
 			console.log('handleSubmit() > registerMealPeriod() error:', err);

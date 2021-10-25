@@ -1,6 +1,12 @@
 import { makeDeleteRequest, makeGetRequest, makePostRequest, makePutRequest } from '../helpers/api';
 
-import { ADD_NEW_RESTAURANT, DELETE_RESTAURANT, STORE_ACTIVE_RESTAURANT, UPDATE_RESTAURANT } from './types';
+import {
+	ADD_NEW_RESTAURANT,
+	DELETE_RESTAURANT,
+	REMOVE_ACTIVE,
+	STORE_ACTIVE_RESTAURANT,
+	UPDATE_RESTAURANT
+} from './types';
 
 export function registerRestaurant(data) {
 	return async function(dispatch) {
@@ -57,6 +63,14 @@ export function getAndStoreRestaurantInfo(id) {
 	};
 }
 
+export function removeActiveRestaurant() {
+	return async function(dispatch) {
+		await dispatch({
+			type : REMOVE_ACTIVE
+		});
+	};
+}
+
 export function updateRestaurant(id, data) {
 	return async function(dispatch) {
 		try {
@@ -77,7 +91,6 @@ export function updateRestaurant(id, data) {
 			}
 
 			const res = await makePutRequest(`restaurants/${id}`, data);
-			console.log(res);
 			if (res.status === 200) {
 				const { restaurant } = res.data;
 				await dispatch({
