@@ -3,10 +3,10 @@ import { useDispatch } from 'react-redux';
 
 import { registerDefaultSale, updateDefaultSale, deleteDefaultSale } from '../../actions/defaultSales';
 
-export default function DefaultSalesInputForm({ mealPeriodName, dayName, dailySale }) {
+export default function DefaultSalesInputForm({ mealPeriodName, dayName, defaultSale }) {
 	const dispatch = useDispatch();
 
-	const { id = null, restaurantId, mealPeriodId, dayId, total = null, notes = null, status = null } = dailySale;
+	const { id = null, restaurantId, mealPeriodId, dayId, total = null, notes = null, status = null } = defaultSale;
 
 	const initialState = {
 		total : total === null ? 0 : Math.floor(total),

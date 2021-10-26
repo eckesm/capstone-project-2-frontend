@@ -25,6 +25,7 @@ import AllCategoriesScreen from '../categories/AllCategoriesScreen';
 import NewCategoryForm from '../categories/NewCategoryForm';
 
 import AllDefaultSalesScreen from '../defaultSales/AllDefaultSalesScreen';
+import AllMealPeriodCatsScreen from '../mealPeriodCats/AllMealPeriodCatsScreen';
 
 import InvoiceDetail from '../invoices/InvoiceDetail';
 import AllInvoicesScreen from '../invoices/AllInvoicesScreen';
@@ -88,6 +89,12 @@ export default function Routes() {
 				component={AllDefaultSalesScreen}
 				exact
 				path="/restaurants/:restaurantId/default-sales"
+			/>
+
+			<ProtectedRouteUser
+				component={AllMealPeriodCatsScreen}
+				exact
+				path="/restaurants/:restaurantId/sales-percentages"
 			/>
 
 			<ProtectedRouteUser component={AllInvoicesScreen} exact path="/restaurants/:restaurantId/invoices" />

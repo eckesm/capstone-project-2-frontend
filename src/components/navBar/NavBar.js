@@ -38,6 +38,11 @@ export default function NavBar({ logout }) {
 						<NavLink to={`/restaurants/${active.id}/default-sales`}>Default Sales</NavLink>
 					</li>
 				)}
+				{active && (
+					<li>
+						<NavLink to={`/restaurants/${active.id}/sales-percentages`}>Sales Percentages</NavLink>
+					</li>
+				)}
 				{invoices &&
 				active && (
 					<li>

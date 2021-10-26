@@ -3,10 +3,12 @@ import {
 	ADD_CATEGORY_GROUP,
 	ADD_DEFAULT_SALE,
 	ADD_MEAL_PERIOD,
+	ADD_MEAL_PERIOD_CATEGORY,
 	DELETE_CATEGORY,
 	DELETE_CATEGORY_GROUP,
 	DELETE_DEFAULT_SALE,
 	DELETE_MEAL_PERIOD,
+	DELETE_MEAL_PERIOD_CATEGORY,
 	DELETE_RESTAURANT,
 	LOGOUT_USER,
 	REMOVE_ACTIVE,
@@ -15,27 +17,11 @@ import {
 	UPDATE_CATEGORY_GROUP,
 	UPDATE_DEFAULT_SALE,
 	UPDATE_MEAL_PERIOD,
+	UPDATE_MEAL_PERIOD_CATEGORY,
 	UPDATE_RESTAURANT
 } from '../actions/types';
 
 const INITIAL_STATE = null;
-// const INITIAL_STATE = {
-// 	id                    : null,
-// 	ownerId               : null,
-// 	name                  : null,
-// 	address               : null,
-// 	phone                 : null,
-// 	email                 : null,
-// 	website               : null,
-// 	notes                 : null,
-// 	isAdmin               : null,
-// 	users                 : [],
-// 	mealPeriods           : [],
-// 	categories            : [],
-// 	catGroups             : [],
-// 	defaultSales          : [],
-// 	mealPeriod_categories : []
-// };
 
 function sortByName(array) {
 	// https://stackoverflow.com/questions/8900732/sort-objects-in-an-array-alphabetically-on-one-property-of-the-array for help with sorting objects in an array on a property in the array
@@ -51,11 +37,13 @@ export default function active(state = INITIAL_STATE, action) {
 		catGroups,
 		defaultSales,
 		mealPeriods,
+		mealPeriod_categories,
 		restaurant,
 		adjustedCategories,
 		adjustedCatGroups,
 		adjustedDefaultSales,
-		adjustedMealPeriods;
+		adjustedMealPeriods,
+		adjustedMealPeriodCats;
 
 	switch (action.type) {
 		case ADD_CATEGORY:
@@ -80,6 +68,12 @@ export default function active(state = INITIAL_STATE, action) {
 			return {
 				...state,
 				mealPeriods : sortByName([ ...state.mealPeriods, action.mealPeriod ])
+			};
+
+		case ADD_MEAL_PERIOD_CATEGORY:
+			return {
+				...state,
+				mealPeriod_categories : [ ...state.mealPeriod_categories, action.mealPeriodCat ]
 			};
 
 		case DELETE_CATEGORY:
@@ -110,6 +104,13 @@ export default function active(state = INITIAL_STATE, action) {
 				mealPeriods : state.mealPeriods.filter(m => m.id !== deletedMealPeriodId)
 			};
 
+		case DELETE_MEAL_PERIOD_CATEGORY:
+			const deletedMealPeriodCatId = Number(action.deleted);
+			return {
+				...state,
+				mealPeriod_categories : state.mealPeriod_categories.filter(mpc => mpc.id !== deletedMealPeriodCatId)
+			};
+
 		case DELETE_RESTAURANT:
 			return INITIAL_STATE;
 
@@ -125,9 +126,9 @@ export default function active(state = INITIAL_STATE, action) {
 			delete restaurant.expenses;
 			return {
 				...restaurant,
-				mealPeriods  : sortByName(restaurant.mealPeriods),
-				categories   : sortByName(restaurant.categories),
-				catGroups    : sortByName(restaurant.catGroups)
+				mealPeriods : sortByName(restaurant.mealPeriods),
+				categories  : sortByName(restaurant.categories),
+				catGroups   : sortByName(restaurant.catGroups)
 			};
 
 		case UPDATE_CATEGORY:
@@ -196,6 +197,23 @@ export default function active(state = INITIAL_STATE, action) {
 			return {
 				...state,
 				mealPeriods : sortByName(adjustedMealPeriods)
+			};
+
+		case UPDATE_MEAL_PERIOD_CATEGORY:
+			const updatedMealPeriodCat = action.mealPeriodCat;
+			mealPeriod_categories = state.mealPeriod_categories;
+			adjustedMealPeriodCats = [];
+			for (let i = 0; i < mealPeriod_categories.length; i++) {
+				if (mealPeriod_categories[i].id === updatedMealPeriodCat.id) {
+					adjustedMealPeriodCats.push(updatedMealPeriodCat);
+				}
+				else {
+					adjustedMealPeriodCats.push(mealPeriod_categories[i]);
+				}
+			}
+			return {
+				...state,
+				mealPeriod_categories : adjustedMealPeriodCats
 			};
 
 		case UPDATE_RESTAURANT:

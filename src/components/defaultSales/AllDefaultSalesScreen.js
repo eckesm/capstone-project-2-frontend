@@ -66,7 +66,7 @@ export default function AllDefaultSalesScreen() {
 								key={`${ds.dayId}-${ds.mealPeriodId}`}
 								mealPeriodName={getNameFromId(mealPeriods, ds.mealPeriodId)}
 								dayName={getDayOfWeekNameFromId(ds.dayId)}
-								dailySale={ds}
+								defaultSale={ds}
 							/>
 						);
 					})}
