@@ -13,7 +13,7 @@ export default function NewInvoiceForm() {
 
 	const initialState = {
 		invoice : '',
-		date    : '',
+		date    : new Date().toISOString().slice(0, 10),
 		vendor  : '',
 		total   : '0',
 		notes   : ''

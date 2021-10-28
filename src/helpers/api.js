@@ -166,6 +166,7 @@ export async function getCategoryApi(id) {
 		console.log('getCategoryApi() error:', err);
 	}
 }
+
 // invoices API calls
 
 export async function getInvoiceApi(id) {
@@ -176,3 +177,14 @@ export async function getInvoiceApi(id) {
 		console.log('getInvoiceApi() error:', err);
 	}
 }
+
+// sales API calls
+
+// export async function getRestaurantSalesOnDateApi(restaurantId, date) {
+// 	try {
+// 		const res = await makeGetRequest(`sales/restaurant/${restaurantId}/date/${date}`);
+// 		return res;
+// 	} catch (err) {
+// 		console.log('getRestaurantSalesOnDateApi() error:', err);
+// 	}
+// }

@@ -4,7 +4,7 @@ import { filterInvoiceId } from '../../helpers/filterArrays';
 
 import InvoiceCard from './InvoiceCard';
 
-export default function AllInvoices({ invoices = [], expenses = [] }) {
+export default function AllInvoices({ invoices = [], expenses = [], categories = [] }) {
 	return (
 		<div>
 			{invoices.map(i => {
@@ -19,6 +19,7 @@ export default function AllInvoices({ invoices = [], expenses = [] }) {
 						total={i.total}
 						notes={i.notes}
 						expenses={filterInvoiceId(expenses, i.id)}
+						categories={categories}
 					/>
 				);
 			})}

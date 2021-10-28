@@ -1,7 +1,19 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-export default function InvoiceCard({ id, restaurantId, date, invoice, vendor, total, notes = [], expenses = [] }) {
+import { getNameFromId } from '../../helpers/filterArrays';
+
+export default function InvoiceCard({
+	id,
+	restaurantId,
+	date,
+	invoice,
+	vendor,
+	total,
+	notes = [],
+	expenses = [],
+	categories = []
+}) {
 	return (
 		<div>
 			<h2>{invoice}</h2>
@@ -16,7 +28,7 @@ export default function InvoiceCard({ id, restaurantId, date, invoice, vendor, t
 				{expenses.map(e => {
 					return (
 						<li key={e.id}>
-							{e.notes} (${e.amount})
+							<b>{getNameFromId(categories, e.categoryId)}</b>: {e.notes} (${e.amount})
 						</li>
 					);
 				})}

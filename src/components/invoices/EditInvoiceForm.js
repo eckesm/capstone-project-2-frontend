@@ -22,7 +22,7 @@ export default function EditInvoiceForm({
 
 	const initialState = {
 		invoice : invoice,
-		date    : date,
+		date    : new Date(date).toISOString().slice(0,10),
 		vendor  : vendor,
 		total   : total,
 		notes   : notes === null ? '' : notes

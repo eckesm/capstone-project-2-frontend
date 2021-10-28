@@ -46,21 +46,21 @@ export default function MealPeriodCatsInputForm({ mealPeriodName, categoryName, 
 		try {
 			let res;
 			if (status === 'new') {
-				if (formData.total !== '0') {
-					res = await dispatch(registerMealPeriodCat(mealPeriodId, categoryId, data));
-				}
-				else {
-					console.log('cannot create 0');
-					return false;
-				}
+				// if (formData.total !== '0') {
+				res = await dispatch(registerMealPeriodCat(mealPeriodId, categoryId, data));
+				// }
+				// else {
+				// 	console.log('cannot create 0');
+				// 	return false;
+				// }
 			}
 			if (status === 'existing') {
-				if (formData.salesPercentOfPeriod === '0') {
-					res = await dispatch(deleteMealPeriodCat(mealPeriodId, categoryId));
-				}
-				else {
-					res = await dispatch(updateMealPeriodCat(mealPeriodId, categoryId, data));
-				}
+				// if (formData.salesPercentOfPeriod === '0') {
+				// 	res = await dispatch(deleteMealPeriodCat(mealPeriodId, categoryId));
+				// }
+				// else {
+				res = await dispatch(updateMealPeriodCat(mealPeriodId, categoryId, data));
+				// }
 			}
 
 			if (res.status === 200 || res.status === 201) {

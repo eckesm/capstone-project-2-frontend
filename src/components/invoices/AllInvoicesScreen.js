@@ -25,7 +25,8 @@ export default function AllInvoicesScreen() {
 				)}
 				<GoButton text="Restaurant" onClick={() => history.push(`/restaurants/${active.id}`)} />
 			</div>
-			{invoices && <AllInvoices invoices={invoices} expenses={expenses} />}
+			{invoices &&
+			active && <AllInvoices invoices={invoices} expenses={expenses} categories={active.categories} />}
 		</div>
 	);
 }
