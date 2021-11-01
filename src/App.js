@@ -7,8 +7,6 @@ import Routes from './components/routes/Routes';
 
 import { getAccessToken } from './helpers/api';
 import { getAndStoreUserInfo, logoutUser } from './actions/auth';
-import { prepareSavedAndEstimatedSales } from './helpers/calculations';
-import { storeSalesWithEstimates } from './actions/sales';
 
 import NavBar from './components/navBar/NavBar';
 

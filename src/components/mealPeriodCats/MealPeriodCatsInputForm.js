@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { registerMealPeriodCat, updateMealPeriodCat, deleteMealPeriodCat } from '../../actions/mealPeriodCats';
 
-export default function MealPeriodCatsInputForm({ mealPeriodName, categoryName, mealPeriodCat }) {
+export default function MealPeriodCatsInputForm({ mealPeriodName, categoryName, mealPeriodCat, updateGroupSum }) {
 	const dispatch = useDispatch();
 
 	const {
@@ -38,6 +38,8 @@ export default function MealPeriodCatsInputForm({ mealPeriodName, categoryName, 
 		else {
 			setHasChanged(true);
 		}
+
+		if (name === 'salesPercentOfPeriod') updateGroupSum(`${mealPeriodId}-${categoryId}`, value);
 	};
 
 	async function handleSubmit(evt) {
@@ -77,12 +79,14 @@ export default function MealPeriodCatsInputForm({ mealPeriodName, categoryName, 
 		}
 	}
 
+	useEffect(() => {
+		updateGroupSum(`${mealPeriodId}-${categoryId}`, Number(salesPercentOfPeriod));
+	}, []);
+
 	return (
 		<div>
 			<form onSubmit={handleSubmit}>
-				<label htmlFor="salesPercentOfPeriod">
-					{mealPeriodName} {categoryName}:
-				</label>
+				<label htmlFor="salesPercentOfPeriod">{categoryName}:</label>
 				<input
 					type="number"
 					step=".0001"

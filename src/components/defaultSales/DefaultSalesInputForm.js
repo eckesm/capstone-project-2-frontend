@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { registerDefaultSale, updateDefaultSale, deleteDefaultSale } from '../../actions/defaultSales';
 
-export default function DefaultSalesInputForm({ mealPeriodName, dayName, defaultSale }) {
+export default function DefaultSalesInputForm({ mealPeriodName, dayName, defaultSale, updateGroupSum }) {
 	const dispatch = useDispatch();
 
 	const { id = null, restaurantId, mealPeriodId, dayId, total = null, notes = null, status = null } = defaultSale;
@@ -27,6 +27,7 @@ export default function DefaultSalesInputForm({ mealPeriodName, dayName, default
 		else {
 			setHasChanged(true);
 		}
+		if (name === 'total') updateGroupSum(mealPeriodId, value);
 	};
 
 	async function handleSubmit(evt) {
@@ -54,7 +55,6 @@ export default function DefaultSalesInputForm({ mealPeriodName, dayName, default
 			}
 
 			if (res.status === 200 || res.status === 201) {
-				console.log(res.data);
 				setHasChanged(false);
 			}
 			else if (res.status === 400 || res.status === 404 || res.status === 500) {
@@ -68,12 +68,14 @@ export default function DefaultSalesInputForm({ mealPeriodName, dayName, default
 		}
 	}
 
+	useEffect(() => {
+		updateGroupSum(mealPeriodId, Number(total));
+	}, []);
+
 	return (
 		<div>
 			<form onSubmit={handleSubmit}>
-				<label htmlFor="total">
-					{dayName} {mealPeriodName}:
-				</label>
+				<label htmlFor="total">{mealPeriodName}:</label>
 				<input
 					type="number"
 					min="0"

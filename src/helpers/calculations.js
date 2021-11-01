@@ -7,12 +7,14 @@ export function prepareSavedAndEstimatedSales(
 	categories,
 	mealPeriodCats
 ) {
-	const mergedSavedAndEstimatedSales = [];
+	const mergedSalesObject = {};
+	const mergedSalesArray = [];
 
 	let dayId = new Date(date).getDay() + 1;
 
 	for (let i = 0; i < mealPeriods.length; i++) {
 		let mp = mealPeriods[i].id;
+		let mpArray = [];
 
 		let totalMPEstimate = 0;
 		let existingDS = defaultSales.filter(ds => ds.mealPeriodId == mp && ds.dayId == dayId)[0];
@@ -32,29 +34,17 @@ export function prepareSavedAndEstimatedSales(
 				)[0];
 			}
 
-			// mergedSavedAndEstimatedSales.push({
-			// 	date,
-			// 	dayId,
-			// 	restaurantId,
-			// 	mealPeriodId    : mp,
-			// 	categoryId      : cat,
-			// 	mealPeriodCatId : existingMPC ? existingMPC.id : null,
-			// 	expectedSales   : existingSale ? existingSale.expectedSales : totalMPEstimate * salesPercentOfPeriod,
-			// 	actualSales     : existingSale ? existingSale.actualSales : null,
-			// 	notes           : existingSale ? existingSale.notes : null,
-			// 	status          : existingSale ? 'existing' : 'new'
-			// });
-
 			if (existingSale) {
 				existingSale.dayId = dayId;
 				existingSale.mealPeriodId = mp;
 				existingSale.categoryId = cat;
 				existingSale.mealPeriodCatId = existingMPC ? existingMPC.id : null;
 				existingSale.status = 'existing';
-				mergedSavedAndEstimatedSales.push(existingSale);
+				mergedSalesArray.push(existingSale);
+				mpArray.push(existingSale);
 			}
 			else {
-				mergedSavedAndEstimatedSales.push({
+				let newSale = {
 					date,
 					dayId,
 					restaurantId,
@@ -65,11 +55,14 @@ export function prepareSavedAndEstimatedSales(
 					actualSales     : null,
 					notes           : null,
 					status          : 'new'
-				});
+				};
+				mergedSalesArray.push(newSale);
+				mpArray.push(newSale);
 			}
 		}
+		mergedSalesObject[mp] = mpArray;
 	}
-	return mergedSavedAndEstimatedSales;
+	return [ mergedSalesObject, mergedSalesArray ];
 }
 
 export function prepareBlendedWeeklySales(
@@ -143,7 +136,12 @@ export function prepareSalesToDate(date, blendedSales) {
 	for (const day in blendedSales) {
 		const dailySales = blendedSales[day];
 		dailySales.forEach(ds => {
-			if (new Date(day) <= new Date(date)) {
+			if (new Date(day) < new Date(date)) {
+				let existingToDateValue = salesToDate[ds.categoryId] || 0;
+				salesToDate[ds.categoryId] = existingToDateValue + Number(ds.actualSales);
+			}
+			else if ((day == date)) {
+				// else if (new Date(day) == new Date(date)) {
 				let existingToDateValue = salesToDate[ds.categoryId] || 0;
 				salesToDate[ds.categoryId] = existingToDateValue + Number(ds.budgetSales);
 			}

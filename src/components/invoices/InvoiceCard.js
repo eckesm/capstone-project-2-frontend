@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router';
 
 import { getNameFromId } from '../../helpers/filterArrays';
+import { sortByNameFromTag } from '../../helpers/sorting';
+
+import './InvoiceCard.css';
 
 export default function InvoiceCard({
 	id,
@@ -9,35 +13,64 @@ export default function InvoiceCard({
 	date,
 	invoice,
 	vendor,
-	total,
 	notes = [],
 	expenses = [],
 	categories = []
 }) {
+	const history = useHistory();
+
+	const [ displayExpenses, setDisplayExpenses ] = useState([]);
+
+	function getTotal() {
+		let total = 0;
+		for (let i = 0; i < expenses.length; i++) {
+			total += Number(expenses[i].amount);
+		}
+		return (Math.round(total * 100) / 100).toFixed(2);
+	}
+
+	function handleClick() {
+		history.push(`/restaurants/${restaurantId}/invoices/${id}`);
+	}
+
+	useEffect(() => {
+		setDisplayExpenses(sortByNameFromTag('categoryId', expenses, categories));
+	}, []);
+
 	return (
-		<div>
-			<h2>{invoice}</h2>
-			<Link to={`/restaurants/${restaurantId}/invoices/${id}`}>Go to Invoice {invoice}</Link>
+		<div className="InvoiceCard" onClick={handleClick}>
+			<p className="InvoiceName">{invoice}</p>
+			{/* <Link to={`/restaurants/${restaurantId}/invoices/${id}`}>Go to Invoice {invoice}</Link> */}
 			<ul>
-				<li>Vendor: {vendor}</li>
-				<li>Date: {date}</li>
-				<li>Total: {total}</li>
+				<li>
+					<b>Vendor</b>: {vendor}
+				</li>
+				<li>
+					<b>Date</b>: {date}
+				</li>
+				<li>
+					<b>Total</b>: ${getTotal()}
+				</li>
 			</ul>
-			<h4>Expenses</h4>
-			<ul>
-				{expenses.map(e => {
-					return (
-						<li key={e.id}>
-							<b>{getNameFromId(categories, e.categoryId)}</b>: {e.notes} (${e.amount})
-						</li>
-					);
-				})}
-			</ul>
+			{displayExpenses.length > 0 && (
+				<div>
+					<p className="SectionTitle">Expenses</p>
+					<ul>
+						{displayExpenses.map(e => {
+							return (
+								<li key={e.id}>
+									<b>{getNameFromId(categories, e.categoryId)}</b>: {e.notes} (${e.amount})
+								</li>
+							);
+						})}
+					</ul>
+				</div>
+			)}
 			{/* <Link to={`/restaurants/${restaurantId}/categories/${id}`}>Go to {name}.</Link> */}
 			{notes && (
 				<div>
-					<h4>Notes:</h4>
-					<p>{notes}</p>
+					<p className="SectionTitle">Notes:</p>
+					<p className='Notes'>{notes}</p>
 				</div>
 			)}
 		</div>

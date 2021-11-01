@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory, useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 
 import {
@@ -10,15 +11,15 @@ import {
 } from '../../actions/budget';
 import { prepareBlendedWeeklySales, prepareSalesToDate, prepareWeeklyExpenses } from '../../helpers/calculations';
 
-// import SalesInputForm from './SalesInputForm';
-
 export default function BudgetScreen() {
 	const dispatch = useDispatch();
+	const history = useHistory();
 
+	const routeDate = useParams().date || new Date().toISOString().slice(0, 10);
 	const active = useSelector(store => store.active);
-	const { blended, expenses, invoices, sales } = useSelector(store => store.budget);
+	const { blended, expenses, sales } = useSelector(store => store.budget);
 
-	const [ date, setDate ] = useState(new Date().toISOString().slice(0, 10));
+	const [ date, setDate ] = useState(routeDate);
 	const [ salesApisSent, setsalesApisSent ] = useState(false);
 	const [ reportDates, setReportDates ] = useState([]);
 	const [ salesToDate, setSalesToDate ] = useState({});
@@ -28,6 +29,11 @@ export default function BudgetScreen() {
 
 	const handleChange = evt => {
 		const { value } = evt.target;
+
+		if (value !== date) {
+			history.push(`/restaurants/${active.id}/budget/date/${value}`);
+		}
+
 		setsalesApisSent(false);
 		setDate(value);
 	};
@@ -146,15 +152,18 @@ export default function BudgetScreen() {
 							);
 						})}
 					</ul>
-					<Link to={`/restaurants/${active.id}/sales`}>
-						Update expected and actual sales thoughout the week for accurate budgets.
-					</Link>
+					<p>
+						<Link to={`/restaurants/${active.id}/sales`}>Today's Sales</Link> are based on expected daily
+						sales until actuals are entered. Sales for previous days are based on actuals ($0 for any
+						category with no actual entry).
+					</p>
 				</div>
 			)}
 			{active &&
 			salesRemaining && (
 				<div>
-					<h2>Sales Remaining</h2>
+					<h2>Expected Remaining Sales</h2>
+
 					<ul>
 						{active.categories.map(c => {
 							return (
@@ -164,12 +173,22 @@ export default function BudgetScreen() {
 							);
 						})}
 					</ul>
+					<p>
+						{' '}
+						Update <Link to={`/restaurants/${active.id}/default-sales`}>default sales</Link> settings to
+						change the default expected sales for each meal period by day.
+					</p>
+					<p>
+						{' '}
+						Update <Link to={`/restaurants/${active.id}/sales-percentages`}>sales percentage</Link> settings
+						to change how sales are distributed between categories by meal period.
+					</p>
 				</div>
 			)}
 			{active &&
 			salesTotal && (
 				<div>
-					<h2>Total Expected Sales</h2>
+					<h2>Total Expected Weekly Sales</h2>
 					<ul>
 						{active.categories.map(c => {
 							return (
@@ -194,7 +213,9 @@ export default function BudgetScreen() {
 							);
 						})}
 					</ul>
-						<Link to={`/restaurants/${active.id}/categories`}>Update COGS percentages.</Link>
+					<p>
+						Update COGS percentage settings to change the amount of expense bugeted for each sales category.
+					</p>
 				</div>
 			)}
 			{active &&
@@ -226,9 +247,10 @@ export default function BudgetScreen() {
 							);
 						})}
 					</ul>
-					<Link to={`/restaurants/${active.id}/invoices`}>
-						Add, update, or delete invoices to adjust spending for the week.
-					</Link>
+					<p>
+						Add, update, or delete <Link to={`/restaurants/${active.id}/invoices`}>invoices</Link> to adjust
+						spending for the week.
+					</p>
 				</div>
 			)}
 			{active &&

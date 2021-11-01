@@ -9,7 +9,7 @@ import { registerMealPeriod } from '../../actions/mealPeriods';
 export default function NewMealPeriodForm() {
 	const dispatch = useDispatch();
 	const history = useHistory();
-	const active  = useSelector(store => store.restaurants);
+	const active  = useSelector(store => store.active);
 
 	const initialState = {
 		name  : '',

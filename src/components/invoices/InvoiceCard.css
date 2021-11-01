@@ -1,0 +1,43 @@
+.InvoiceCard {
+	border: solid 1px black;
+	width: 250px;
+	height: 200px;
+	margin: 5px;
+	padding: 10px;
+	float: left;
+	overflow-y: auto;
+}
+
+.InvoiceCard:hover {
+	background-color: rgb(225, 250, 255);
+}
+
+.InvoiceCard h2 {
+	color: darkcyan;
+}
+
+.InvoiceCard ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	text-align: left;
+}
+
+.InvoiceName {
+	font-size: 1.25rem;
+	margin: 5px 0px;
+	font-weight: bold;
+}
+
+.SectionTitle {
+    font-size: 1.05rem;
+	margin: 0px;
+	margin-top: 10px;
+	text-decoration: underline;
+}
+
+.Notes {
+    font-size: 0.9rem;
+	margin: 0px;
+	font-style: italic;
+}

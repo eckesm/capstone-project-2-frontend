@@ -6,7 +6,14 @@ import { registerMealPeriodCat } from '../../actions/mealPeriodCats';
 
 import './SalesInputForm.css';
 
-export default function SalesInputForm({ mealPeriodName, categoryName, dayName, dailySale }) {
+export default function SalesInputForm({
+	mealPeriodName,
+	categoryName,
+	dayName,
+	dailySale,
+	updateGroupExpectedSum,
+	updateGroupActualSum
+}) {
 	const dispatch = useDispatch();
 
 	const {
@@ -18,7 +25,6 @@ export default function SalesInputForm({ mealPeriodName, categoryName, dayName, 
 		mealPeriodId,
 		categoryId,
 		mealPeriodCatId,
-		dayId,
 		notes = null,
 		status = null
 	} = dailySale;
@@ -55,6 +61,8 @@ export default function SalesInputForm({ mealPeriodName, categoryName, dayName, 
 		else {
 			setHasChanged(true);
 		}
+		if (name === 'expectedSales') updateGroupExpectedSum(categoryId, value);
+		if (name === 'actualSales') updateGroupActualSum(categoryId, value);
 	};
 
 	async function handleSubmit(evt) {
@@ -62,36 +70,24 @@ export default function SalesInputForm({ mealPeriodName, categoryName, dayName, 
 		const data = { ...formData, restaurantId, mealPeriodCatId, date };
 		try {
 			let res;
-			if (status === 'new') {
-				if (!data.mealPeriodCatId) {
-					const mpcData = {
-						salesPercentOfPeriod : 0,
-						notes                : `${mealPeriodName} ${categoryName} sales percentage.`
-					};
-					const mpcRes = await dispatch(registerMealPeriodCat(mealPeriodId, categoryId, mpcData));
-					if (mpcRes.status === 201) {
-						data.mealPeriodCatId = mpcRes.data.mealPeriodCatId;
-					}
-					else {
-						console.log(mpcRes);
-					}
+			if (!data.mealPeriodCatId) {
+				const mpcData = {
+					salesPercentOfPeriod : 0,
+					notes                : `${mealPeriodName} ${categoryName} sales percentage.`
+				};
+				const mpcRes = await dispatch(registerMealPeriodCat(mealPeriodId, categoryId, mpcData));
+				if (mpcRes.status === 201) {
+					data.mealPeriodCatId = mpcRes.data.mealPeriodCat.id;
 				}
-
-				// if (formData.expectedSales != '0' || formData.actualSales != '0') {
+				else {
+					console.log(mpcRes);
+				}
+			}
+			if (status === 'new') {
 				res = await dispatch(registerSale(data));
-				// }
-				// else {
-				// console.log('cannot create 0');
-				// return false;
-				// }
 			}
 			if (status === 'existing') {
-				// if (formData.expectedSales == '0' && formData.actualSales == '0') {
-				// 	res = await dispatch(deleteSale(id));
-				// }
-				// else {
 				res = await dispatch(updateSale(id, data));
-				// }
 			}
 
 			if (res.status === 200 || res.status === 201) {
@@ -123,9 +119,7 @@ export default function SalesInputForm({ mealPeriodName, categoryName, dayName, 
 	return (
 		<div>
 			<form onSubmit={handleSubmit}>
-				<label htmlFor="expectedSales">
-					{mealPeriodName} {categoryName} EXPECTED:
-				</label>
+				<label htmlFor="expectedSales">{categoryName} EXPECTED:</label>
 				<input
 					type="number"
 					min="0"
@@ -135,9 +129,7 @@ export default function SalesInputForm({ mealPeriodName, categoryName, dayName, 
 					name="expectedSales"
 					onChange={handleChange}
 				/>
-				<label htmlFor="actualSales">
-					{mealPeriodName} {categoryName} ACTUAL:
-				</label>
+				<label htmlFor="actualSales">{categoryName} ACTUAL:</label>
 				<input
 					className={actualSaved ? 'Saved' : 'Unsaved'}
 					type="number"

@@ -103,12 +103,14 @@ export default function Routes() {
 			/>
 
 			<ProtectedRouteUser component={AllSalesScreen} exact path="/restaurants/:restaurantId/sales" />
+			<ProtectedRouteUser component={AllSalesScreen} exact path="/restaurants/:restaurantId/sales/date/:date" />
 
 			<ProtectedRouteUser component={AllInvoicesScreen} exact path="/restaurants/:restaurantId/invoices" />
 			<ProtectedRouteUser component={NewInvoiceForm} exact path="/restaurants/:restaurantId/invoices/new" />
 			<ProtectedRouteUser component={InvoiceDetail} exact path="/restaurants/:restaurantId/invoices/:invoiceId" />
 
 			<ProtectedRouteUser component={BudgetScreen} exact path="/restaurants/:restaurantId/budget" />
+			<ProtectedRouteUser component={BudgetScreen} exact path="/restaurants/:restaurantId/budget/date/:date" />
 
 			<Redirect to="/" />
 		</Switch>

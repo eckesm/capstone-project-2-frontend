@@ -1,26 +1,36 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory, useParams } from 'react-router';
 
-import { getNameFromId, getDayOfWeekNameFromId } from '../../helpers/filterArrays';
+import { getNameFromId } from '../../helpers/filterArrays';
 import { getAndStoreSales } from '../../actions/sales';
 
 import { prepareSavedAndEstimatedSales } from '../../helpers/calculations';
 import { storeSalesWithEstimates } from '../../actions/sales';
 
-import SalesInputForm from './SalesInputForm';
+import SalesGroup from './SalesGroup';
 
 export default function AllSalesScreen() {
+	const history = useHistory();
 	const dispatch = useDispatch();
 
+	const routeDate = useParams().date || new Date().toISOString().slice(0, 10);
 	const active = useSelector(store => store.active);
 	const { sales } = useSelector(store => store.sales);
 
-	const [ preparedDailySales, setPreparedDailySales ] = useState([]);
-	const [ date, setDate ] = useState(new Date().toISOString().slice(0, 10));
+	const [ preparedDailySales, setPreparedDailySales ] = useState({});
+	// const [ date, setDate ] = useState(new Date().toISOString().slice(0, 10));
+	// const [ date, setDate ] = useState(routeDate || new Date().toISOString().slice(0, 10));
+	const [ date, setDate ] = useState(routeDate);
 	const [ apiSent, setApiSent ] = useState(false);
 
 	const handleChange = evt => {
 		const { value } = evt.target;
+
+		if (value !== date) {
+			history.push(`/restaurants/${active.id}/sales/date/${value}`);
+		}
+
 		setApiSent(false);
 		setDate(value);
 	};
@@ -44,7 +54,7 @@ export default function AllSalesScreen() {
 	useEffect(
 		() => {
 			if (active && date && sales) {
-				const calculatedArray = prepareSavedAndEstimatedSales(
+				const [ calculatedObject, calculatedArray ] = prepareSavedAndEstimatedSales(
 					sales,
 					date,
 					active.id,
@@ -53,7 +63,7 @@ export default function AllSalesScreen() {
 					active.categories,
 					active.mealPeriod_categories
 				);
-				setPreparedDailySales(calculatedArray);
+				setPreparedDailySales(calculatedObject);
 				dispatch(storeSalesWithEstimates(calculatedArray));
 			}
 		},
@@ -69,14 +79,14 @@ export default function AllSalesScreen() {
 			</div>
 			<div>
 				{active &&
-					preparedDailySales.map(ds => {
+					Object.keys(preparedDailySales).map(mp => {
 						return (
-							<SalesInputForm
-								key={`${ds.date}-${ds.mealPeriodId}-${ds.categoryId}`}
-								mealPeriodName={getNameFromId(active.mealPeriods, ds.mealPeriodId)}
-								categoryName={getNameFromId(active.categories, ds.categoryId)}
-								dayName={getDayOfWeekNameFromId(ds.dayId)}
-								dailySale={ds}
+							<SalesGroup
+								key={`${mp}-${date}`}
+								groupArray={preparedDailySales[mp]}
+								categories={active.categories}
+								mealPeriodName={getNameFromId(active.mealPeriods, mp)}
+								// categoryName={getNameFromId(active.categories, mp.categoryId)}
 							/>
 						);
 					})}

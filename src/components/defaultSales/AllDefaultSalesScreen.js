@@ -1,28 +1,32 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
-import { getNameFromId, getDayOfWeekNameFromId } from '../../helpers/filterArrays';
+import { getDayOfWeekNameFromId } from '../../helpers/filterArrays';
 
-import DefaultSalesInputForm from './DefaultSalesInputForm';
+import DefaultSalesGroup from './DefaultSalesGroup';
 
 export default function AllDefaultSalesScreen() {
 	const active = useSelector(store => store.active);
 
 	const [ mealPeriods, setMealPeriods ] = useState([]);
-	const [ defaultSales, setDefaultSales ] = useState([]);
+	const [ defaultSales, setDefaultSales ] = useState({});
 
 	function prepareDefaultSales(mealPeriods, defaultSales, restaurantId) {
-		const preparingDefaultSales = [];
+		const preparingDefaultSales = {};
 		for (let dOfW = 1; dOfW <= 7; dOfW++) {
+			let dOfWArray = [];
 			for (let i = 0; i < mealPeriods.length; i++) {
 				let mp = mealPeriods[i].id;
 				let existing = defaultSales.filter(ds => ds.dayId == dOfW && ds.mealPeriodId == mp)[0];
 				if (existing) {
 					existing.status = 'existing';
-					preparingDefaultSales.push(existing);
+					// preparingDefaultSales.push(existing);
+					dOfWArray.push(existing);
 				}
 				else {
-					preparingDefaultSales.push({
+					// preparingDefaultSales.push({
+					dOfWArray.push({
+						id           : null,
 						dayId        : dOfW,
 						mealPeriodId : mp,
 						notes        : null,
@@ -32,6 +36,7 @@ export default function AllDefaultSalesScreen() {
 					});
 				}
 			}
+			preparingDefaultSales[dOfW] = dOfWArray;
 		}
 		setDefaultSales(preparingDefaultSales);
 	}
@@ -56,19 +61,31 @@ export default function AllDefaultSalesScreen() {
 
 	return (
 		<div>
-			<h1>Default Sales</h1>
+			<h1>Default Sales by Day & Meal Period</h1>
 			<div>
 				{active &&
-					defaultSales.map(ds => {
+					Object.keys(defaultSales).map(ds => {
+						// defaultSales[d].map(ds => {
 						return (
-							<DefaultSalesInputForm
-								// key={uuid()}
-								key={`${ds.dayId}-${ds.mealPeriodId}`}
-								mealPeriodName={getNameFromId(mealPeriods, ds.mealPeriodId)}
-								dayName={getDayOfWeekNameFromId(ds.dayId)}
-								defaultSale={ds}
+							<DefaultSalesGroup
+								key={ds}
+								groupArray={defaultSales[ds]}
+								mealPeriods={active.mealPeriods}
+								dayId={ds}
+								dayName={getDayOfWeekNameFromId(ds)}
 							/>
 						);
+						// });
+
+						// return (
+						// 	<DefaultSalesInputForm
+						// 		// key={uuid()}
+						// 		key={`${ds.dayId}-${ds.mealPeriodId}`}
+						// 		mealPeriodName={getNameFromId(mealPeriods, ds.mealPeriodId)}
+						// 		dayName={getDayOfWeekNameFromId(ds.dayId)}
+						// 		defaultSale={ds}
+						// 	/>
+						// );
 					})}
 			</div>
 		</div>
