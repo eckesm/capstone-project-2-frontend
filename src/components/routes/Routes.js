@@ -5,12 +5,14 @@ import ProtectedRoute from './ProtectedRoute';
 import Home from '../Home';
 import LoginForm from '../users/LoginForm';
 import ProtectedRouteUser from './ProtectedRouteUser';
+import ProtectedRouteAdmin from './ProtectedRouteAdmin';
 
 import RegisterUserForm from '../users/RegisterUserForm';
 
 import RestaurantDetail from '../restaurants/RestaurantDetail';
 import AllRestaurantsScreen from '../restaurants/AllRestaurantsScreen';
 import NewRestaurantForm from '../restaurants/NewRestaurantForm';
+import EditRestaurantScreen from '../restaurants/EditRestaurantScreen';
 
 import MealPeriodDetail from '../mealPeriods/MealPeriodDetail';
 import AllMealPeriodsScreen from '../mealPeriods/AllMealPeriodsScreen';
@@ -53,6 +55,7 @@ export default function Routes() {
 			<ProtectedRoute component={AllRestaurantsScreen} exact path="/restaurants" />
 			<ProtectedRoute component={NewRestaurantForm} exact path="/restaurants/new" />
 			<ProtectedRouteUser component={RestaurantDetail} exact path="/restaurants/:restaurantId" />
+			<ProtectedRouteAdmin component={EditRestaurantScreen} exact path="/restaurants/:restaurantId/edit" />
 
 			<ProtectedRouteUser component={AllMealPeriodsScreen} exact path="/restaurants/:restaurantId/meal-periods" />
 			<ProtectedRouteUser

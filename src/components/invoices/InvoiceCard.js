@@ -39,8 +39,7 @@ export default function InvoiceCard({
 
 	return (
 		<div className="InvoiceCard" onClick={handleClick}>
-			<p className="InvoiceName">{invoice}</p>
-			{/* <Link to={`/restaurants/${restaurantId}/invoices/${id}`}>Go to Invoice {invoice}</Link> */}
+			<p className="CardTitle">{invoice}</p>
 			<ul>
 				<li>
 					<b>Vendor</b>: {vendor}

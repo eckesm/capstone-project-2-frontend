@@ -1,4 +1,5 @@
 import {
+	CLEAR_ALL_BUDGET,
 	LOGOUT_USER,
 	REMOVE_ACTIVE,
 	STORE_BUDGET_SALES,
@@ -25,6 +26,9 @@ function sortByName(array) {
 
 export default function sales(state = INITIAL_STATE, action) {
 	switch (action.type) {
+		case CLEAR_ALL_BUDGET:
+			return INITIAL_STATE;
+
 		case LOGOUT_USER:
 			return INITIAL_STATE;
 

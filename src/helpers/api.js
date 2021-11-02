@@ -177,3 +177,23 @@ export async function getInvoiceApi(id) {
 		console.log('getInvoiceApi() error:', err);
 	}
 }
+
+// budget API calls
+
+export async function getBudgetSales(restaurantId,date) {
+	try {
+		const res = await makeGetRequest(`sales/restaurants/${restaurantId}/date/${date}`);
+		return res;
+	} catch (err) {
+		console.log('getBudgetSales() error:', err);
+	}
+}
+
+export async function getSavedExpenses(restaurantId,startDate,endDate) {
+	try {
+		const res = await makeGetRequest(`expenses/restaurants/${restaurantId}/startdate/${startDate}/enddate/${endDate}`);
+		return res;
+	} catch (err) {
+		console.log('getSavedExpenses() error:', err);
+	}
+}

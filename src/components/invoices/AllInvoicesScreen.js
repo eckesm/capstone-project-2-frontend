@@ -9,7 +9,6 @@ import { sortByItem } from '../../helpers/sorting';
 
 import AllInvoices from './AllInvoices';
 import AddButton from '../buttons/AddButton';
-import GoButton from '../buttons/GoButton';
 
 import './AllInvoicesScreen.css';
 
@@ -106,7 +105,6 @@ export default function AllInvoicesScreen() {
 						onClick={() => history.push(`/restaurants/${active.id}/invoices/new`)}
 					/>
 				)}
-				<GoButton text="Restaurant" onClick={() => history.push(`/restaurants/${active.id}`)} />
 			</div>
 			{invoices &&
 			active && <AllInvoices invoices={displayInvoices} expenses={expenses} categories={active.categories} />}

@@ -1,5 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router';
 
 import useFields from '../../hooks/useFields';
 
@@ -16,9 +17,10 @@ export default function EditRestaurantForm({
 	website,
 	notes,
 	// setRestaurant,
-	setEditing
+	// setEditing
 }) {
 	const dispatch = useDispatch();
+	const history=useHistory()
 
 	const initialState = {
 		name    : name,
@@ -36,7 +38,8 @@ export default function EditRestaurantForm({
 			const res = await dispatch(updateRestaurant(id, formData));
 			if (res.status === 200) {
 				// setRestaurant(res.data.restaurant);
-				setEditing(false);
+				// setEditing(false);
+				history.push(`/restaurants/${id}`)
 			}
 		} catch (err) {
 			console.log('handleSubmit() > updateRestaurant() error:', err);
@@ -45,7 +48,8 @@ export default function EditRestaurantForm({
 
 	function handleCancel(evt) {
 		evt.preventDefault();
-		setEditing(false);
+		// setEditing(false);
+		history.push(`/restaurants/${id}`)
 	}
 
 	return (

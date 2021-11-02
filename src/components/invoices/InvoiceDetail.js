@@ -52,9 +52,7 @@ export default function InvoiceDetail() {
 					<h1>{invoice.invoice}</h1>
 					<div>
 						<p>Vendor: {invoice.vendor}</p>
-						{/* <p>Date: {new Date(invoice.date).toISOString().slice(0,10)}</p> */}
 						<p>Date: {(new Date(invoice.date)).toLocaleDateString('en-US')}</p>
-						{/* <p>Date: {(new Date(invoice.date)).toISOString().slice(0, 10)}</p> */}
 						<p>Total: {invoice.total}</p>
 						<h3>Expenses</h3>
 						<AllExpenses invoiceId={invoice.id} />

@@ -19,8 +19,7 @@ export default function AllSalesScreen() {
 	const { sales } = useSelector(store => store.sales);
 
 	const [ preparedDailySales, setPreparedDailySales ] = useState({});
-	// const [ date, setDate ] = useState(new Date().toISOString().slice(0, 10));
-	// const [ date, setDate ] = useState(routeDate || new Date().toISOString().slice(0, 10));
+
 	const [ date, setDate ] = useState(routeDate);
 	const [ apiSent, setApiSent ] = useState(false);
 

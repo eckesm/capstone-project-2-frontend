@@ -1,4 +1,4 @@
-.CardTitle {
+.PageTitle {
 	font-size: 1.25rem;
 	margin: 5px 0px;
 	font-weight: bold;
@@ -17,25 +17,14 @@
 	font-style: italic;
 }
 
-.InvoiceCard {
-	border: solid 1px black;
-	width: 250px;
-	height: 200px;
-	margin: 5px;
-	padding: 10px;
-	float: left;
-	overflow-y: auto;
+.RestaurantDetail{
+    width:fit-content;
+    border: solid 1px black;
+    margin: 25px auto;
+	padding: 25px;
 }
 
-.InvoiceCard:hover {
-	background-color: rgb(225, 250, 255);
-}
-
-.InvoiceCard h2 {
-	color: darkcyan;
-}
-
-.InvoiceCard ul {
+.RestaurantDetail ul {
 	list-style-type: none;
 	margin: 0;
 	padding: 0;

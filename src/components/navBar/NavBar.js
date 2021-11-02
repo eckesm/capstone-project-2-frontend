@@ -11,12 +11,7 @@ export default function NavBar({ logout }) {
 	const active = useSelector(store => store.active);
 	const { invoices } = useSelector(store => store.invoices);
 
-	// const initialState = {
-	// 	settingsLink : ''
-	// };
-	// const [ formData, handleChange, resetFormData ] = useFields(initialState);
-
-	function settingLinksArray() {
+	const settingsLinksArray = () => {
 		return [
 			{ title: 'Meal Periods', ref: `/restaurants/${active.id}/meal-periods` },
 			{ title: 'Category Groups', ref: `/restaurants/${active.id}/category-groups` },
@@ -24,9 +19,24 @@ export default function NavBar({ logout }) {
 			{ title: 'Default Sales', ref: `/restaurants/${active.id}/default-sales` },
 			{ title: 'Sales Percentages', ref: `/restaurants/${active.id}/sales-percentages` }
 		];
-	}
+	};
 
-	function loggedIn() {
+	const adminLinksArray = () => {
+		return [ { title: 'Edit Restaurant', ref: `/restaurants/${active.id}/edit` } ];
+	};
+
+	const ownerLinksArray = () => {
+		return [ { title: 'Edit Restaurant', ref: `/restaurants/${active.id}/edit` } ];
+	};
+
+	const invoicesLinksArray = () => {
+		return [
+			{ title: 'Invoices', ref: `/restaurants/${active.id}/invoices` },
+			{ title: 'Add Invoice', ref: `/restaurants/${active.id}/invoices/new` }
+		];
+	};
+
+	const loggedIn = () => {
 		return (
 			<ul>
 				<li className="Home">
@@ -46,31 +56,6 @@ export default function NavBar({ logout }) {
 						</NavLink>
 					</li>
 				)}
-				{/* {active && (
-					<li>
-						<NavLink to={`/restaurants/${active.id}/meal-periods`}>Meal Periods</NavLink>
-					</li>
-				)} */}
-				{/* {active && (
-					<li>
-						<NavLink to={`/restaurants/${active.id}/category-groups`}>Category Groups</NavLink>
-					</li>
-				)} */}
-				{/* {active && (
-					<li>
-						<NavLink to={`/restaurants/${active.id}/categories`}>Categories</NavLink>
-					</li>
-				)} */}
-				{/* {active && (
-					<li>
-						<NavLink to={`/restaurants/${active.id}/default-sales`}>Default Sales</NavLink>
-					</li>
-				)} */}
-				{/* {active && (
-					<li>
-						<NavLink to={`/restaurants/${active.id}/sales-percentages`}>Sales Percentages</NavLink>
-					</li>
-				)} */}
 				{active && (
 					<li>
 						<NavLink to={`/restaurants/${active.id}/sales`}>Daily Sales</NavLink>
@@ -78,16 +63,23 @@ export default function NavBar({ logout }) {
 				)}
 				{invoices &&
 				active && (
-					<li>
-						<NavLink to={`/restaurants/${active.id}/invoices`}>Invoices</NavLink>
-					</li>
+					<NavBarDropdown title="Invoices" linksArray={invoicesLinksArray()} />
+					// <li>
+					// 	<NavLink to={`/restaurants/${active.id}/invoices`}>Invoices</NavLink>
+					// </li>
 				)}
 				{active && (
 					<li>
 						<NavLink to={`/restaurants/${active.id}/budget`}>Budget</NavLink>
 					</li>
 				)}
-				{active && <NavBarDropdown title="Settings" linksArray={settingLinksArray()} />}
+				{active && <NavBarDropdown title="Settings" linksArray={settingsLinksArray()} />}
+				{active &&
+				active.isAdmin &&
+				active.isOwner === false && <NavBarDropdown title="Admin" linksArray={adminLinksArray()} />}
+				{active &&
+				active.isAdmin &&
+				active.isOwner && <NavBarDropdown title="Admin/Owner" linksArray={ownerLinksArray()} />}
 
 				<li>
 					<NavLink to="/logout" onClick={logout}>
@@ -96,9 +88,9 @@ export default function NavBar({ logout }) {
 				</li>
 			</ul>
 		);
-	}
+	};
 
-	function loggedOut() {
+	const loggedOut = () => {
 		return (
 			<ul>
 				<li className="Home">
@@ -115,7 +107,7 @@ export default function NavBar({ logout }) {
 				</li>
 			</ul>
 		);
-	}
+	};
 
 	return <div className="Nav">{user ? loggedIn() : loggedOut()}</div>;
 }
