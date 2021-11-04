@@ -1,6 +1,12 @@
 import { makeDeleteRequest, makeGetRequest, makePostRequest, makePutRequest } from '../helpers/api';
 
-import { ADD_SALE, DELETE_SALE, STORE_SALES, STORE_BLENDED_SALES, UPDATE_SALE } from './types';
+import {
+	ADD_SALE,
+	DELETE_SALE,
+	STORE_SALES,
+	// STORE_BLENDED_SALES,
+	UPDATE_SALE
+} from './types';
 
 export function registerSale(data) {
 	return async function(dispatch) {
@@ -78,14 +84,14 @@ export function getAndStoreSales(restaurantId, date) {
 	};
 }
 
-export function storeSalesWithEstimates(calculated) {
-	return async function(dispatch) {
-		await dispatch({
-			type       : STORE_BLENDED_SALES,
-			calculated
-		});
-	};
-}
+// export function storeSalesWithEstimates(calculated) {
+// 	return async function(dispatch) {
+// 		await dispatch({
+// 			type       : STORE_BLENDED_SALES,
+// 			calculated
+// 		});
+// 	};
+// }
 
 export function deleteSale(id) {
 	return async function(dispatch) {

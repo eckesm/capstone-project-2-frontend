@@ -4,9 +4,13 @@ import { useHistory, useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 
 import { prepareBudgetReportFigures, generateReportDatesArray } from '../../helpers/budgetCalculations';
-import { getBudgetSales, getSavedExpenses } from '../../helpers/api';
+import { getSales, getSavedExpenses } from '../../helpers/api';
 
-import './BudgetScreen.css';
+import ArrowButton from '../buttons/ArrowButton';
+import TodayButton from '../buttons/TodayButton';
+
+import './budget.css';
+import '../buttons/buttons.css';
 
 export default function BudgetScreen() {
 	const history = useHistory();
@@ -15,7 +19,7 @@ export default function BudgetScreen() {
 
 	const active = useSelector(store => store.active);
 
-	const [ date, setDate ] = useState();
+	const [ date, setDate ] = useState('');
 	const [ reportDates, setReportDates ] = useState([]);
 	const [ apiSentGetSavedSales, setApiSentGetSavedSales ] = useState(false);
 	const [ savedSales, setSavedSales ] = useState({});
@@ -35,9 +39,13 @@ export default function BudgetScreen() {
 	};
 
 	// set date to today's date on load.
-	useEffect(() => {
-		setDate(routeDate);
-	}, []);
+	useEffect(
+		() => {
+			setDate(routeDate);
+			setApiSentGetSavedSales(false);
+		},
+		[ routeDate ]
+	);
 
 	// set new report dates when the date changes.
 	useEffect(
@@ -58,14 +66,10 @@ export default function BudgetScreen() {
 					const buildSavedSales = {};
 					let count = 0;
 					reportDates.forEach(async d => {
-						const res = await getBudgetSales(active.id, d);
-						if (res.status !== 200) {
-							console.log(res);
-						}
-						else {
+						const res = await getSales(active.id, d);
+						if (res.status === 200) {
 							count += 1;
 							buildSavedSales[d] = res.data.sales;
-
 							if (count === reportDates.length) {
 								setSavedSales(buildSavedSales);
 							}
@@ -73,7 +77,7 @@ export default function BudgetScreen() {
 					});
 					setApiSentGetSavedSales(true);
 				} catch (err) {
-					console.log('getBudgetSales() error:', err);
+					console.log('getSales() error:', err);
 				}
 
 				try {
@@ -113,13 +117,32 @@ export default function BudgetScreen() {
 		[ savedSales, savedExpenses, active ]
 	);
 
+	function handlePreviousDay() {
+		let newDate = new Date(date);
+		newDate.setDate(newDate.getDate() - 1);
+		history.push(`/restaurants/${active.id}/budget/date/${newDate.toISOString().slice(0, 10)}`);
+	}
+	function handleToday() {
+		history.push(`/restaurants/${active.id}/budget/date/${new Date().toISOString().slice(0, 10)}`);
+	}
+	function handleNextDay() {
+		let newDate = new Date(date);
+		newDate.setDate(newDate.getDate() + 1);
+		history.push(`/restaurants/${active.id}/budget/date/${newDate.toISOString().slice(0, 10)}`);
+	}
+
 	return (
 		<div className="BudgetScreen">
 			<div>
 				<p className="PageTitle">Budget Performance</p>
 				<div>
-					<label htmlFor="date">Date:</label>
+					<label htmlFor="date">Date: </label>
 					<input type="date" value={date} name="date" onChange={handleChange} required />
+				</div>
+				<div className="buttonGroup">
+					<ArrowButton text="Previous Day" onClick={handlePreviousDay} direction="left" />
+					<TodayButton text="Today" onClick={handleToday} />
+					<ArrowButton text="Next Day" onClick={handleNextDay} direction="right" />
 				</div>
 			</div>
 			{active &&
@@ -128,18 +151,24 @@ export default function BudgetScreen() {
 					<p className="SectionTitle">Remaining Budget</p>
 					<ul>
 						{active.categories.map(c => {
-							let budget = budgetFigures[c.id].remainingBudget;
+							let remainingBudget = budgetFigures[c.id].remainingBudget;
+							let totalBudget = budgetFigures[c.id].totalBudget;
+							let status = remainingBudget < 0 ? 'negative' : 'positive';
 							return (
 								<li key={c.id}>
 									<span className="CategoryName">{c.name}</span>:{' '}
-									<span className={budget < 0 ? 'negative' : 'positive'}>
-										{budget.toLocaleString('en-US')}
-									</span>
+									<span className={status}>{remainingBudget.toLocaleString('en-US')} </span>
+									{status === 'negative' && (
+										<span className="warning">
+											spending is {-Math.round(remainingBudget / totalBudget * 100)}% over budget!
+										</span>
+									)}
 								</li>
 							);
 						})}
 					</ul>
 					<div className="Notes">
+						<p>Weekly budgets start on Monday and end on Sunday.</p>
 						<p>
 							The remaining budget is the difference between the Total Budget and the Weekly Spending
 							(based on entered invoices) for a given category.

@@ -178,16 +178,28 @@ export async function getInvoiceApi(id) {
 	}
 }
 
-// budget API calls
+// sales API calls
 
-export async function getBudgetSales(restaurantId,date) {
+export async function getSales(restaurantId,date) {
 	try {
-		const res = await makeGetRequest(`sales/restaurants/${restaurantId}/date/${date}`);
+		const res = await makeGetRequest(`sales/restaurants/${restaurantId}/date/${date}`);;
 		return res;
 	} catch (err) {
-		console.log('getBudgetSales() error:', err);
+		console.log('getSales() error:', err);
 	}
 }
+
+
+// budget API calls
+
+// export async function getBudgetSales(restaurantId,date) {
+// 	try {
+// 		const res = await makeGetRequest(`sales/restaurants/${restaurantId}/date/${date}`);
+// 		return res;
+// 	} catch (err) {
+// 		console.log('getBudgetSales() error:', err);
+// 	}
+// }
 
 export async function getSavedExpenses(restaurantId,startDate,endDate) {
 	try {

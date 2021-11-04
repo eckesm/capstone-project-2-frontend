@@ -52,7 +52,7 @@ export const UPDATE_MEAL_PERIOD_CATEGORY = 'UPDATE_MEAL_PERIOD_CATEGORY';
 export const ADD_SALE = 'ADD_SALE';
 export const DELETE_SALE = 'DELETE_SALE';
 export const STORE_SALES = 'STORE_SALES';
-export const STORE_BLENDED_SALES = 'STORE_BLENDED_SALES';
+// export const STORE_BLENDED_SALES = 'STORE_BLENDED_SALES';
 export const UPDATE_SALE = 'UPDATE_SALE';
 
 // budget

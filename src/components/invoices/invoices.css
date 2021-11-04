@@ -1,3 +1,11 @@
+.AllInvoices {
+	overflow: auto;
+}
+
+.AllInvoicesScreen option {
+	text-align: center;
+}
+
 .CardTitle {
 	font-size: 1.25rem;
 	margin: 5px 0px;

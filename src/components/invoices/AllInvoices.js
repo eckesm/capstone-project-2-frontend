@@ -5,7 +5,7 @@ import { sortByDate } from '../../helpers/sorting';
 
 import InvoiceCard from './InvoiceCard';
 
-import './AllInvoices.css';
+import './invoices.css';
 
 export default function AllInvoices({ invoices = [], expenses = [], categories = [] }) {
 	const [ displayInvoices, setDisplayInvoices ] = useState([]);

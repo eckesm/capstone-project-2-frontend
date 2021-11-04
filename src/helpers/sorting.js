@@ -1,5 +1,13 @@
 import { getNameFromId } from './filterArrays';
 
+export function sortByObjectAttribute(tag, arrayToSort) {
+	return arrayToSort.sort((a, b) => {
+		var textA = a[tag];
+		var textB = b[tag];
+		return textA < textB ? -1 : textA > textB ? 1 : 0;
+	});
+}
+
 export function sortByNameFromTag(tag, arrayToSort, itemsSortedAgainst) {
 	return arrayToSort.sort((a, b) => {
 		var textA = getNameFromId(itemsSortedAgainst, a[tag]);

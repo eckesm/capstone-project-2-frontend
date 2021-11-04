@@ -7,8 +7,8 @@ export function prepareSavedAndEstimatedSales(
 	categories,
 	mealPeriodCats
 ) {
-	const mergedSalesObject = {};
-	const mergedSalesArray = [];
+	const mergedSalesObject = [];
+	// const mergedSalesArray = [];
 
 	let dayId = new Date(date).getDay() + 1;
 
@@ -20,8 +20,12 @@ export function prepareSavedAndEstimatedSales(
 		let existingDS = defaultSales.filter(ds => ds.mealPeriodId == mp && ds.dayId == dayId)[0];
 		if (existingDS) totalMPEstimate = Number(existingDS.total);
 
+		let mpObject = { id: mp, name: mealPeriods[i].name, sales: [] };
+
 		for (let c = 0; c < categories.length; c++) {
 			let cat = categories[c].id;
+
+			// mergedSalesObject[mp] = { name: mpName, sales: [] };
 
 			let existingMPC = mealPeriodCats.filter(mpc => mpc.mealPeriodId == mp && mpc.categoryId == cat)[0];
 			let salesPercentOfPeriod = 0;
@@ -40,8 +44,9 @@ export function prepareSavedAndEstimatedSales(
 				existingSale.categoryId = cat;
 				existingSale.mealPeriodCatId = existingMPC ? existingMPC.id : null;
 				existingSale.status = 'existing';
-				mergedSalesArray.push(existingSale);
+				// mergedSalesArray.push(existingSale);
 				mpArray.push(existingSale);
+				// mergedSalesObject[mp].sales.push(existingSale);
 			}
 			else {
 				let newSale = {
@@ -56,13 +61,17 @@ export function prepareSavedAndEstimatedSales(
 					notes           : null,
 					status          : 'new'
 				};
-				mergedSalesArray.push(newSale);
+				// mergedSalesArray.push(newSale);
 				mpArray.push(newSale);
+				// mergedSalesObject[mp].sales.push(newSale);
 			}
 		}
-		mergedSalesObject[mp] = mpArray;
+		mpObject.sales = mpArray;
+		mergedSalesObject.push(mpObject);
+		// mergedSalesObject[mp].sales = mpArray;
 	}
-	return [ mergedSalesObject, mergedSalesArray ];
+	// return [ mergedSalesObject, mergedSalesArray ];
+	return mergedSalesObject;
 }
 
 // https://www.tutorialspoint.com/check-if-values-of-two-arrays-are-the-same-equal-in-javascript

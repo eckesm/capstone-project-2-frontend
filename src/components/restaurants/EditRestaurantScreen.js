@@ -8,8 +8,7 @@ import { deleteRestaurant } from '../../actions/restaurants';
 import EditRestaurantForm from './EditRestaurantForm';
 import DeleteButton from '../buttons/DeleteButton';
 
-import './RestaurantDetail.css';
-import userEvent from '@testing-library/user-event';
+import './restaurants.css';
 
 export default function EditRestaurantScreen() {
 	const dispatch = useDispatch();

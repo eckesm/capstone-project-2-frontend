@@ -4,9 +4,10 @@ import { useDispatch } from 'react-redux';
 import { registerSale, updateSale, deleteSale } from '../../actions/sales';
 import { registerMealPeriodCat } from '../../actions/mealPeriodCats';
 
-import './SalesInputForm.css';
+import './sales.css';
 
 export default function SalesInputForm({
+	index,
 	mealPeriodName,
 	categoryName,
 	dayName,
@@ -117,30 +118,35 @@ export default function SalesInputForm({
 	);
 
 	return (
-		<div>
+		<div className={index === 0 ? 'SalesInputForm' : 'SalesInputForm TopBorder'}>
+			<span>{categoryName}</span>
 			<form onSubmit={handleSubmit}>
-				<label htmlFor="expectedSales">{categoryName} EXPECTED:</label>
-				<input
-					type="number"
-					min="0"
-					step=".01"
-					id="expectedSales"
-					value={formData.expectedSales}
-					name="expectedSales"
-					onChange={handleChange}
-				/>
-				<label htmlFor="actualSales">{categoryName} ACTUAL:</label>
-				<input
-					className={actualSaved ? 'Saved' : 'Unsaved'}
-					type="number"
-					min="0"
-					step=".01"
-					id="actualSales"
-					value={formData.actualSales}
-					name="actualSales"
-					onChange={handleChange}
-				/>
-				{hasChanged && <button type="submit">Save</button>}
+				<div className="SaleInput Expected">
+					<label htmlFor="expectedSales">Expected:</label>{' '}
+					<input
+						type="number"
+						min="0"
+						step=".01"
+						id="expectedSales"
+						value={formData.expectedSales}
+						name="expectedSales"
+						onChange={handleChange}
+					/>
+				</div>
+				<div className="SaleInput Actual">
+					<label htmlFor="actualSales">Actual:</label>{' '}
+					<input
+						className={actualSaved ? 'Saved' : 'Unsaved'}
+						type="number"
+						min="0"
+						step=".01"
+						id="actualSales"
+						value={formData.actualSales}
+						name="actualSales"
+						onChange={handleChange}
+					/>
+				</div>
+				<div className="SaveButtonDiv">{hasChanged && <button type="submit">Save</button>}</div>
 			</form>
 		</div>
 	);

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
-import { Link, useParams } from 'react-router-dom';
 
 import { deleteExpense } from '../../actions/expenses';
 import { getNameFromId } from '../../helpers/filterArrays';
@@ -9,9 +8,11 @@ import { getNameFromId } from '../../helpers/filterArrays';
 import DeleteButton from '../buttons/DeleteButton';
 import EditButton from '../buttons/EditButton';
 import EditExpenseForm from './EditExpenseForm';
-import GoButton from '../buttons/GoButton';
 
-export default function ExpenseCard({ savedExpense }) {
+import './expenses.css';
+import '../buttons/buttons.css';
+
+export default function ExpenseCard({ index, savedExpense, updateInvoiceTotal }) {
 	const dispatch = useDispatch();
 	const history = useHistory();
 
@@ -24,7 +25,8 @@ export default function ExpenseCard({ savedExpense }) {
 		try {
 			const res = await dispatch(deleteExpense(expense.id));
 			if (res.status === 200) {
-				history.push(`/restaurants/${expense.restaurantId}/invoices/${expense.invoiceId}`);
+				// history.push(`/restaurants/${expense.restaurantId}/invoices/${expense.invoiceId}`);
+				updateInvoiceTotal(expense.id, 0);
 			}
 		} catch (err) {
 			console.log('handleDelete() > deleteExpense() error:', err);
@@ -32,18 +34,20 @@ export default function ExpenseCard({ savedExpense }) {
 	}
 
 	return (
-		<div>
+		<div className={index === 0 ? 'ExpenseCard' : 'ExpenseCard TopBorder'}>
 			{!editing &&
 			active && (
-				<div>
-					<div>
-						<p>Category: {getNameFromId(active.categories, expense.categoryId)}</p>
-						<p>Amount: {expense.amount}</p>
-						{expense.notes && <p>{expense.notes}</p>}
+				<div className="ExpenseContainer">
+					<div className="ExpenseInfoContainer">
+						<p className="ExpenseText Category">{getNameFromId(active.categories, expense.categoryId)}</p>
+						<p className="ExpenseText Amount">
+							{(Math.round(Number(expense.amount) * 100, 2) / 100).toFixed(2).toLocaleString('en-US')}
+						</p>
+						<p className="ExpenseText Notes">{expense.notes}</p>
 					</div>
-					<div>
-						<EditButton onClick={() => setEditing(true)} text="Edit Expense" />
-						<DeleteButton text="Delete Expense" onClick={handleDelete} />
+					<div className="buttonGroup ExpenseButtonGroup">
+						<EditButton onClick={() => setEditing(true)} text="Edit" />
+						<DeleteButton text="Delete" onClick={handleDelete} />
 					</div>
 				</div>
 			)}
@@ -59,6 +63,7 @@ export default function ExpenseCard({ savedExpense }) {
 						categories={active.categories}
 						setExpense={setExpense}
 						setEditing={setEditing}
+						updateInvoiceTotal={updateInvoiceTotal}
 					/>
 				</div>
 			)}

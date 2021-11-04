@@ -5,7 +5,7 @@ import useFields from '../../hooks/useFields';
 
 import { registerExpense } from '../../actions/expenses';
 
-export default function NewExpenseForm({ invoiceId, setShowNewExpenseForm }) {
+export default function NewExpenseForm({ invoiceId, setShowNewExpenseForm, updateInvoiceTotal }) {
 	const dispatch = useDispatch();
 	const active = useSelector(store => store.active);
 
@@ -22,6 +22,8 @@ export default function NewExpenseForm({ invoiceId, setShowNewExpenseForm }) {
 		try {
 			const res = await dispatch(registerExpense(active.id, formData));
 			if (res.status === 201) {
+				const { id, amount } = res.data.expense;
+				updateInvoiceTotal(id, amount);
 				setShowNewExpenseForm(false);
 			}
 			else if (res.status === 400 || res.status === 404 || res.status === 500) {

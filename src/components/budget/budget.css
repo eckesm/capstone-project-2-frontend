@@ -1,7 +1,26 @@
+.BudgetScreen {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	border: 1px solid black;
+	width: 90%;
+	min-width: 400px;
+	margin: 20px auto;
+	padding: 20px;
+}
+
 .PageTitle {
 	font-size: 1.5rem;
 	margin: 5px 0px;
 	font-weight: bold;
+}
+
+.SectionTitle {
+	font-size: 1.15rem;
+	margin: 0px;
+	margin-top: 10px;
+	font-weight: bold;
+	text-decoration: underline;
 }
 
 .BudgetPerformanceCard {
@@ -16,6 +35,11 @@
 .BudgetPerformanceCard .negative {
 	color: red;
 	font-weight: 500;
+	font-style: italic;
+}
+
+.BudgetPerformanceCard .warning {
+	font-size: .8rem;
 	font-style: italic;
 }
 
@@ -45,14 +69,6 @@
 	/* text-align: left; */
 }
 
-.SectionTitle {
-	font-size: 1.15rem;
-	margin: 0px;
-	margin-top: 10px;
-	font-weight: bold;
-	text-decoration: underline;
-}
-
 .CategoryName {
 	font-size: 1.1rem;
 	font-weight: 500;
@@ -68,15 +84,4 @@
 ul {
 	list-style-type: none;
 	padding: 0;
-}
-
-.BudgetScreen {
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: center;
-	border: 1px solid black;
-	width: 90%;
-	min-width: 400px;
-	margin: 20px auto;
-	padding: 20px;
 }

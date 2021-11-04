@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 
 import NavBarDropdown from './NavBarDropdown';
 
-import './NavBar.css';
+import './navbar.css';
 
 export default function NavBar({ logout }) {
 	const { user } = useSelector(store => store.auth);

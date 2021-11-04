@@ -4,7 +4,7 @@ import { useHistory } from 'react-router';
 
 import GoButton from '../buttons/GoButton';
 
-import './RestaurantDetail.css';
+import './restaurants.css';
 
 export default function RestaurantDetail() {
 	const history = useHistory();

@@ -4,15 +4,11 @@ import { getNameFromId } from '../../helpers/filterArrays';
 
 import SalesInputForm from './SalesInputForm';
 
-export default function SalesGroup({
-	groupArray = [],
-	categories = [],
-	mealPeriodName
-}) {
+export default function SalesGroup({ groupArray = [], categories = [], mealPeriodName }) {
 	const [ groupExpectedValues, setGroupExpectedValues ] = useState({});
 	const [ groupActualValues, setGroupActualValues ] = useState({});
-	const [ groupExpectedSum, setGroupExpectedSum ] = useState();
-	const [ groupActualSum, setGroupActualSum ] = useState();
+	const [ groupExpectedSum, setGroupExpectedSum ] = useState(0);
+	const [ groupActualSum, setGroupActualSum ] = useState(0);
 
 	function updateGroupExpectedSum(id, value) {
 		const updatedObject = { ...groupExpectedValues };
@@ -47,25 +43,29 @@ export default function SalesGroup({
 		[ groupActualValues ]
 	);
 
-	useEffect(() => {
-		const expectedObject = {};
-		const actualObject = {};
-		for (let i = 0; i < groupArray.length; i++) {
-			let c = groupArray[i];
-			expectedObject[c.categoryId] = c.expectedSales;
-			actualObject[c.categoryId] = c.actualSales;
-		}
-		setGroupExpectedValues(expectedObject);
-		setGroupActualValues(actualObject);
-	}, []);
+	useEffect(
+		() => {
+			const expectedObject = {};
+			const actualObject = {};
+			for (let i = 0; i < groupArray.length; i++) {
+				let c = groupArray[i];
+				expectedObject[c.categoryId] = c.expectedSales;
+				actualObject[c.categoryId] = c.actualSales;
+			}
+			setGroupExpectedValues(expectedObject);
+			setGroupActualValues(actualObject);
+		},
+		[ groupArray ]
+	);
 
 	return (
-		<div>
+		<div className="SalesGroup">
 			<h3>{mealPeriodName}</h3>
-			{groupArray.map(ds => {
+			{groupArray.map((ds, idx) => {
 				return (
 					<SalesInputForm
 						key={`${ds.categoryId}-${ds.date}`}
+						index={idx}
 						mealPeriodName={mealPeriodName}
 						categoryName={getNameFromId(categories, ds.categoryId)}
 						dayName={getNameFromId(ds.dayId)}
@@ -75,12 +75,29 @@ export default function SalesGroup({
 					/>
 				);
 			})}
-			<p>
-				{mealPeriodName} Expected: ${Math.round(groupExpectedSum * 100) / 100}
-			</p>
-			<p>
-				{mealPeriodName} Actual: ${Math.round(groupActualSum * 100) / 100}
-			</p>
+			<div className="TotalsContainer">
+				<span className="Placeholder1" />
+				<div className="ResultsContainer">
+					<div className="Result Expected">
+						<span>
+							<b>Total</b>:{' '}
+						</span>
+						<span className="ResultFigure">
+							{' '}
+							${groupExpectedSum && (Math.round(groupExpectedSum * 100) / 100).toLocaleString('en-US')}
+						</span>
+					</div>
+					<div className="Result Actual">
+						<span>
+							<b>Total</b>:{' '}
+						</span>
+						<span className="ResultFigure">
+							${groupActualSum && (Math.round(groupActualSum * 100) / 100).toLocaleString('en-US')}
+						</span>
+					</div>
+				</div>
+				<span className="Placeholder2" />
+			</div>
 		</div>
 	);
 }

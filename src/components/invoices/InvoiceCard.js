@@ -5,7 +5,7 @@ import { useHistory } from 'react-router';
 import { getNameFromId } from '../../helpers/filterArrays';
 import { sortByNameFromTag } from '../../helpers/sorting';
 
-import './InvoiceCard.css';
+import './invoices.css';
 
 export default function InvoiceCard({
 	id,

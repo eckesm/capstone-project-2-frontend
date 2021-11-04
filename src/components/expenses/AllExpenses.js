@@ -5,7 +5,9 @@ import { filterInvoiceId } from '../../helpers/filterArrays';
 
 import ExpenseCard from './ExpenseCard';
 
-export default function AllExpenses({ invoiceId }) {
+import './expenses.css';
+
+export default function AllExpenses({ invoiceId, updateInvoiceTotal }) {
 	const savedExpenses = useSelector(store => store.invoices.expenses);
 	const [ expenses, setExpenses ] = useState([]);
 
@@ -17,9 +19,23 @@ export default function AllExpenses({ invoiceId }) {
 	);
 
 	return (
-		<div>
-			{expenses.map(e => {
-				return <ExpenseCard key={e.id} savedExpense={e} />;
+		<div className="AllExpenses">
+			<div className="HeadingContainer">
+				<div className="HeadingInfoContainer">
+					<p className="HeadingText Category">
+						<b className="HeadingTitle">Category</b>
+					</p>
+					<p className="HeadingText Amount">
+						<b className="HeadingTitle">Amount</b>
+					</p>
+					<p className="HeadingText Notes">
+						<b className="HeadingTitle">Description</b>
+					</p>
+				</div>
+				<div className="buttonGroup" />
+			</div>
+			{expenses.map((e, idx) => {
+				return <ExpenseCard key={e.id} index={idx} savedExpense={e} updateInvoiceTotal={updateInvoiceTotal} />;
 			})}
 		</div>
 	);

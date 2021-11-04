@@ -2,13 +2,16 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router';
 
-import { getNameFromId } from '../../helpers/filterArrays';
 import { getAndStoreSales } from '../../actions/sales';
-
-import { prepareSavedAndEstimatedSales } from '../../helpers/calculations';
-import { storeSalesWithEstimates } from '../../actions/sales';
+import { prepareSavedAndEstimatedSales } from '../../helpers/salesCalculations';
+import { sortByObjectAttribute } from '../../helpers/sorting';
 
 import SalesGroup from './SalesGroup';
+import ArrowButton from '../buttons/ArrowButton';
+import TodayButton from '../buttons/TodayButton';
+
+import './sales.css';
+import '../buttons/buttons.css'
 
 export default function AllSalesScreen() {
 	const history = useHistory();
@@ -18,9 +21,8 @@ export default function AllSalesScreen() {
 	const active = useSelector(store => store.active);
 	const { sales } = useSelector(store => store.sales);
 
-	const [ preparedDailySales, setPreparedDailySales ] = useState({});
-
-	const [ date, setDate ] = useState(routeDate);
+	const [ preparedDailySales, setPreparedDailySales ] = useState([]);
+	const [ date, setDate ] = useState('');
 	const [ apiSent, setApiSent ] = useState(false);
 
 	const handleChange = evt => {
@@ -34,6 +36,16 @@ export default function AllSalesScreen() {
 		setDate(value);
 	};
 
+	// set date to today's date on load.
+	useEffect(
+		() => {
+			setDate(routeDate);
+			setApiSent(false);
+		},
+		[ routeDate ]
+	);
+
+	// when date changes, get and store entered sales.
 	useEffect(
 		async () => {
 			if (active && !apiSent && date) {
@@ -53,7 +65,7 @@ export default function AllSalesScreen() {
 	useEffect(
 		() => {
 			if (active && date && sales) {
-				const [ calculatedObject, calculatedArray ] = prepareSavedAndEstimatedSales(
+				const calculatedObject = prepareSavedAndEstimatedSales(
 					sales,
 					date,
 					active.id,
@@ -62,30 +74,49 @@ export default function AllSalesScreen() {
 					active.categories,
 					active.mealPeriod_categories
 				);
-				setPreparedDailySales(calculatedObject);
-				dispatch(storeSalesWithEstimates(calculatedArray));
+				setPreparedDailySales(sortByObjectAttribute('name', calculatedObject));
 			}
 		},
 		[ active, date, sales ]
 	);
 
+	function handlePreviousDay() {
+		let newDate = new Date(date);
+		newDate.setDate(newDate.getDate() - 1);
+		history.push(`/restaurants/${active.id}/sales/date/${newDate.toISOString().slice(0, 10)}`);
+	}
+	function handleToday() {
+		history.push(`/restaurants/${active.id}/sales/date/${new Date().toISOString().slice(0, 10)}`);
+	}
+	function handleNextDay() {
+		let newDate = new Date(date);
+		newDate.setDate(newDate.getDate() + 1);
+		history.push(`/restaurants/${active.id}/sales/date/${newDate.toISOString().slice(0, 10)}`);
+	}
+
 	return (
-		<div>
-			<h1>Daily Sales</h1>
+		<div className="AllSalesScreen">
 			<div>
-				<label htmlFor="date">Date:</label>
-				<input type="date" value={date} name="date" onChange={handleChange} />
+				<h1>Daily Sales</h1>
+				<div>
+					<label htmlFor="date">Date: </label>
+					<input type="date" value={date} name="date" onChange={handleChange} />
+				</div>
+				<div className="buttonGroup">
+					<ArrowButton text="Previous Day" onClick={handlePreviousDay} direction="left" />
+					<TodayButton text="Today" onClick={handleToday} />
+					<ArrowButton text="Next Day" onClick={handleNextDay} direction="right" />
+				</div>
 			</div>
-			<div>
+			<div className="MealPeriodCards">
 				{active &&
-					Object.keys(preparedDailySales).map(mp => {
+					preparedDailySales.map(mp => {
 						return (
 							<SalesGroup
-								key={`${mp}-${date}`}
-								groupArray={preparedDailySales[mp]}
+								key={`${mp.id}-${date}`}
+								groupArray={mp.sales}
 								categories={active.categories}
-								mealPeriodName={getNameFromId(active.mealPeriods, mp)}
-								// categoryName={getNameFromId(active.categories, mp.categoryId)}
+								mealPeriodName={mp.name}
 							/>
 						);
 					})}

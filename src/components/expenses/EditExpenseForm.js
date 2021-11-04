@@ -5,9 +5,21 @@ import useFields from '../../hooks/useFields';
 
 import { updateExpense } from '../../actions/expenses';
 
-import CancelButton from '../buttons/EditButton';
+import CancelButton from '../buttons/CancelButton';
+import SubmitButton from '../buttons/SubmitButton';
 
-export default function EditExpenseForm({ id, categoryId, amount, notes, categories = [], setExpense, setEditing }) {
+import './expenses.css';
+
+export default function EditExpenseForm({
+	id,
+	categoryId,
+	amount,
+	notes,
+	categories = [],
+	setExpense,
+	setEditing,
+	updateInvoiceTotal
+}) {
 	const dispatch = useDispatch();
 
 	const initialState = {
@@ -23,6 +35,7 @@ export default function EditExpenseForm({ id, categoryId, amount, notes, categor
 			const res = await dispatch(updateExpense(id, formData));
 			if (res.status === 200) {
 				setExpense(res.data.expense);
+				updateInvoiceTotal(id, Number(res.data.expense.amount));
 				setEditing(false);
 			}
 			else if (res.status === 400 || res.status === 404 || res.status === 500) {
@@ -42,45 +55,60 @@ export default function EditExpenseForm({ id, categoryId, amount, notes, categor
 	}
 
 	return (
-		<div>
-			<form onSubmit={handleSubmit}>
-				{categories.length > 0 && (
-					<div>
-						<label htmlFor="categoryId">Category:</label>
-						<select
-							type="text"
-							id="categoryId"
-							value={formData.categoryId}
-							name="categoryId"
-							onChange={handleChange}
-						>
-							{categories.map(c => {
-								return (
-									<option key={c.id} value={c.id}>
-										{c.name}
-									</option>
-								);
-							})}
-						</select>
-					</div>
-				)}
-				<div>
-					<label htmlFor="amount">Amount:</label>
+		<div className="EditExpenseForm">
+			<form className="EditExpenseFormContainer" onSubmit={handleSubmit}>
+				<div className="EditExpenseContainer">
+					{categories.length > 0 && (
+						<div className="EditFormText Category">
+							{/* <label htmlFor="categoryId">Category:</label> */}
+							<select
+								type="text"
+								id="categoryId"
+								value={formData.categoryId}
+								name="categoryId"
+								onChange={handleChange}
+							>
+								{categories.map(c => {
+									return (
+										<option key={c.id} value={c.id}>
+											{c.name}
+										</option>
+									);
+								})}
+							</select>
+						</div>
+					)}
+					{/* <div> */}
+					{/* <label htmlFor="amount">Amount:</label> */}
 					<input
+						className="EditFormText Amount"
 						type="number"
+						step=".01"
 						id="amount"
 						value={formData.amount}
 						name="amount"
 						onChange={handleChange}
 						required
 					/>
+					{/* </div> */}
+					{/* <div> */}
+					{/* <label htmlFor="notes">Description:</label> */}
+					<textarea
+						className="EditFormText Notes"
+						type="text"
+						id="notes"
+						rows='2'
+						cols='80'
+						value={formData.notes}
+						name="notes"
+						onChange={handleChange}
+					/>
+					{/* </div> */}
 				</div>
-				<div>
-					<label htmlFor="notes">Description:</label>
-					<input type="text" id="notes" value={formData.notes} name="notes" onChange={handleChange} />
+				<div className="buttonGroup ExpenseButtonGroup">
+					<SubmitButton type="submit" text="Update" />
+					<CancelButton text="Cancel" onClick={handleCancel} />
 				</div>
-				<button type="submit">Update Expense</button>
-				<CancelButton text="Don't Update" onClick={handleCancel} />
 			</form>
 		</div>
 	);

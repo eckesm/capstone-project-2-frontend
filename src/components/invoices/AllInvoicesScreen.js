@@ -10,7 +10,7 @@ import { sortByItem } from '../../helpers/sorting';
 import AllInvoices from './AllInvoices';
 import AddButton from '../buttons/AddButton';
 
-import './AllInvoicesScreen.css';
+import './invoices.css';
 
 export default function AllInvoicesScreen() {
 	const history = useHistory();
