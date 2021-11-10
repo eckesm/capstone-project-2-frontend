@@ -7,24 +7,30 @@ import AllMealPeriods from './AllMealPeriods';
 import AddButton from '../buttons/AddButton';
 import GoButton from '../buttons/GoButton';
 
+import '../screen.css';
+
 export default function AllMealPeriodsScreen() {
 	const history = useHistory();
 	const active = useSelector(store => store.active);
 
 	return (
-		<div>
-			<div>
-				<h1>Meal Periods</h1>
-				{active &&
-				active.isAdmin && (
-					<AddButton
-						text="Add Meal Period"
-						onClick={() => history.push(`/restaurants/${active.id}/meal-periods/new`)}
-					/>
-				)}
-				<GoButton text="Restaurant" onClick={() => history.push(`/restaurants/${active.id}`)} />
+		<div className="Window">
+			<div className="Screen">
+				<p className="ScreenTitle">Meal Periods</p>
+				<div className="HeadingContainer">
+					<div className="ButtonGroup">
+						{active &&
+						active.isAdmin && (
+							<AddButton
+								text="Add Meal Period"
+								onClick={() => history.push(`/restaurants/${active.id}/meal-periods/new`)}
+							/>
+						)}
+						{/* <GoButton text="Restaurant" onClick={() => history.push(`/restaurants/${active.id}`)} /> */}
+					</div>
+				</div>
+				{active && <AllMealPeriods mealPeriods={active.mealPeriods} />}
 			</div>
-			{active && <AllMealPeriods mealPeriods={active.mealPeriods} />}
 		</div>
 	);
 }

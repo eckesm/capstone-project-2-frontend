@@ -59,8 +59,8 @@ export default function SalesGroup({ groupArray = [], categories = [], mealPerio
 	);
 
 	return (
-		<div className="SalesGroup">
-			<h3>{mealPeriodName}</h3>
+		<div className="SalesGroup Card">
+			<p className='SectionTitle2'>{mealPeriodName}</p>
 			{groupArray.map((ds, idx) => {
 				return (
 					<SalesInputForm

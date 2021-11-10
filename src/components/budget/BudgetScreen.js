@@ -132,204 +132,217 @@ export default function BudgetScreen() {
 	}
 
 	return (
-		<div className="BudgetScreen">
-			<div>
-				<p className="PageTitle">Budget Performance</p>
-				<div>
-					<label htmlFor="date">Date: </label>
-					<input type="date" value={date} name="date" onChange={handleChange} required />
-				</div>
-				<div className="buttonGroup">
-					<ArrowButton text="Previous Day" onClick={handlePreviousDay} direction="left" />
-					<TodayButton text="Today" onClick={handleToday} />
-					<ArrowButton text="Next Day" onClick={handleNextDay} direction="right" />
-				</div>
-			</div>
-			{active &&
-			budgetFigures && (
-				<div className="BudgetPerformanceCard">
-					<p className="SectionTitle">Remaining Budget</p>
-					<ul>
-						{active.categories.map(c => {
-							let remainingBudget = budgetFigures[c.id].remainingBudget;
-							let totalBudget = budgetFigures[c.id].totalBudget;
-							let status = remainingBudget < 0 ? 'negative' : 'positive';
-							return (
-								<li key={c.id}>
-									<span className="CategoryName">{c.name}</span>:{' '}
-									<span className={status}>{remainingBudget.toLocaleString('en-US')} </span>
-									{status === 'negative' && (
-										<span className="warning">
-											spending is {-Math.round(remainingBudget / totalBudget * 100)}% over budget!
-										</span>
-									)}
-								</li>
-							);
-						})}
-					</ul>
-					<div className="Notes">
-						<p>Weekly budgets start on Monday and end on Sunday.</p>
-						<p>
-							The remaining budget is the difference between the Total Budget and the Weekly Spending
-							(based on entered invoices) for a given category.
-						</p>
+		<div className="Window">
+			<div className="BudgetScreen Screen">
+				<p className="ScreenTitle">Budget Performance</p>
+				<div className="HeadingContainer">
+					<div className="InputGroup">
+						<label htmlFor="date">Date: </label>
+						<input
+							className="Centered"
+							type="date"
+							value={date}
+							name="date"
+							onChange={handleChange}
+							required
+						/>
+					</div>
+					<div className="ButtonGroup">
+						<ArrowButton text="Previous Day" onClick={handlePreviousDay} direction="left" />
+						<TodayButton text="Today" onClick={handleToday} />
+						<ArrowButton text="Next Day" onClick={handleNextDay} direction="right" />
 					</div>
 				</div>
-			)}
-			<div className="PerformanceCards">
 				{active &&
 				budgetFigures && (
-					<div className="PerformanceCard">
-						<p className="SectionTitle">Sales To Date</p>
+					<div className="BudgetPerformanceCard">
+						<p className="SectionTitle1">Remaining Budget</p>
 						<ul>
 							{active.categories.map(c => {
+								let remainingBudget = budgetFigures[c.id].remainingBudget;
+								let totalBudget = budgetFigures[c.id].totalBudget;
+								let status = remainingBudget < 0 ? 'Negative' : 'positive';
 								return (
 									<li key={c.id}>
 										<span className="CategoryName">{c.name}</span>:{' '}
-										{budgetFigures[c.id].toDate.toLocaleString('en-US')}
+										<span className={status}>{remainingBudget.toLocaleString('en-US')} </span>
+										{status === 'Negative' && (
+											<span className="Warning">
+												spending is {-Math.round(remainingBudget / totalBudget * 100)}% over
+												budget!
+											</span>
+										)}
 									</li>
 								);
 							})}
 						</ul>
 						<div className="Notes">
+							<p>Weekly budgets start on Monday and end on Sunday.</p>
 							<p>
-								<Link to={`/restaurants/${active.id}/sales`}>Today's sales</Link> are based on expected
-								daily sales until actuals are entered.
-							</p>
-							<p>
-								{' '}
-								Sales for previous days are based on actuals ($0 for any category with no actual entry).
-							</p>
-							<p>
-								Sales for future days are based on expected sales regardless of whether actuals have
-								been entered (this enables a user to see what budgets looked like in the past based on
-								past expectations).
+								The remaining budget is the difference between the Total Budget and the Weekly Spending
+								(based on entered invoices) for a given category.
 							</p>
 						</div>
 					</div>
 				)}
-				{active &&
-				budgetFigures && (
-					<div className="PerformanceCard">
-						<p className="SectionTitle">Expected Remaining Sales</p>
+				<div className="CardsContainer">
+					{active &&
+					budgetFigures && (
+						<div className="PerformanceCard Card">
+							<p className="SectionTitle1">Sales To Date</p>
+							<ul>
+								{active.categories.map(c => {
+									return (
+										<li key={c.id}>
+											<span className="CategoryName">{c.name}</span>:{' '}
+											{budgetFigures[c.id].toDate.toLocaleString('en-US')}
+										</li>
+									);
+								})}
+							</ul>
+							<div className="Notes">
+								<p>
+									<Link to={`/restaurants/${active.id}/sales`}>Today's sales</Link> are based on
+									expected daily sales until actuals are entered.
+								</p>
+								<p>
+									{' '}
+									Sales for previous days are based on actuals ($0 for any category with no actual
+									entry).
+								</p>
+								<p>
+									Sales for future days are based on expected sales regardless of whether actuals have
+									been entered (this enables a user to see what budgets looked like in the past based
+									on past expectations).
+								</p>
+							</div>
+						</div>
+					)}
+					{active &&
+					budgetFigures && (
+						<div className="PerformanceCard Card">
+							<p className="SectionTitle1">Expected Remaining Sales</p>
 
-						<ul>
-							{active.categories.map(c => {
-								return (
-									<li key={c.id}>
-										<span className="CategoryName">{c.name}</span>:{' '}
-										{budgetFigures[c.id].expectedRemaining.toLocaleString('en-US')}
-									</li>
-								);
-							})}
-						</ul>
-						<div className="Notes">
-							<p>
-								Expected remaining sales do not include today's expected sales; today's expected sales
-								are included in Sales to Date unless they are replaced by actuals.
-							</p>
-							<p>
-								{' '}
-								Update <Link to={`/restaurants/${active.id}/default-sales`}>default sales</Link>{' '}
-								settings to change the default expected sales for each meal period by day. Overwrite
-								default sales on a given day on the{' '}
-								<Link to={`/restaurants/${active.id}/sales`}>daily sales</Link> screen.
-							</p>
-							<p>
-								{' '}
-								Update <Link to={`/restaurants/${active.id}/sales-percentages`}>
-									sales percentage
-								</Link>{' '}
-								settings to change how sales are distributed between categories by meal period.
-							</p>
+							<ul>
+								{active.categories.map(c => {
+									return (
+										<li key={c.id}>
+											<span className="CategoryName">{c.name}</span>:{' '}
+											{budgetFigures[c.id].expectedRemaining.toLocaleString('en-US')}
+										</li>
+									);
+								})}
+							</ul>
+							<div className="Notes">
+								<p>
+									Expected remaining sales do not include today's expected sales; today's expected
+									sales are included in Sales to Date unless they are replaced by actuals.
+								</p>
+								<p>
+									{' '}
+									Update <Link to={`/restaurants/${active.id}/default-sales`}>
+										default sales
+									</Link>{' '}
+									settings to change the default expected sales for each meal period by day. Overwrite
+									default sales on a given day on the{' '}
+									<Link to={`/restaurants/${active.id}/sales`}>daily sales</Link> screen.
+								</p>
+								<p>
+									{' '}
+									Update{' '}
+									<Link to={`/restaurants/${active.id}/sales-percentages`}>
+										sales percentage
+									</Link>{' '}
+									settings to change how sales are distributed between categories by meal period.
+								</p>
+							</div>
 						</div>
-					</div>
-				)}
-				{active &&
-				budgetFigures && (
-					<div className="PerformanceCard">
-						<p className="SectionTitle">Total Expected Weekly Sales</p>
-						<ul>
-							{active.categories.map(c => {
-								return (
-									<li key={c.id}>
-										<span className="CategoryName">{c.name}</span>:{' '}
-										{budgetFigures[c.id].totalExpectedWeekly.toLocaleString('en-US')}
-									</li>
-								);
-							})}
-						</ul>
-					</div>
-				)}
-				{active &&
-				budgetFigures && (
-					<div className="PerformanceCard">
-						<p className="SectionTitle">COGS %</p>
-						<ul>
-							{active.categories.map(c => {
-								return (
-									<li key={c.id}>
-										<Link to={`/restaurants/${active.id}/categories/${c.id}`}>
-											<span className="CategoryName">{c.name}</span>
-										</Link>: {(budgetFigures[c.id].cogsPercent * 100).toFixed(2)}%
-									</li>
-								);
-							})}
-						</ul>
-						<div className="Notes">
-							<p>
-								Update COGS percentage settings to change the amount of expense bugeted for each sales
-								category.
-							</p>
+					)}
+					{active &&
+					budgetFigures && (
+						<div className="PerformanceCard Card">
+							<p className="SectionTitle1">Total Expected Weekly Sales</p>
+							<ul>
+								{active.categories.map(c => {
+									return (
+										<li key={c.id}>
+											<span className="CategoryName">{c.name}</span>:{' '}
+											{budgetFigures[c.id].totalExpectedWeekly.toLocaleString('en-US')}
+										</li>
+									);
+								})}
+							</ul>
 						</div>
-					</div>
-				)}
-				{active &&
-				budgetFigures && (
-					<div className="PerformanceCard">
-						<p className="SectionTitle">Total Budget</p>
-						<ul>
-							{active.categories.map(c => {
-								return (
-									<li key={c.id}>
-										<span className="CategoryName">{c.name}</span>:{' '}
-										{budgetFigures[c.id].totalBudget.toLocaleString('en-US')}
-									</li>
-								);
-							})}
-						</ul>
-						<div className="Notes">
-							<p>
-								The total budget is the product of the Total Expected Weekly Sales and the budgeted COGS
-								percentage for a given category.
-							</p>
+					)}
+					{active &&
+					budgetFigures && (
+						<div className="PerformanceCard Card">
+							<p className="SectionTitle1">COGS %</p>
+							<ul>
+								{active.categories.map(c => {
+									return (
+										<li key={c.id}>
+											<Link to={`/restaurants/${active.id}/categories/${c.id}`}>
+												<span className="CategoryName">{c.name}</span>
+											</Link>: {(budgetFigures[c.id].cogsPercent * 100).toFixed(2)}%
+										</li>
+									);
+								})}
+							</ul>
+							<div className="Notes">
+								<p>
+									Update COGS percentage settings to change the amount of expense bugeted for each
+									sales category.
+								</p>
+							</div>
 						</div>
-					</div>
-				)}
-				{active &&
-				budgetFigures && (
-					<div className="PerformanceCard">
-						<p className="SectionTitle">Weekly Spending</p>
-						<ul>
-							{active.categories.map(c => {
-								return (
-									<li key={c.id}>
-										<span className="CategoryName">{c.name}</span>:{' '}
-										{budgetFigures[c.id].weeklySpending.toLocaleString('en-US')}
-									</li>
-								);
-							})}
-						</ul>
-						<div className="Notes">
-							<p>
-								Add, update, or delete <Link to={`/restaurants/${active.id}/invoices`}>
-									invoices
-								</Link>{' '}
-								to adjust spending for the week.
-							</p>
+					)}
+					{active &&
+					budgetFigures && (
+						<div className="PerformanceCard Card">
+							<p className="SectionTitle1">Total Budget</p>
+							<ul>
+								{active.categories.map(c => {
+									return (
+										<li key={c.id}>
+											<span className="CategoryName">{c.name}</span>:{' '}
+											{budgetFigures[c.id].totalBudget.toLocaleString('en-US')}
+										</li>
+									);
+								})}
+							</ul>
+							<div className="Notes">
+								<p>
+									The total budget is the product of the Total Expected Weekly Sales and the budgeted
+									COGS percentage for a given category.
+								</p>
+							</div>
 						</div>
-					</div>
-				)}
+					)}
+					{active &&
+					budgetFigures && (
+						<div className="PerformanceCard Card">
+							<p className="SectionTitle1">Weekly Spending</p>
+							<ul>
+								{active.categories.map(c => {
+									return (
+										<li key={c.id}>
+											<span className="CategoryName">{c.name}</span>:{' '}
+											{budgetFigures[c.id].weeklySpending.toLocaleString('en-US')}
+										</li>
+									);
+								})}
+							</ul>
+							<div className="Notes">
+								<p>
+									Add, update, or delete{' '}
+									<Link to={`/restaurants/${active.id}/invoices`}>invoices</Link> to adjust spending
+									for the week.
+								</p>
+							</div>
+						</div>
+					)}
+				</div>
 			</div>
 		</div>
 	);

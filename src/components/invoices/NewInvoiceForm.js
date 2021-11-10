@@ -6,6 +6,8 @@ import useFields from '../../hooks/useFields';
 
 import { registerInvoice } from '../../actions/invoices';
 
+import './invoices.css';
+
 export default function NewInvoiceForm() {
 	const dispatch = useDispatch();
 	const history = useHistory();
@@ -39,8 +41,8 @@ export default function NewInvoiceForm() {
 	}
 
 	return (
-		<form onSubmit={handleSubmit}>
-			<div>
+		<form className="NewInvoiceForm" onSubmit={handleSubmit}>
+			<div className="InputGroup">
 				<label htmlFor="invoice">Invoice Number:</label>
 				<input
 					type="text"
@@ -51,17 +53,33 @@ export default function NewInvoiceForm() {
 					required
 				/>
 			</div>
-			<div>
+			<div className="InputGroup">
 				<label htmlFor="date">Date:</label>
-				<input type="date" id="date" value={formData.date} name="date" onChange={handleChange} required />
+				<input className='Date' type="date" id="date" value={formData.date} name="date" onChange={handleChange} required />
 			</div>
-			<div>
+			<div className="InputGroup">
 				<label htmlFor="vendor">Vendor:</label>
-				<input type="text" id="vendor" value={formData.vendor} name="vendor" onChange={handleChange} required />
+				<input
+					className="Vendor"
+					type="text"
+					id="vendor"
+					value={formData.vendor}
+					name="vendor"
+					onChange={handleChange}
+					required
+				/>
 			</div>
-			<div>
+			<div className="InputGroup">
 				<label htmlFor="notes">Notes:</label>
-				<input type="text" id="notes" value={formData.notes} name="notes" onChange={handleChange} />
+				<textarea
+					type="text"
+					id="notes"
+					value={formData.notes}
+					name="notes"
+					onChange={handleChange}
+					rows="5"
+					cols="50"
+				/>
 			</div>
 			<button type="submit">Add Invoice</button>
 		</form>

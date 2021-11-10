@@ -6,6 +6,7 @@ import useFields from '../../hooks/useFields';
 import { updateInvoice } from '../../actions/invoices';
 
 import CancelButton from '../buttons/EditButton';
+import SubmitButton from '../buttons/SubmitButton';
 
 export default function EditInvoiceForm({
 	id,
@@ -54,39 +55,48 @@ export default function EditInvoiceForm({
 	}
 
 	return (
-		<div>
+		<div className="EditInvoiceForm">
 			<form onSubmit={handleSubmit}>
-				<div>
-					<label htmlFor="invoice">Invoice Number:</label>
-					<input
-						type="text"
-						id="invoice"
-						value={formData.invoice}
-						name="invoice"
-						onChange={handleChange}
-						required
-					/>
+				<div className="HeadingContainer">
+					<div className="InputGroup">
+						<label htmlFor="invoice">Invoice Number:</label>
+						<input
+							type="text"
+							id="invoice"
+							value={formData.invoice}
+							name="invoice"
+							onChange={handleChange}
+							required
+						/>
+					</div>
+					<div className="InputGroup">
+						<label htmlFor="date">Date:</label>
+						<input
+							type="date"
+							id="date"
+							value={formData.date}
+							name="date"
+							onChange={handleChange}
+							required
+						/>
+					</div>
+					<div className="InputGroup">
+						<label htmlFor="vendor">Vendor:</label>
+						<input
+							type="text"
+							id="vendor"
+							value={formData.vendor}
+							name="vendor"
+							onChange={handleChange}
+							required
+						/>
+					</div>
+					<div className="InputGroup">
+						<label htmlFor="notes">Notes:</label>
+						<input type="text" id="notes" value={formData.notes} name="notes" onChange={handleChange} />
+					</div>
 				</div>
-				<div>
-					<label htmlFor="date">Date:</label>
-					<input type="date" id="date" value={formData.date} name="date" onChange={handleChange} required />
-				</div>
-				<div>
-					<label htmlFor="vendor">Vendor:</label>
-					<input
-						type="text"
-						id="vendor"
-						value={formData.vendor}
-						name="vendor"
-						onChange={handleChange}
-						required
-					/>
-				</div>
-				<div>
-					<label htmlFor="notes">Notes:</label>
-					<input type="text" id="notes" value={formData.notes} name="notes" onChange={handleChange} />
-				</div>
-				<button type="submit">Update Invoice</button>
+				<SubmitButton text="Update Invoice" />
 				<CancelButton text="Don't Update" onClick={handleCancel} />
 			</form>
 		</div>

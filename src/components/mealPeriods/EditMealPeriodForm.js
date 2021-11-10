@@ -6,6 +6,9 @@ import useFields from '../../hooks/useFields';
 import { updateMealPeriod } from '../../actions/mealPeriods';
 
 import CancelButton from '../buttons/EditButton';
+import SubmitButton from '../buttons/SubmitButton';
+
+import '../screen.css';
 
 export default function EditMealPeriodForm({ id, name, notes, setMealPeriod, setEditing }) {
 	const dispatch = useDispatch();
@@ -35,18 +38,28 @@ export default function EditMealPeriodForm({ id, name, notes, setMealPeriod, set
 	}
 
 	return (
-		<div>
+		<div className="EditMealPeriodForm HeadingContainer">
 			<form onSubmit={handleSubmit}>
-				<div>
+				<div className="InputGroup">
 					<label htmlFor="name">Name:</label>
 					<input type="text" id="name" value={formData.name} name="name" onChange={handleChange} required />
 				</div>
-				<div>
+				<div className="InputGroup">
 					<label htmlFor="notes">Notes:</label>
-					<input type="text" id="notes" value={formData.notes} name="notes" onChange={handleChange} />
+					<textarea
+						type="text"
+						rows="5"
+						cols="50"
+						id="notes"
+						value={formData.notes}
+						name="notes"
+						onChange={handleChange}
+					/>
 				</div>
-				<button type="submit">Update Meal Period</button>
-				<CancelButton text="Don't Update" onClick={handleCancel} />
+				<div className="ButtonGroup">
+					<SubmitButton text="Update Meal Period" />
+					<CancelButton text="Don't Update" onClick={handleCancel} />
+				</div>
 			</form>
 		</div>
 	);

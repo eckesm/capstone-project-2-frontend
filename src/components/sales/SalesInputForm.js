@@ -4,7 +4,10 @@ import { useDispatch } from 'react-redux';
 import { registerSale, updateSale, deleteSale } from '../../actions/sales';
 import { registerMealPeriodCat } from '../../actions/mealPeriodCats';
 
+import SubmitButton from '../buttons/SubmitButton';
+
 import './sales.css';
+import '../screen.css';
 
 export default function SalesInputForm({
 	index,
@@ -31,8 +34,8 @@ export default function SalesInputForm({
 	} = dailySale;
 
 	const initialState = {
-		expectedSales : expectedSales === null ? 0 : Math.floor(expectedSales * 100) / 100,
-		actualSales   : actualSales === null ? '' : Math.floor(actualSales * 100) / 100,
+		expectedSales : expectedSales === null ? 0 : Math.round(expectedSales * 100) / 100,
+		actualSales   : actualSales === null ? '' : Math.round(actualSales * 100) / 100,
 		notes         : notes === null ? `${dayName} ${mealPeriodName} ${categoryName} sales.` : notes
 	};
 	const [ formData, setFormData ] = useState(initialState);
@@ -124,6 +127,7 @@ export default function SalesInputForm({
 				<div className="SaleInput Expected">
 					<label htmlFor="expectedSales">Expected:</label>{' '}
 					<input
+						className="Hover"
 						type="number"
 						min="0"
 						step=".01"
@@ -136,7 +140,7 @@ export default function SalesInputForm({
 				<div className="SaleInput Actual">
 					<label htmlFor="actualSales">Actual:</label>{' '}
 					<input
-						className={actualSaved ? 'Saved' : 'Unsaved'}
+						className={actualSaved ? 'Hover Saved' : 'Hover Unsaved'}
 						type="number"
 						min="0"
 						step=".01"
@@ -146,7 +150,7 @@ export default function SalesInputForm({
 						onChange={handleChange}
 					/>
 				</div>
-				<div className="SaveButtonDiv">{hasChanged && <button type="submit">Save</button>}</div>
+				<div className="SaveButtonDiv">{hasChanged && <SubmitButton text="Save" />}</div>
 			</form>
 		</div>
 	);

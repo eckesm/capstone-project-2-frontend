@@ -4,6 +4,7 @@ import {
 	ADD_DEFAULT_SALE,
 	ADD_MEAL_PERIOD,
 	ADD_MEAL_PERIOD_CATEGORY,
+	ADD_USER_TO_RESTAURANT,
 	DELETE_CATEGORY,
 	DELETE_CATEGORY_GROUP,
 	DELETE_DEFAULT_SALE,
@@ -74,6 +75,12 @@ export default function active(state = INITIAL_STATE, action) {
 			return {
 				...state,
 				mealPeriod_categories : [ ...state.mealPeriod_categories, action.mealPeriodCat ]
+			};
+
+		case ADD_USER_TO_RESTAURANT:
+			return {
+				...state,
+				users : [ ...state.users, action.user ]
 			};
 
 		case DELETE_CATEGORY:

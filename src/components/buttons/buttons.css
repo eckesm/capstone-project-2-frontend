@@ -1,14 +1,12 @@
-.buttonGroup .customButton {
+.ButtonGroup .customButton {
 	margin: 5px 3px;
 }
 
 .customButton {
 	background-color: rgb(39, 39, 179);
 	color: whitesmoke;
-    /* font-size: 1.02rem; */
     padding: 4px;
 }
 .customButton:hover {
-	/* background-color: rgb(118, 81, 177); */
 	color: gold;
 }

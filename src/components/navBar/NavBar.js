@@ -22,11 +22,17 @@ export default function NavBar({ logout }) {
 	};
 
 	const adminLinksArray = () => {
-		return [ { title: 'Edit Restaurant', ref: `/restaurants/${active.id}/edit` } ];
+		return [
+			{ title: 'Edit Restaurant', ref: `/restaurants/${active.id}/edit` },
+			{ title: 'Restaurant Users', ref: `/restaurants/${active.id}/users` }
+		];
 	};
 
 	const ownerLinksArray = () => {
-		return [ { title: 'Edit Restaurant', ref: `/restaurants/${active.id}/edit` } ];
+		return [
+			{ title: 'Edit Restaurant', ref: `/restaurants/${active.id}/edit` },
+			{ title: 'Restaurant Users', ref: `/restaurants/${active.id}/users` }
+		];
 	};
 
 	const invoicesLinksArray = () => {
@@ -61,13 +67,7 @@ export default function NavBar({ logout }) {
 						<NavLink to={`/restaurants/${active.id}/sales`}>Daily Sales</NavLink>
 					</li>
 				)}
-				{invoices &&
-				active && (
-					<NavBarDropdown title="Invoices" linksArray={invoicesLinksArray()} />
-					// <li>
-					// 	<NavLink to={`/restaurants/${active.id}/invoices`}>Invoices</NavLink>
-					// </li>
-				)}
+				{invoices && active && <NavBarDropdown title="Invoices" linksArray={invoicesLinksArray()} />}
 				{active && (
 					<li>
 						<NavLink to={`/restaurants/${active.id}/budget`}>Budget</NavLink>

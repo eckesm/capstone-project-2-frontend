@@ -1,32 +1,30 @@
-.PageTitle {
-	font-size: 1.25rem;
-	margin: 5px 0px;
-	font-weight: bold;
+/* .RestaurantDetail {
+	margin: 25px auto;
+} */
+
+.RestaurantDetail .ActionButtonsGroup button {
+	width: 250px;
+	margin: 5px auto;
+	font-size: large;
+	display: block;
 }
 
-.SectionTitle {
-    font-size: 1.05rem;
-	margin: 0px;
-	margin-top: 10px;
-	text-decoration: underline;
+.RestaurantDetail {
+	margin-top: 25px;
 }
 
-.Notes {
-    font-size: 0.9rem;
-	margin: 0px;
-	font-style: italic;
-}
-
-.RestaurantDetail{
-    width:fit-content;
-    border: solid 1px black;
-    margin: 25px auto;
+.FullFormContainer {
+	border: 1px solid black;
+	background-color: white;
+	margin: 25px;
 	padding: 25px;
+	padding-top: 15px;
 }
 
-.RestaurantDetail ul {
-	list-style-type: none;
-	margin: 0;
-	padding: 0;
-	text-align: left;
+.RestaurantDetail .InputGroup label {
+	min-width: 150px;
+}
+
+.EditRestaurantForm .InputGroup label {
+	min-width: 150px;
 }

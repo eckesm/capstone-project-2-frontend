@@ -2,6 +2,7 @@ import { makeDeleteRequest, makeGetRequest, makePostRequest, makePutRequest } fr
 
 import {
 	ADD_NEW_RESTAURANT,
+	ADD_USER_TO_RESTAURANT,
 	DELETE_RESTAURANT,
 	REMOVE_ACTIVE,
 	STORE_ACTIVE_RESTAURANT,
@@ -39,6 +40,24 @@ export function registerRestaurant(data) {
 			return res;
 		} catch (err) {
 			console.log('registerRestaurant() error:', err);
+		}
+	};
+}
+
+export function addUserToRestaurant(restaurantId, user, data) {
+	return async function(dispatch) {
+		try {
+			const res = await makePostRequest(`restaurants/${restaurantId}/users/${user.id}`, data);
+			if (res.status === 201) {
+				user.isAdmin = data.isAdmin;
+				await dispatch({
+					type : ADD_USER_TO_RESTAURANT,
+					user
+				});
+			}
+			return res;
+		} catch (err) {
+			console.log('addUserToRestaurant() error:', err);
 		}
 	};
 }

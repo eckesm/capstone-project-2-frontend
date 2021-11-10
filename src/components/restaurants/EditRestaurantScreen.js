@@ -16,7 +16,7 @@ export default function EditRestaurantScreen() {
 
 	const restaurantId = Number(useParams().restaurantId);
 	const active = useSelector(store => store.active);
-	const {user} = useSelector(store => store.auth);
+	const { user } = useSelector(store => store.auth);
 
 	const [ restaurant, setRestaurant ] = useState(null);
 
@@ -39,23 +39,26 @@ export default function EditRestaurantScreen() {
 	}
 
 	return (
-		<div className="RestaurantDetail">
-			{restaurant && (
-				<div>
-					<p className="PageTitle">{restaurant.name}</p>
-					<p className="SectionTitle">Edit Restaurant</p>
-					<EditRestaurantForm
-						id={restaurant.id}
-						name={restaurant.name}
-						address={restaurant.address}
-						phone={restaurant.phone}
-						email={restaurant.email}
-						website={restaurant.website}
-						notes={restaurant.notes}
-					/>
-				</div>
-			)}
-			{active && user && active.ownerId === user.userId && <DeleteButton text="Delete Restaurant" onClick={handleDelete} />}
+		<div className="Window">
+			<div className="EditRestaurantScreen Screen">
+				<p className="ScreenTitle">Edit Restaurant</p>
+				{restaurant && (
+					<div className="FullFormContainer">
+						<EditRestaurantForm
+							id={restaurant.id}
+							name={restaurant.name}
+							address={restaurant.address}
+							phone={restaurant.phone}
+							email={restaurant.email}
+							website={restaurant.website}
+							notes={restaurant.notes}
+						/>
+					</div>
+				)}
+				{active &&
+				user &&
+				active.ownerId === user.userId && <DeleteButton text="Delete Restaurant" onClick={handleDelete} />}
+			</div>
 		</div>
 	);
 }

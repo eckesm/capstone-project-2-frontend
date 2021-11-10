@@ -9,12 +9,14 @@ import ProtectedRouteAdmin from './ProtectedRouteAdmin';
 
 import RegisterUserForm from '../users/RegisterUserForm';
 
-import RestaurantDetail from '../restaurants/RestaurantDetail';
+import RestaurantDetailScreen from '../restaurants/RestaurantDetailScreen';
 import AllRestaurantsScreen from '../restaurants/AllRestaurantsScreen';
 import NewRestaurantForm from '../restaurants/NewRestaurantForm';
 import EditRestaurantScreen from '../restaurants/EditRestaurantScreen';
+import RestaurantUsersScreen from '../restaurants/RestaurantUsersScreen';
+import AddUserToRestaurantScreen from '../restaurants/AddUserToRestaurantScreen';
 
-import MealPeriodDetail from '../mealPeriods/MealPeriodDetail';
+import MealPeriodDetailScreen from '../mealPeriods/MealPeriodDetailScreen';
 import AllMealPeriodsScreen from '../mealPeriods/AllMealPeriodsScreen';
 import NewMealPeriodForm from '../mealPeriods/NewMealPeriodForm';
 
@@ -32,9 +34,9 @@ import AllMealPeriodCatsScreen from '../mealPeriodCats/AllMealPeriodCatsScreen';
 
 import AllSalesScreen from '../sales/AllSalesScreen';
 
-import InvoiceDetail from '../invoices/InvoiceDetail';
+import InvoiceDetailScreen from '../invoices/InvoiceDetailScreen';
 import AllInvoicesScreen from '../invoices/AllInvoicesScreen';
-import NewInvoiceForm from '../invoices/NewInvoiceForm';
+import NewInvoiceScreen from '../invoices/NewInvoiceScreen';
 
 import BudgetScreen from '../budget/BudgetScreen';
 
@@ -54,8 +56,14 @@ export default function Routes() {
 
 			<ProtectedRoute component={AllRestaurantsScreen} exact path="/restaurants" />
 			<ProtectedRoute component={NewRestaurantForm} exact path="/restaurants/new" />
-			<ProtectedRouteUser component={RestaurantDetail} exact path="/restaurants/:restaurantId" />
+			<ProtectedRouteUser component={RestaurantDetailScreen} exact path="/restaurants/:restaurantId" />
 			<ProtectedRouteAdmin component={EditRestaurantScreen} exact path="/restaurants/:restaurantId/edit" />
+			<ProtectedRouteUser component={RestaurantUsersScreen} exact path="/restaurants/:restaurantId/users" />
+			<ProtectedRouteAdmin
+				component={AddUserToRestaurantScreen}
+				exact
+				path="/restaurants/:restaurantId/users/add"
+			/>
 
 			<ProtectedRouteUser component={AllMealPeriodsScreen} exact path="/restaurants/:restaurantId/meal-periods" />
 			<ProtectedRouteUser
@@ -64,7 +72,7 @@ export default function Routes() {
 				path="/restaurants/:restaurantId/meal-periods/new"
 			/>
 			<ProtectedRouteUser
-				component={MealPeriodDetail}
+				component={MealPeriodDetailScreen}
 				exact
 				path="/restaurants/:restaurantId/meal-periods/:mealPeriodId"
 			/>
@@ -109,8 +117,8 @@ export default function Routes() {
 			<ProtectedRouteUser component={AllSalesScreen} exact path="/restaurants/:restaurantId/sales/date/:date" />
 
 			<ProtectedRouteUser component={AllInvoicesScreen} exact path="/restaurants/:restaurantId/invoices" />
-			<ProtectedRouteUser component={NewInvoiceForm} exact path="/restaurants/:restaurantId/invoices/new" />
-			<ProtectedRouteUser component={InvoiceDetail} exact path="/restaurants/:restaurantId/invoices/:invoiceId" />
+			<ProtectedRouteUser component={NewInvoiceScreen} exact path="/restaurants/:restaurantId/invoices/new" />
+			<ProtectedRouteUser component={InvoiceDetailScreen} exact path="/restaurants/:restaurantId/invoices/:invoiceId" />
 
 			<ProtectedRouteUser component={BudgetScreen} exact path="/restaurants/:restaurantId/budget" />
 			<ProtectedRouteUser component={BudgetScreen} exact path="/restaurants/:restaurantId/budget/date/:date" />

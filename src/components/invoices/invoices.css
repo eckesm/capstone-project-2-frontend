@@ -1,4 +1,5 @@
 .AllInvoices {
+	display: flex;
 	overflow: auto;
 }
 
@@ -6,46 +7,33 @@
 	text-align: center;
 }
 
-.CardTitle {
-	font-size: 1.25rem;
-	margin: 5px 0px;
-	font-weight: bold;
+.AllInvoicesForm input {
+	float: left;
 }
 
-.SectionTitle {
-    font-size: 1.05rem;
-	margin: 0px;
+.InvoiceCard .HeadingContainer {
+	margin-left: 0px;
+}
+
+.InvoiceCard .InputGroup label {
+	min-width: 60px;
+}
+
+.InvoiceCard .InputGroup .Notes {
+	margin-left: 5px;
+}
+
+.NewInvoiceForm {
 	margin-top: 10px;
-	text-decoration: underline;
 }
 
-.Notes {
-    font-size: 0.9rem;
-	margin: 0px;
-	font-style: italic;
+.AllInvoicesForm .InputGroup .Vendor {
+	width: 250px;
 }
 
 .InvoiceCard {
-	border: solid 1px black;
-	width: 250px;
+	width: 350px;
+	min-width: unset;
 	height: 200px;
-	margin: 5px;
-	padding: 10px;
-	float: left;
-	overflow-y: auto;
-}
-
-.InvoiceCard:hover {
-	background-color: rgb(225, 250, 255);
-}
-
-.InvoiceCard h2 {
-	color: darkcyan;
-}
-
-.InvoiceCard ul {
-	list-style-type: none;
-	margin: 0;
-	padding: 0;
-	text-align: left;
+	/* float: left; */
 }

@@ -12,13 +12,12 @@ export default function NavBarDropdown({
 	return (
 		<div className="dropdown">
 			<button className="dropbtn">
-				{title}
-				{/* <i className="fa fa-caret-down" /> */}
+				{title} <i className="fa fa-caret-down" />
 			</button>
 			<div className="dropdown-content">
 				{linksArray.map((link, i) => {
 					return (
-						<NavLink key={i} exact to={link.ref}>
+						<NavLink key={i} to={link.ref}>
 							{link.title}
 						</NavLink>
 					);

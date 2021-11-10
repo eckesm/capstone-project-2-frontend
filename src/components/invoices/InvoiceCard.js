@@ -5,6 +5,7 @@ import { useHistory } from 'react-router';
 import { getNameFromId } from '../../helpers/filterArrays';
 import { sortByNameFromTag } from '../../helpers/sorting';
 
+import '../screen.css';
 import './invoices.css';
 
 export default function InvoiceCard({
@@ -26,7 +27,7 @@ export default function InvoiceCard({
 		for (let i = 0; i < expenses.length; i++) {
 			total += Number(expenses[i].amount);
 		}
-		return (Math.round(total * 100) / 100).toFixed(2);
+		return Math.round(total * 100) / 100;
 	}
 
 	function handleClick() {
@@ -38,38 +39,44 @@ export default function InvoiceCard({
 	}, []);
 
 	return (
-		<div className="InvoiceCard" onClick={handleClick}>
-			<p className="CardTitle">{invoice}</p>
-			<ul>
-				<li>
-					<b>Vendor</b>: {vendor}
-				</li>
-				<li>
-					<b>Date</b>: {date}
-				</li>
-				<li>
-					<b>Total</b>: ${getTotal()}
-				</li>
-			</ul>
+		<div className="InvoiceCard Card Hover" onClick={handleClick}>
+			<p className="SectionTitle2">{invoice}</p>
+			<div className="HeadingContainer">
+				<ul className="IgnoreList">
+					<li className="InputGroup">
+						<label>Vendor:</label>
+						<span>{vendor}</span>
+					</li>
+					<li className="InputGroup">
+						<label>Date:</label>
+						<span>{date}</span>
+					</li>
+					<li className="InputGroup">
+						<label>Total:</label>
+						<span>${getTotal().toLocaleString('en-US')}</span>
+					</li>
+				</ul>
+			</div>
 			{displayExpenses.length > 0 && (
 				<div>
-					<p className="SectionTitle">Expenses</p>
-					<ul>
+					<p className="SectionTitle4 MarinTop10px">Expenses</p>
+					<ul className="IgnoreList">
 						{displayExpenses.map(e => {
 							return (
-								<li key={e.id}>
-									<b>{getNameFromId(categories, e.categoryId)}</b>: {e.notes} (${e.amount})
+								<li key={e.id} className="InputGroup">
+									<label>{getNameFromId(categories, e.categoryId)}:</label>
+									<span>${Number(e.amount).toLocaleString('en-US')}</span>{' '}
+									{e.notes && <span className="Notes">({e.notes})</span>}
 								</li>
 							);
 						})}
 					</ul>
 				</div>
 			)}
-			{/* <Link to={`/restaurants/${restaurantId}/categories/${id}`}>Go to {name}.</Link> */}
 			{notes && (
 				<div>
-					<p className="SectionTitle">Notes:</p>
-					<p className='Notes'>{notes}</p>
+					<p className="SectionTitle4 MarinTop10px">Notes:</p>
+					<p className="Notes">{notes}</p>
 				</div>
 			)}
 		</div>

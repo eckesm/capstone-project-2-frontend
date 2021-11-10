@@ -20,19 +20,19 @@ export default function AllExpenses({ invoiceId, updateInvoiceTotal }) {
 
 	return (
 		<div className="AllExpenses">
-			<div className="HeadingContainer">
-				<div className="HeadingInfoContainer">
-					<p className="HeadingText Category">
-						<b className="HeadingTitle">Category</b>
+			<div className="TableTitles">
+				<div className="TableInfoContainer">
+					<p className="TableTitleText Category">
+						<b className="TableTitle">Category</b>
 					</p>
-					<p className="HeadingText Amount">
-						<b className="HeadingTitle">Amount</b>
+					<p className="TableTitleText Amount">
+						<b className="TableTitle">Amount</b>
 					</p>
-					<p className="HeadingText Notes">
-						<b className="HeadingTitle">Description</b>
+					<p className="TableTitleText Notes">
+						<b className="TableTitle">Description</b>
 					</p>
 				</div>
-				<div className="buttonGroup" />
+				<div className="ButtonGroup" />
 			</div>
 			{expenses.map((e, idx) => {
 				return <ExpenseCard key={e.id} index={idx} savedExpense={e} updateInvoiceTotal={updateInvoiceTotal} />;

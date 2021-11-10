@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
-import { useParams } from 'react-router-dom';
 
-import { getInvoiceApi } from '../../helpers/api';
 import { deleteInvoice } from '../../actions/invoices';
 
 import AddButton from '../buttons/AddButton';
@@ -14,15 +12,12 @@ import EditInvoiceForm from './EditInvoiceForm';
 import GoButton from '../buttons/GoButton';
 import NewExpenseForm from '../expenses/NewExpenseForm';
 
-import '../buttons/buttons.css';
+import '../screen.css';
 
-export default function InvoiceDetail() {
+export default function InvoiceDetail({ invoice, setInvoice }) {
 	const dispatch = useDispatch();
 	const history = useHistory();
 
-	const { invoiceId } = useParams();
-
-	const [ invoice, setInvoice ] = useState(null);
 	const [ editing, setEditing ] = useState(false);
 	const [ showNewExpenseForm, setShowNewExpenseForm ] = useState(false);
 	const [ total, setTotal ] = useState(0);
@@ -40,28 +35,17 @@ export default function InvoiceDetail() {
 		setTotal(newTotal);
 	}
 
-	useEffect(
-		async () => {
-			try {
-				const res = await getInvoiceApi(invoiceId);
-				if (res.status === 200) {
-					setInvoice(res.data.invoice);
-					const { expenses } = res.data.invoice;
-					let expenseObject = {};
-					let savedTotal = 0;
-					expenses.forEach(e => {
-						expenseObject[e.id] = Number(e.amount);
-						savedTotal += Number(e.amount);
-					});
-					setExpenseAmounts(expenseObject);
-					setTotal(savedTotal);
-				}
-			} catch (err) {
-				console.log('getInvoiceApi() error:', err);
-			}
-		},
-		[ invoiceId ]
-	);
+	useEffect(async () => {
+		const { expenses } = invoice;
+		let expenseObject = {};
+		let savedTotal = 0;
+		expenses.forEach(e => {
+			expenseObject[e.id] = Number(e.amount);
+			savedTotal += Number(e.amount);
+		});
+		setExpenseAmounts(expenseObject);
+		setTotal(savedTotal);
+	}, []);
 
 	async function handleDelete() {
 		try {
@@ -75,16 +59,28 @@ export default function InvoiceDetail() {
 	}
 
 	return (
-		<div>
-			{invoice &&
-			!editing && (
+		<div className="InvoiceDetail">
+			{!editing && (
 				<div>
-					<h1>{invoice.invoice}</h1>
-					<div>
-						<p>Vendor: {invoice.vendor}</p>
-						<p>Date: {new Date(invoice.date).toLocaleDateString('en-US')}</p>
-						<p>Total: {(Math.round(total * 100) / 100).toFixed(2)}</p>
-						<h3>Expenses</h3>
+					<p className="ScreenTitle">{invoice.invoice}</p>
+					<div className="HeadingContainer">
+						<ul className="IgnoreList">
+							<li className="InputGroup">
+								<label>Vendor:</label>
+								<span>{invoice.vendor}</span>
+							</li>
+							<li className="InputGroup">
+								<label>Date:</label>
+								<span>{new Date(invoice.date).toLocaleDateString('en-US')}</span>
+							</li>
+							<li className="InputGroup">
+								<label>Total:</label>
+								<span>${(Math.round(total * 100) / 100).toLocaleString('en-US')}</span>
+							</li>
+						</ul>
+					</div>
+					<div className="Section">
+						<p className="SectionTitle1">Expenses</p>
 						<AllExpenses invoiceId={invoice.id} updateInvoiceTotal={updateTotal} />
 						{showNewExpenseForm && (
 							<NewExpenseForm
@@ -94,28 +90,25 @@ export default function InvoiceDetail() {
 							/>
 						)}
 						{invoice.notes && (
-							<div>
-								<h3>Notes:</h3>
+							<div className="Section">
+								<p className="SectionTitle1">Notes:</p>
 								<p>{invoice.notes}</p>
 							</div>
 						)}
 					</div>
-					{invoice && (
-						<div className="buttonGroup">
-							<AddButton text="Add Expense" onClick={() => setShowNewExpenseForm(true)} />
-							<EditButton onClick={() => setEditing(true)} text="Edit Invoice" />
-							<DeleteButton text="Delete Invoice" onClick={handleDelete} />
-							<GoButton
-								text="All Invoices"
-								onClick={() => history.push(`/restaurants/${invoice.restaurantId}/invoices`)}
-							/>
-						</div>
-					)}
+					<div className="ButtonGroup">
+						<AddButton text="Add Expense" onClick={() => setShowNewExpenseForm(true)} />
+						<EditButton onClick={() => setEditing(true)} text="Edit Invoice" />
+						<DeleteButton text="Delete Invoice" onClick={handleDelete} />
+						<GoButton
+							text="All Invoices"
+							onClick={() => history.push(`/restaurants/${invoice.restaurantId}/invoices`)}
+						/>
+					</div>
 				</div>
 			)}
 
-			{invoice &&
-			editing && (
+			{editing && (
 				<div>
 					<h1>Edit Invoice</h1>
 					<EditInvoiceForm

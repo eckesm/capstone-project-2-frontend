@@ -25,7 +25,6 @@ export default function ExpenseCard({ index, savedExpense, updateInvoiceTotal })
 		try {
 			const res = await dispatch(deleteExpense(expense.id));
 			if (res.status === 200) {
-				// history.push(`/restaurants/${expense.restaurantId}/invoices/${expense.invoiceId}`);
 				updateInvoiceTotal(expense.id, 0);
 			}
 		} catch (err) {
@@ -41,11 +40,11 @@ export default function ExpenseCard({ index, savedExpense, updateInvoiceTotal })
 					<div className="ExpenseInfoContainer">
 						<p className="ExpenseText Category">{getNameFromId(active.categories, expense.categoryId)}</p>
 						<p className="ExpenseText Amount">
-							{(Math.round(Number(expense.amount) * 100, 2) / 100).toFixed(2).toLocaleString('en-US')}
+							${(Math.round(Number(expense.amount) * 100, 2) / 100).toLocaleString('en-US')}
 						</p>
 						<p className="ExpenseText Notes">{expense.notes}</p>
 					</div>
-					<div className="buttonGroup ExpenseButtonGroup">
+					<div className="ButtonGroup ExpenseButtonGroup">
 						<EditButton onClick={() => setEditing(true)} text="Edit" />
 						<DeleteButton text="Delete" onClick={handleDelete} />
 					</div>

@@ -2,13 +2,14 @@
 	margin: 5px auto;
 	border: 1px solid black;
 	padding: 10px;
-	width: 80%;
+	width: 80vw;
+	background-color: white;
 }
 .TopBorder {
 	border-top: 1px solid lightgray;
 }
 
-.HeadingContainer {
+.AllExpenses .TableTitles {
 	border: 1px solid black;
 	background-color: rgb(39, 39, 179);
 	color: whitesmoke;
@@ -25,7 +26,7 @@
 	width: 100%;
 }
 
-.HeadingInfoContainer {
+.TableInfoContainer {
 	display: flex;
 	text-align: left;
 }
@@ -40,7 +41,9 @@
 	margin: 2px 5px;
 }
 
-.HeadingText {
+.TableTitleText {
+	font-size: unset;
+	font-style: unset;
 	margin: 0px 10px;
 	padding: 2px 0px;
 }
@@ -51,44 +54,44 @@
 	margin: 0px 10px;
 }
 
-.HeadingTitle {
+.TableTitle {
 	font-style: normal;
 	font-size: 1.1rem;
 	margin: 2px 5px;
 }
 
-.ExpenseText.Category {
+.Category {
 	min-width: 100px;
 }
 
-.ExpenseText.Amount {
+.Amount {
 	min-width: 100px;
+	/* text-align: left; */
 }
 
-.EditFormText.Category {
-	width: 100px;
-}
+/* .EditFormText.Category {
+	width: 85px;
+} */
 .EditFormText.Amount {
 	width: 85px;
-	margin-left: 3px;
-	margin-right: 15px;
+	margin-left: 5px;
+	/* margin-right: 10px; */
 	height: min-content;
 }
 
+.EditFormText.Notes {
+	/* width: 85px; */
+	margin-left: 0px;
+	padding-left: 0px;
+	/* margin-right: 10px; */
+	/* height: min-content; */
+}
+
 .Notes {
-	/* width: 500px; */
 	word-wrap: normal;
 }
-/* .ExpenseInfoContainer .Notes {
-	font-size: 0.9rem;
-	font-style: normal;
-} */
 
 .ExpenseButtonGroup {
-	/* float: right; */
-	/* width: 200px; */
 	min-width: max-content;
-	/* align-content: flex-end; */
 	margin-left: auto;
-	/* padding: 0px; */
 }

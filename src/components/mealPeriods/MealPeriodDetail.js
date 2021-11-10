@@ -11,23 +11,11 @@ import EditButton from '../buttons/EditButton';
 import EditMealPeriodForm from './EditMealPeriodForm';
 import GoButton from '../buttons/GoButton';
 
-export default function MealPeriodDetail() {
+export default function MealPeriodDetail({ mealPeriod, isAdmin = false, setMealPeriod }) {
 	const dispatch = useDispatch();
 	const history = useHistory();
 
-	const { mealPeriodId } = useParams();
-	const active = useSelector(store => store.active);
-
-	const [ mealPeriod, setMealPeriod ] = useState(null);
 	const [ editing, setEditing ] = useState(false);
-
-	useEffect(
-		async () => {
-			const res = await getMealPeriodApi(mealPeriodId);
-			setMealPeriod(res.data.mealPeriod);
-		},
-		[ mealPeriodId ]
-	);
 
 	async function handleDelete() {
 		try {
@@ -41,17 +29,21 @@ export default function MealPeriodDetail() {
 	}
 
 	return (
-		<div>
-			{mealPeriod &&
-			!editing && (
+		<div className="MealPeriodDetail">
+			{!editing && (
 				<div>
-					<h1>{mealPeriod.name}</h1>
-					<div>{mealPeriod.notes && <p>Notes: {mealPeriod.notes}</p>}</div>
-					{active &&
-					active.isAdmin && (
+					<p className="ScreenTitle">{mealPeriod.name}</p>
+					{mealPeriod.notes && (
 						<div>
-							{active.isAdmin && <EditButton onClick={() => setEditing(true)} text="Edit Meal Period" />}
-							{active.isAdmin && <DeleteButton text="Delete Meal Period" onClick={handleDelete} />}
+							<p>
+								<b>Notes</b>: <span className="Notes">{mealPeriod.notes}</span>
+							</p>
+						</div>
+					)}
+					{isAdmin && (
+						<div className="ButtonGroup">
+							{isAdmin && <EditButton onClick={() => setEditing(true)} text="Edit Meal Period" />}
+							{isAdmin && <DeleteButton text="Delete Meal Period" onClick={handleDelete} />}
 							<GoButton
 								text="All Meal Periods"
 								onClick={() => history.push(`/restaurants/${mealPeriod.restaurantId}/meal-periods`)}
@@ -64,7 +56,7 @@ export default function MealPeriodDetail() {
 			{mealPeriod &&
 			editing && (
 				<div>
-					<h1>Edit Meal Period</h1>
+					<p className="ScreenTitle">Edit Meal Period</p>
 					<EditMealPeriodForm
 						id={mealPeriod.id}
 						name={mealPeriod.name}

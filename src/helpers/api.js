@@ -134,6 +134,15 @@ export async function registerUserApi(data) {
 	}
 }
 
+export async function lookupEmailAddressApi(emailAddress) {
+	try {
+		const res = await makeGetRequest(`users/email-address/${emailAddress}`);
+		return res;
+	} catch (err) {
+		console.log('lookupEmailAddressApi()', err);
+	}
+}
+
 // mealperiods API calls
 
 export async function getMealPeriodApi(id) {

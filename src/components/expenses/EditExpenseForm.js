@@ -60,7 +60,6 @@ export default function EditExpenseForm({
 				<div className="EditExpenseContainer">
 					{categories.length > 0 && (
 						<div className="EditFormText Category">
-							{/* <label htmlFor="categoryId">Category:</label> */}
 							<select
 								type="text"
 								id="categoryId"
@@ -78,8 +77,6 @@ export default function EditExpenseForm({
 							</select>
 						</div>
 					)}
-					{/* <div> */}
-					{/* <label htmlFor="amount">Amount:</label> */}
 					<input
 						className="EditFormText Amount"
 						type="number"
@@ -90,23 +87,19 @@ export default function EditExpenseForm({
 						onChange={handleChange}
 						required
 					/>
-					{/* </div> */}
-					{/* <div> */}
-					{/* <label htmlFor="notes">Description:</label> */}
 					<textarea
 						className="EditFormText Notes"
 						type="text"
 						id="notes"
 						rows='2'
-						cols='80'
+						cols='40'
 						value={formData.notes}
 						name="notes"
 						onChange={handleChange}
 					/>
-					{/* </div> */}
 				</div>
-				<div className="buttonGroup ExpenseButtonGroup">
-					<SubmitButton type="submit" text="Update" />
+				<div className="ButtonGroup ExpenseButtonGroup">
+					<SubmitButton text="Update" />
 					<CancelButton text="Cancel" onClick={handleCancel} />
 				</div>
 			</form>

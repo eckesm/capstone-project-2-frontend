@@ -11,7 +11,8 @@ import ArrowButton from '../buttons/ArrowButton';
 import TodayButton from '../buttons/TodayButton';
 
 import './sales.css';
-import '../buttons/buttons.css'
+import '../screen.css';
+import '../buttons/buttons.css';
 
 export default function AllSalesScreen() {
 	const history = useHistory();
@@ -95,31 +96,33 @@ export default function AllSalesScreen() {
 	}
 
 	return (
-		<div className="AllSalesScreen">
-			<div>
-				<h1>Daily Sales</h1>
-				<div>
-					<label htmlFor="date">Date: </label>
-					<input type="date" value={date} name="date" onChange={handleChange} />
+		<div className="Window">
+			<div className="AllSalesScreen Screen">
+				<p className="ScreenTitle">Daily Sales</p>
+				<div className="HeadingContainer">
+					<div className="InputGroup">
+						<label htmlFor="date">Date: </label>
+						<input className="Centered" type="date" value={date} name="date" onChange={handleChange} />
+					</div>
+					<div className="ButtonGroup">
+						<ArrowButton text="Previous Day" onClick={handlePreviousDay} direction="left" />
+						<TodayButton text="Today" onClick={handleToday} />
+						<ArrowButton text="Next Day" onClick={handleNextDay} direction="right" />
+					</div>
 				</div>
-				<div className="buttonGroup">
-					<ArrowButton text="Previous Day" onClick={handlePreviousDay} direction="left" />
-					<TodayButton text="Today" onClick={handleToday} />
-					<ArrowButton text="Next Day" onClick={handleNextDay} direction="right" />
+				<div className="MealPeriodCards">
+					{active &&
+						preparedDailySales.map(mp => {
+							return (
+								<SalesGroup
+									key={`${mp.id}-${date}`}
+									groupArray={mp.sales}
+									categories={active.categories}
+									mealPeriodName={mp.name}
+								/>
+							);
+						})}
 				</div>
-			</div>
-			<div className="MealPeriodCards">
-				{active &&
-					preparedDailySales.map(mp => {
-						return (
-							<SalesGroup
-								key={`${mp.id}-${date}`}
-								groupArray={mp.sales}
-								categories={active.categories}
-								mealPeriodName={mp.name}
-							/>
-						);
-					})}
 			</div>
 		</div>
 	);

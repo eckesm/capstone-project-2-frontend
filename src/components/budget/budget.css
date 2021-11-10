@@ -1,72 +1,24 @@
-.BudgetScreen {
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: center;
-	border: 1px solid black;
-	width: 90%;
-	min-width: 400px;
-	margin: 20px auto;
-	padding: 20px;
-}
-
-.PageTitle {
-	font-size: 1.5rem;
-	margin: 5px 0px;
-	font-weight: bold;
-}
-
-.SectionTitle {
-	font-size: 1.15rem;
-	margin: 0px;
-	margin-top: 10px;
-	font-weight: bold;
-	text-decoration: underline;
-}
-
 .BudgetPerformanceCard {
-	/* text-align: center; */
-	/* border: 1px solid black; */
-	float: left;
-	width: 100%;
-	margin: 10px;
-	margin-top: 25px;
+	border: 1px solid black;
+	background-color: white;
+	width: fit-content;
+	margin: 50px auto;
+	padding: 10px;
 	font-size: larger;
 }
-.BudgetPerformanceCard .negative {
-	color: red;
-	font-weight: 500;
-	font-style: italic;
-}
 
-.BudgetPerformanceCard .warning {
+.BudgetPerformanceCard .Warning {
 	font-size: .8rem;
 	font-style: italic;
 }
 
-.PerformanceCards {
-	/* border: 1px solid black; */
-	margin: 0 10px;
-	display: flex;
-	width: 100%;
-	justify-content: space-around;
-	flex-wrap: wrap;
-}
-
-.PerformanceCard {
-	/* text-align: center; */
-	border: 1px solid black;
-	/* float: left; */
+.BudgetScreen .Card {
 	width: 400px;
-	margin: 15px 5px;
-	padding: 10px;
-	/* height: 400px; */
-	overflow: auto;
 }
 
 .PerformanceCard p {
 	margin: 0px;
 	margin-top: 5px;
-	/* text-align: left; */
 }
 
 .CategoryName {
@@ -74,14 +26,14 @@
 	font-weight: 500;
 }
 
-.Notes {
+/* .Notes {
 	font-size: 0.9rem;
-	/* width: 500px; */
 	margin: 0px;
 	font-style: italic;
-}
+} */
 
 ul {
 	list-style-type: none;
-	padding: 0;
+	padding: 0px;
+	margin: 5px;
 }

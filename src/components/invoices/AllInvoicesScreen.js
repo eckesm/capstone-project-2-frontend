@@ -11,6 +11,7 @@ import AllInvoices from './AllInvoices';
 import AddButton from '../buttons/AddButton';
 
 import './invoices.css';
+import '../screen.css';
 
 export default function AllInvoicesScreen() {
 	const history = useHistory();
@@ -66,48 +67,65 @@ export default function AllInvoicesScreen() {
 	);
 
 	return (
-		<div className="AllInvoicesScreen">
-			<div>
-				<h1>Invoices</h1>
-				<div>
-					<label htmlFor="startDate">Start Date:</label>
-					<input
-						type="date"
-						id="startDate"
-						value={formData.startDate}
-						name="startDate"
-						onChange={handleChange}
-					/>
-				</div>
-				<div>
-					<label htmlFor="endDate">End Date:</label>
-					<input type="date" id="endDate" value={formData.endDate} name="endDate" onChange={handleChange} />
-				</div>
-				<div>
-					<label htmlFor="vendor">Vendor:</label>
-					<select type="text" id="vendor" value={formData.vendor} name="vendor" onChange={handleChange}>
-						<option key="0" value="">
-							ALL VENDORS
-						</option>
-						{vendorChoices.map((v, i) => {
-							return (
-								<option key={i} value={v}>
-									{v}
-								</option>
-							);
-						})}
-					</select>
+		<div className="Window">
+			<div className="AllInvoicesScreen Screen">
+				<p className="ScreenTitle">Invoices</p>
+				<div className="HeadingContainer">
+					<div className="InputGroup">
+						<label htmlFor="startDate">Start Date:</label>
+						<input
+							className="Centered"
+							type="date"
+							id="startDate"
+							value={formData.startDate}
+							name="startDate"
+							onChange={handleChange}
+						/>
+					</div>
+					<div className="InputGroup">
+						<label htmlFor="endDate">End Date:</label>
+						<input
+							className="Centered"
+							type="date"
+							id="endDate"
+							value={formData.endDate}
+							name="endDate"
+							onChange={handleChange}
+						/>
+					</div>
+					<div className="InputGroup">
+						<label htmlFor="vendor">Vendor:</label>
+						<select
+							className="Vendor"
+							type="text"
+							id="vendor"
+							value={formData.vendor}
+							name="vendor"
+							onChange={handleChange}
+						>
+							<option key="0" value="">
+								ALL VENDORS
+							</option>
+							{vendorChoices.map((v, i) => {
+								return (
+									<option key={i} value={v}>
+										{v}
+									</option>
+								);
+							})}
+						</select>
+					</div>
+					{invoices &&
+					active && (
+						<AddButton
+							text="Add Invoice"
+							onClick={() => history.push(`/restaurants/${active.id}/invoices/new`)}
+						/>
+					)}
 				</div>
 				{invoices &&
-				active && (
-					<AddButton
-						text="Add Invoice"
-						onClick={() => history.push(`/restaurants/${active.id}/invoices/new`)}
-					/>
-				)}
+				active && <AllInvoices invoices={displayInvoices} expenses={expenses} categories={active.categories} />}
 			</div>
-			{invoices &&
-			active && <AllInvoices invoices={displayInvoices} expenses={expenses} categories={active.categories} />}
 		</div>
 	);
 }
