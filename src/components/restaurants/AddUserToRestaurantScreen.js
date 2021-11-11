@@ -4,18 +4,19 @@ import { useHistory } from 'react-router';
 
 import AddUserToRestaurantForm from './AddUserToRestaurantForm';
 
-import './restaurants.css';
+import '../screen.css';
 
 export default function AddUserToRestaurantScreen() {
-
 	const active = useSelector(store => store.active);
 
 	return (
-		<div className="RestaurantUsers">
+		<div className="Window">
 			{active && (
-				<div>
-					<h1>Add User to Restaurant</h1>
-					<AddUserToRestaurantForm restaurantId={active.id} />
+				<div className="AddUserToRestaurantScreen Screen">
+					<p className="ScreenTitle">Add User to Restaurant</p>
+					<div className="BasicView">
+						<AddUserToRestaurantForm restaurantId={active.id} />
+					</div>
 				</div>
 			)}
 		</div>

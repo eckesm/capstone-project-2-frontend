@@ -1,12 +1,14 @@
-.ButtonGroup .customButton {
+.ButtonGroup .CustomButton {
 	margin: 5px 3px;
 }
 
-.customButton {
+.CustomButton {
 	background-color: rgb(39, 39, 179);
 	color: whitesmoke;
-    padding: 4px;
+	padding: 4px 10px;
+	font-weight: bold;
 }
-.customButton:hover {
+.CustomButton:hover {
 	color: gold;
+	transition: all 150ms linear;
 }

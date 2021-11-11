@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
 
@@ -7,6 +7,12 @@ import useLocalStorageState from '../../hooks/useLocalStorageState';
 
 import { getAndStoreUserInfo } from '../../actions/auth';
 import { getAndStoreTokenApi } from '../../helpers/api';
+
+import SubmitButton from '../buttons/SubmitButton';
+import ErrorMessages from '../ErrorMessages';
+
+import '../screen.css';
+import './users.css';
 
 export default function LoginForm() {
 	const dispatch = useDispatch();
@@ -19,6 +25,8 @@ export default function LoginForm() {
 	};
 	const [ formData, handleChange, resetFormData ] = useFields(initialState);
 
+	const [ errors, setErrors ] = useState([]);
+
 	async function handleSubmit(evt) {
 		evt.preventDefault();
 		try {
@@ -28,11 +36,14 @@ export default function LoginForm() {
 				try {
 					const userRes = await dispatch(getAndStoreUserInfo());
 					if (userRes.status === 200) {
-						history.push('/');
+						history.push('/restaurants');
 					}
 				} catch (err) {
 					console.log('handleSubmit() > getAndStoreToken() > getAndStoreUserInfo() error:', err);
 				}
+			}
+			if (res.status === 401) {
+				setErrors([ res.message ]);
 			}
 		} catch (err) {
 			console.log('handleSubmit() error:', err);
@@ -40,10 +51,9 @@ export default function LoginForm() {
 	}
 
 	return (
-		<div>
-			<h1>Login</h1>
-			<form onSubmit={handleSubmit}>
-				<div>
+		<form className="LoginForm BasicView" onSubmit={handleSubmit}>
+			<div className="Section">
+				<div className="InputGroup">
 					<label htmlFor="emailAddress">Email Address:</label>
 					<input
 						type="text"
@@ -51,9 +61,10 @@ export default function LoginForm() {
 						value={formData.emailAddress}
 						name="emailAddress"
 						onChange={handleChange}
+						required
 					/>
 				</div>
-				<div>
+				<div className="InputGroup">
 					<label htmlFor="password">Password:</label>
 					<input
 						type="password"
@@ -61,10 +72,21 @@ export default function LoginForm() {
 						value={formData.password}
 						name="password"
 						onChange={handleChange}
+						required
 					/>
 				</div>
-				<button type="submit">Login</button>
-			</form>
-		</div>
+			</div>
+			<SubmitButton text="Login" />
+			{/* <ul className="IgnoreList">
+				{errors.map((e, idx) => {
+					return (
+						<li key={idx} className="ErrorMessage">
+							{e}
+						</li>
+					);
+				})}
+			</ul> */}
+			<ErrorMessages errors={errors} />
+		</form>
 	);
 }

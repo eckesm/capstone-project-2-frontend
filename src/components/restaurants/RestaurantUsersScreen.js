@@ -1,33 +1,33 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 
 import AddButton from '../buttons/AddButton';
 import RestaurantUserCard from './RestaurantUserCard';
 
 import './restaurants.css';
+import '../screen.css';
 
 export default function RestaurantUsersScreen() {
-	// const dispatch = useDispatch();
 	const history = useHistory();
 
 	const active = useSelector(store => store.active);
 
 	return (
-		<div className="RestaurantUsers">
+		<div className="Window">
 			{active && (
-				<div>
-					<h1>Users</h1>
-					<div>
+				<div className="RestaurantUsersScreen Screen">
+					<p className="ScreenTitle">Users</p>
+					<div className="CardsContinaer">
 						{active.users.map(u => {
 							return (
 								<RestaurantUserCard
 									key={u.id}
-									id={u.id}
-									firstName={u.firstName}
-									lastName={u.lastName}
-									emailAddress={u.emailAddress}
+									user={u}
 									isAdmin={u.isAdmin}
+									isOwner={active.ownerId == u.id}
+									showAdminControls={active.isAdmin}
+									restaurantId={active.id}
 								/>
 							);
 						})}

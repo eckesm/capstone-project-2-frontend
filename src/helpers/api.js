@@ -111,7 +111,7 @@ export async function makeDeleteRequest(path = '') {
 export async function getAndStoreTokenApi(emailAddress, password) {
 	try {
 		const res = await makePostRequest('auth/token', { emailAddress, password });
-		if (res.data.hasOwnProperty('token')) {
+		if (res.data && res.data.hasOwnProperty('token')) {
 			localStorage.setItem('token', res.data.token);
 		}
 		return res;
@@ -125,7 +125,7 @@ export async function getAndStoreTokenApi(emailAddress, password) {
 export async function registerUserApi(data) {
 	try {
 		const res = await makePostRequest(`users`, data);
-		if (res.data.hasOwnProperty('token')) {
+		if (res.data && res.data.hasOwnProperty('token')) {
 			localStorage.setItem('token', res.data.token);
 		}
 		return res;
@@ -189,15 +189,14 @@ export async function getInvoiceApi(id) {
 
 // sales API calls
 
-export async function getSales(restaurantId,date) {
+export async function getSales(restaurantId, date) {
 	try {
-		const res = await makeGetRequest(`sales/restaurants/${restaurantId}/date/${date}`);;
+		const res = await makeGetRequest(`sales/restaurants/${restaurantId}/date/${date}`);
 		return res;
 	} catch (err) {
 		console.log('getSales() error:', err);
 	}
 }
-
 
 // budget API calls
 
@@ -210,9 +209,11 @@ export async function getSales(restaurantId,date) {
 // 	}
 // }
 
-export async function getSavedExpenses(restaurantId,startDate,endDate) {
+export async function getSavedExpenses(restaurantId, startDate, endDate) {
 	try {
-		const res = await makeGetRequest(`expenses/restaurants/${restaurantId}/startdate/${startDate}/enddate/${endDate}`);
+		const res = await makeGetRequest(
+			`expenses/restaurants/${restaurantId}/startdate/${startDate}/enddate/${endDate}`
+		);
 		return res;
 	} catch (err) {
 		console.log('getSavedExpenses() error:', err);

@@ -10,13 +10,12 @@ export default function MealPeriodCard({ id, restaurantId, name, notes = null })
 
 	return (
 		<div
-			className="MealPeriodCard Card Stacked Hover"
+			className="MealPeriodCard Card Stacked BackgroundHover ShadowHover"
 			onClick={() => history.push(`/restaurants/${restaurantId}/meal-periods/${id}`)}
 		>
 			<p className="SectionTitle2">{name}</p>
-			{/* <Link className='SectionTitle1' to={`/restaurants/${restaurantId}/meal-periods/${id}`}>{name}</Link> */}
 			{notes && (
-				<div>
+				<div className='Left'>
 					<b>Notes</b>: <span className="Notes">{notes}</span>
 				</div>
 			)}

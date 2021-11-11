@@ -1,15 +1,53 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 
-export default function RestaurantUserCard({ id, firstName, lastName, emailAddress, isAdmin }) {
+import { changeUserRestaurantAccess } from '../../actions/restaurants';
+
+import GoButton from '../buttons/GoButton';
+
+import './restaurants.css';
+
+export default function RestaurantUserCard({
+	user,
+	isAdmin,
+	isOwner,
+	showAdminControls = false,
+	restaurantId
+}) {
+	const dispatch = useDispatch();
+
+	async function handleChangeAccess() {
+		try {
+			const res = await dispatch(changeUserRestaurantAccess(restaurantId, user, {isAdmin:!isAdmin}));
+			if (res.status === 201) {
+				// history.push(`/restaurants/${restaurantId}/users`);
+				console.log(res.message);
+			}
+			else {
+				console.log(res.message);
+			}
+		} catch (err) {
+			console.log('handleSubmit() > addUserToRestaurant() error:', err);
+		}
+	}
+
 	return (
-		<div>
-			<h3>
-				{firstName} {lastName}
-			</h3>
-			<ul>
-				<li>{emailAddress}</li>
-				{isAdmin && <li>Administrator</li>}
+		<div className="RestaurantUserCard Card">
+			<p className="SectionTitle2">
+				{user.firstName} {user.lastName}
+			</p>
+			<ul className="IgnoreList">
+				<li>{user.emailAddress}</li>
+				{isOwner && <li>Owner</li>}
+				{isAdmin && !isOwner && <li>Administrator</li>}
+				{!isAdmin && !isOwner && <li>User</li>}
 			</ul>
+			{showAdminControls && (
+				<div className="ButtonGroup">
+					{!isAdmin && !isOwner && <GoButton text="Make Administrator" onClick={handleChangeAccess} />}
+					{isAdmin && !isOwner && <GoButton text="Make User" onClick={handleChangeAccess} />}
+				</div>
+			)}
 		</div>
 	);
 }

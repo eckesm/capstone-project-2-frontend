@@ -3,6 +3,7 @@ import { makeDeleteRequest, makeGetRequest, makePostRequest, makePutRequest } fr
 import {
 	ADD_NEW_RESTAURANT,
 	ADD_USER_TO_RESTAURANT,
+	CHANGE_USER_RESTAURANT_ACCESS,
 	DELETE_RESTAURANT,
 	REMOVE_ACTIVE,
 	STORE_ACTIVE_RESTAURANT,
@@ -58,6 +59,25 @@ export function addUserToRestaurant(restaurantId, user, data) {
 			return res;
 		} catch (err) {
 			console.log('addUserToRestaurant() error:', err);
+		}
+	};
+}
+
+export function changeUserRestaurantAccess(restaurantId, user, data) {
+	return async function(dispatch) {
+		try {
+			const res = await makePutRequest(`restaurants/${restaurantId}/users/${user.id}`, data);
+			console.log(res)
+			if (res.status === 201) {
+				user.isAdmin = data.isAdmin;
+				await dispatch({
+					type : CHANGE_USER_RESTAURANT_ACCESS,
+					user
+				});
+			}
+			return res;
+		} catch (err) {
+			console.log('changeUserRestaurantAccess() error:', err);
 		}
 	};
 }

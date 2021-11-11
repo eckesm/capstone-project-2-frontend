@@ -5,6 +5,11 @@ import useFields from '../../hooks/useFields';
 
 import { registerExpense } from '../../actions/expenses';
 
+import SubmitButton from '../buttons/SubmitButton';
+import CancelButton from '../buttons/EditButton';
+
+import './expenses.css';
+
 export default function NewExpenseForm({ invoiceId, setShowNewExpenseForm, updateInvoiceTotal }) {
 	const dispatch = useDispatch();
 	const active = useSelector(store => store.active);
@@ -37,6 +42,10 @@ export default function NewExpenseForm({ invoiceId, setShowNewExpenseForm, updat
 		}
 	}
 
+	function hideNewExpenseForm() {
+		setShowNewExpenseForm(false);
+	}
+
 	useEffect(
 		() => {
 			if (active.categories.length > 0) {
@@ -47,44 +56,56 @@ export default function NewExpenseForm({ invoiceId, setShowNewExpenseForm, updat
 	);
 
 	return (
-		<form onSubmit={handleSubmit}>
-			{active &&
-			active.categories.length > 0 && (
-				<div>
-					<label htmlFor="categoryId">Category:</label>
-					<select
-						type="text"
-						id="categoryId"
-						value={formData.categoryId}
-						name="categoryId"
+		<div className="NewExpenseForm">
+			<form className="NewExpenseFormContainer" onSubmit={handleSubmit}>
+				<div className="NewExpenseContainer">
+					{active &&
+					active.categories.length > 0 && (
+						<div className="NewFormText Category">
+							<select
+								type="text"
+								id="categoryId"
+								value={formData.categoryId}
+								name="categoryId"
+								onChange={handleChange}
+							>
+								{active.categories.map(c => {
+									return (
+										<option key={c.id} value={c.id}>
+											{c.name}
+										</option>
+									);
+								})}
+							</select>
+						</div>
+					)}
+					<input
+						className="NewFormText Amount"
+						type="number"
+						id="amount"
+						value={formData.amount}
+						name="amount"
 						onChange={handleChange}
-					>
-						{active.categories.map(c => {
-							return (
-								<option key={c.id} value={c.id}>
-									{c.name}
-								</option>
-							);
-						})}
-					</select>
+						required
+					/>
 				</div>
-			)}
-			<div>
-				<label htmlFor="amount">Amount:</label>
-				<input
-					type="number"
-					id="amount"
-					value={formData.amount}
-					name="amount"
-					onChange={handleChange}
-					required
-				/>
-			</div>
-			<div>
-				<label htmlFor="notes">Description:</label>
-				<input type="text" id="notes" value={formData.notes} name="notes" onChange={handleChange} />
-			</div>
-			<button type="submit">Add Expense</button>
-		</form>
+				<div>
+					<textarea
+						className="NewFormText Notes"
+						type="text"
+						rows="1"
+						cols="40"
+						id="notes"
+						value={formData.notes}
+						name="notes"
+						onChange={handleChange}
+					/>
+				</div>
+				<div className="ButtonGroup ExpenseButtonGroup">
+					<SubmitButton text="Add Expense" />
+					<CancelButton onClick={hideNewExpenseForm} text="Cancel" />
+				</div>
+			</form>
+		</div>
 	);
 }

@@ -7,24 +7,31 @@ import { removeActiveRestaurant } from '../../actions/restaurants';
 import AllRestaurants from '../restaurants/AllRestaurants';
 import AddButton from '../buttons/AddButton';
 
+import '../screen.css';
+
 export default function AllRestaurantsScreen() {
 	const dispatch = useDispatch();
 	const history = useHistory();
 	const { restaurants } = useSelector(store => store.restaurants);
+	const { user } = useSelector(store => store.auth);
 
 	useEffect(() => {
 		dispatch(removeActiveRestaurant());
 	}, []);
 
 	return (
-		<div>
-			<h1>My Restaurants</h1>
-			<div>
-				{restaurants &&
-				restaurants.length === 0 && <h3>You don't have any restaurants yet... would you like to add one?</h3>}
-				<AddButton text="Add Restaurant" onClick={() => history.push(`/restaurants/new`)} />
+		<div className="Window">
+			<div className="AllRestaurantsScreen Screen">
+				<p className="ScreenTitle">My Restaurants</p>
+				<div>
+					{restaurants &&
+					restaurants.length === 0 && (
+						<h3>You don't have any restaurants yet... would you like to add one?</h3>
+					)}
+					<AddButton text="Add Restaurant" onClick={() => history.push(`/restaurants/new`)} />
+				</div>
+				{restaurants && user && <AllRestaurants restaurants={restaurants} userId={user.userId} />}
 			</div>
-			{restaurants && <AllRestaurants restaurants={restaurants} />}
 		</div>
 	);
 }

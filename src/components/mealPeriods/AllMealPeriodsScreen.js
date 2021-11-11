@@ -5,7 +5,6 @@ import { useHistory } from 'react-router';
 
 import AllMealPeriods from './AllMealPeriods';
 import AddButton from '../buttons/AddButton';
-import GoButton from '../buttons/GoButton';
 
 import '../screen.css';
 

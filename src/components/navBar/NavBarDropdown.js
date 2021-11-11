@@ -10,11 +10,11 @@ export default function NavBarDropdown({
 	linksArray = [ { title: 'test1', ref: '#' }, { title: 'test2', ref: '#' }, { title: 'test3', ref: '#' } ]
 }) {
 	return (
-		<div className="dropdown">
-			<button className="dropbtn">
+		<div className="Dropdown">
+			<button className="DropdownButton">
 				{title} <i className="fa fa-caret-down" />
 			</button>
-			<div className="dropdown-content">
+			<div className="DropdownContent">
 				{linksArray.map((link, i) => {
 					return (
 						<NavLink key={i} to={link.ref}>

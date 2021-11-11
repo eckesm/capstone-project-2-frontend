@@ -91,8 +91,8 @@ export default function EditExpenseForm({
 						className="EditFormText Notes"
 						type="text"
 						id="notes"
-						rows='2'
-						cols='40'
+						rows="1"
+						cols="40"
 						value={formData.notes}
 						name="notes"
 						onChange={handleChange}

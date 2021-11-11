@@ -2,12 +2,12 @@ import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 
 import ProtectedRoute from './ProtectedRoute';
-import Home from '../Home';
-import LoginForm from '../users/LoginForm';
+import Home from '../home/Home';
+import LoginScreen from '../users/LoginScreen';
 import ProtectedRouteUser from './ProtectedRouteUser';
 import ProtectedRouteAdmin from './ProtectedRouteAdmin';
 
-import RegisterUserForm from '../users/RegisterUserForm';
+import RegisterUserScreen from '../users/RegisterUserScreen';
 
 import RestaurantDetailScreen from '../restaurants/RestaurantDetailScreen';
 import AllRestaurantsScreen from '../restaurants/AllRestaurantsScreen';
@@ -48,10 +48,10 @@ export default function Routes() {
 			</Route>
 
 			<Route exact path="/login">
-				<LoginForm />
+				<LoginScreen />
 			</Route>
 			<Route exact path="/register">
-				<RegisterUserForm />
+				<RegisterUserScreen />
 			</Route>
 
 			<ProtectedRoute component={AllRestaurantsScreen} exact path="/restaurants" />

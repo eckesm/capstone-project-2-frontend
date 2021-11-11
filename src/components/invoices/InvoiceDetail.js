@@ -89,13 +89,13 @@ export default function InvoiceDetail({ invoice, setInvoice }) {
 								updateInvoiceTotal={updateTotal}
 							/>
 						)}
-						{invoice.notes && (
-							<div className="Section">
-								<p className="SectionTitle1">Notes:</p>
-								<p>{invoice.notes}</p>
-							</div>
-						)}
 					</div>
+					{invoice.notes && (
+						<div className="Section Card">
+							<p className="SectionTitle4">Notes:</p>
+							<p>{invoice.notes}</p>
+						</div>
+					)}
 					<div className="ButtonGroup">
 						<AddButton text="Add Expense" onClick={() => setShowNewExpenseForm(true)} />
 						<EditButton onClick={() => setEditing(true)} text="Edit Invoice" />

@@ -109,5 +109,5 @@ export default function NavBar({ logout }) {
 		);
 	};
 
-	return <div className="Nav">{user ? loggedIn() : loggedOut()}</div>;
+	return <div className="NavBar">{user ? loggedIn() : loggedOut()}</div>;
 }

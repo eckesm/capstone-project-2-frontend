@@ -127,7 +127,7 @@ export default function SalesInputForm({
 				<div className="SaleInput Expected">
 					<label htmlFor="expectedSales">Expected:</label>{' '}
 					<input
-						className="Hover"
+						className="BackgroundHover"
 						type="number"
 						min="0"
 						step=".01"
@@ -140,7 +140,7 @@ export default function SalesInputForm({
 				<div className="SaleInput Actual">
 					<label htmlFor="actualSales">Actual:</label>{' '}
 					<input
-						className={actualSaved ? 'Hover Saved' : 'Hover Unsaved'}
+						className={actualSaved ? 'BackgroundHover Saved' : 'BackgroundHover Unsaved'}
 						type="number"
 						min="0"
 						step=".01"

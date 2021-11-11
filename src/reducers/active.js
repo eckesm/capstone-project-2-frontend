@@ -5,6 +5,7 @@ import {
 	ADD_MEAL_PERIOD,
 	ADD_MEAL_PERIOD_CATEGORY,
 	ADD_USER_TO_RESTAURANT,
+	CHANGE_USER_RESTAURANT_ACCESS,
 	DELETE_CATEGORY,
 	DELETE_CATEGORY_GROUP,
 	DELETE_DEFAULT_SALE,
@@ -25,26 +26,22 @@ import {
 const INITIAL_STATE = null;
 
 function sortByName(array) {
-	// https://stackoverflow.com/questions/8900732/sort-objects-in-an-array-alphabetically-on-one-property-of-the-array for help with sorting objects in an array on a property in the array
 	return array.sort((a, b) => {
 		var textA = a.name.toUpperCase();
 		var textB = b.name.toUpperCase();
 		return textA < textB ? -1 : textA > textB ? 1 : 0;
 	});
 }
+function sortByFirstAndLastName(array) {
+	return array.sort((a, b) => {
+		var textA = `${a.firstName.toUpperCase()}${a.lastName.toUpperCase()}`;
+		var textB = `${b.firstName.toUpperCase()}${b.lastName.toUpperCase()}`;
+		return textA < textB ? -1 : textA > textB ? 1 : 0;
+	});
+}
 
 export default function active(state = INITIAL_STATE, action) {
-	let categories,
-		catGroups,
-		defaultSales,
-		mealPeriods,
-		mealPeriod_categories,
-		restaurant,
-		adjustedCategories,
-		adjustedCatGroups,
-		adjustedDefaultSales,
-		adjustedMealPeriods,
-		adjustedMealPeriodCats;
+	let restaurant;
 
 	switch (action.type) {
 		case ADD_CATEGORY:
@@ -81,6 +78,13 @@ export default function active(state = INITIAL_STATE, action) {
 			return {
 				...state,
 				users : [ ...state.users, action.user ]
+			};
+
+		case CHANGE_USER_RESTAURANT_ACCESS:
+			let users = state.users.filter(u => u.id !== action.user.id);
+			return {
+				...state,
+				users : sortByFirstAndLastName([ ...users, action.user ])
 			};
 
 		case DELETE_CATEGORY:
@@ -139,88 +143,38 @@ export default function active(state = INITIAL_STATE, action) {
 			};
 
 		case UPDATE_CATEGORY:
-			const updatedCategory = action.category;
-			categories = state.categories;
-			adjustedCategories = [];
-			for (let i = 0; i < categories.length; i++) {
-				if (categories[i].id === updatedCategory.id) {
-					adjustedCategories.push(updatedCategory);
-				}
-				else {
-					adjustedCategories.push(categories[i]);
-				}
-			}
+			let categories = state.categories.filter(c => c.id !== action.category.id);
 			return {
 				...state,
-				categories : sortByName(adjustedCategories)
+				categories : sortByName([ ...categories, action.category ])
 			};
 
 		case UPDATE_CATEGORY_GROUP:
-			const updatedCatGroup = action.catGroup;
-			catGroups = state.catGroups;
-			adjustedCatGroups = [];
-			for (let i = 0; i < catGroups.length; i++) {
-				if (catGroups[i].id === updatedCatGroup.id) {
-					adjustedCatGroups.push(updatedCatGroup);
-				}
-				else {
-					adjustedCatGroups.push(catGroups[i]);
-				}
-			}
+			let catGroups = state.catGroups.filter(cg => cg.id !== action.catGroup.id);
 			return {
 				...state,
-				catGroups : sortByName(adjustedCatGroups)
+				catGroups : sortByName([ ...catGroups, action.catGroup ])
 			};
 
 		case UPDATE_DEFAULT_SALE:
-			const updatedDefaultSale = action.defaultSale;
-			defaultSales = state.defaultSales;
-			adjustedDefaultSales = [];
-			for (let i = 0; i < defaultSales.length; i++) {
-				if (defaultSales[i].id === updatedDefaultSale.id) {
-					adjustedDefaultSales.push(updatedDefaultSale);
-				}
-				else {
-					adjustedDefaultSales.push(defaultSales[i]);
-				}
-			}
+			let defaultSales = state.defaultSales.filter(ds => ds.id !== action.defaultSale.id);
 			return {
 				...state,
-				defaultSales : adjustedDefaultSales
+				defaultSales : [ ...defaultSales, action.defaultSale ]
 			};
 
 		case UPDATE_MEAL_PERIOD:
-			const updatedMealPeriod = action.mealPeriod;
-			mealPeriods = state.mealPeriods;
-			adjustedMealPeriods = [];
-			for (let i = 0; i < mealPeriods.length; i++) {
-				if (mealPeriods[i].id === updatedMealPeriod.id) {
-					adjustedMealPeriods.push(updatedMealPeriod);
-				}
-				else {
-					adjustedMealPeriods.push(mealPeriods[i]);
-				}
-			}
+			let mealPeriods = state.mealPeriods.filter(mp => mp.id !== action.mealPeriod.id);
 			return {
 				...state,
-				mealPeriods : sortByName(adjustedMealPeriods)
+				mealPeriods : sortByName([ ...mealPeriods, action.mealPeriod ])
 			};
 
 		case UPDATE_MEAL_PERIOD_CATEGORY:
-			const updatedMealPeriodCat = action.mealPeriodCat;
-			mealPeriod_categories = state.mealPeriod_categories;
-			adjustedMealPeriodCats = [];
-			for (let i = 0; i < mealPeriod_categories.length; i++) {
-				if (mealPeriod_categories[i].id === updatedMealPeriodCat.id) {
-					adjustedMealPeriodCats.push(updatedMealPeriodCat);
-				}
-				else {
-					adjustedMealPeriodCats.push(mealPeriod_categories[i]);
-				}
-			}
+			let mealPeriods_categories = state.mealPeriods_categories.filter(mpc => mpc.id !== action.mealPeriodCat.id);
 			return {
 				...state,
-				mealPeriod_categories : adjustedMealPeriodCats
+				mealPeriods_categories : [ ...mealPeriods_categories, action.mealPeriodCat ]
 			};
 
 		case UPDATE_RESTAURANT:

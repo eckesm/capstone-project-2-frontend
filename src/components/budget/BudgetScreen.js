@@ -157,7 +157,7 @@ export default function BudgetScreen() {
 				budgetFigures && (
 					<div className="BudgetPerformanceCard">
 						<p className="SectionTitle1">Remaining Budget</p>
-						<ul>
+						<ul className='IgnoreList'>
 							{active.categories.map(c => {
 								let remainingBudget = budgetFigures[c.id].remainingBudget;
 								let totalBudget = budgetFigures[c.id].totalBudget;
@@ -190,7 +190,7 @@ export default function BudgetScreen() {
 					budgetFigures && (
 						<div className="PerformanceCard Card">
 							<p className="SectionTitle1">Sales To Date</p>
-							<ul>
+							<ul className='IgnoreList'>
 								{active.categories.map(c => {
 									return (
 										<li key={c.id}>
@@ -223,7 +223,7 @@ export default function BudgetScreen() {
 						<div className="PerformanceCard Card">
 							<p className="SectionTitle1">Expected Remaining Sales</p>
 
-							<ul>
+							<ul className='IgnoreList'>
 								{active.categories.map(c => {
 									return (
 										<li key={c.id}>
@@ -262,7 +262,7 @@ export default function BudgetScreen() {
 					budgetFigures && (
 						<div className="PerformanceCard Card">
 							<p className="SectionTitle1">Total Expected Weekly Sales</p>
-							<ul>
+							<ul className='IgnoreList'>
 								{active.categories.map(c => {
 									return (
 										<li key={c.id}>
@@ -278,7 +278,7 @@ export default function BudgetScreen() {
 					budgetFigures && (
 						<div className="PerformanceCard Card">
 							<p className="SectionTitle1">COGS %</p>
-							<ul>
+							<ul className='IgnoreList'>
 								{active.categories.map(c => {
 									return (
 										<li key={c.id}>
@@ -301,7 +301,7 @@ export default function BudgetScreen() {
 					budgetFigures && (
 						<div className="PerformanceCard Card">
 							<p className="SectionTitle1">Total Budget</p>
-							<ul>
+							<ul className='IgnoreList'>
 								{active.categories.map(c => {
 									return (
 										<li key={c.id}>
@@ -323,7 +323,7 @@ export default function BudgetScreen() {
 					budgetFigures && (
 						<div className="PerformanceCard Card">
 							<p className="SectionTitle1">Weekly Spending</p>
-							<ul>
+							<ul className='IgnoreList'>
 								{active.categories.map(c => {
 									return (
 										<li key={c.id}>

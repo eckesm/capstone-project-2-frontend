@@ -1,16 +1,8 @@
-/* .RestaurantDetail {
-	margin: 25px auto;
-} */
-
 .RestaurantDetail .ActionButtonsGroup button {
 	width: 250px;
 	margin: 5px auto;
 	font-size: large;
 	display: block;
-}
-
-.RestaurantDetail {
-	margin-top: 25px;
 }
 
 .FullFormContainer {
@@ -19,6 +11,15 @@
 	margin: 25px;
 	padding: 25px;
 	padding-top: 15px;
+}
+
+.RestaurantUserCard.Card {
+	width: 250px;
+	min-width: 250px;
+}
+
+.RestaurantCard .Notes {
+	font-size: unset;
 }
 
 .RestaurantDetail .InputGroup label {

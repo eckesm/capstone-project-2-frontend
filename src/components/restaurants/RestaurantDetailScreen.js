@@ -12,7 +12,6 @@ export default function RestaurantDetailScreen() {
 	return (
 		<div className="Window">
 			<div className="Screen">
-				{active && <p className="ScreenTitle">{active.name}</p>}
 				{active && <RestaurantDetail restaurant={active} />}
 			</div>
 		</div>

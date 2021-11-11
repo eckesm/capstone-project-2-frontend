@@ -32,8 +32,6 @@
 	font-style: italic;
 } */
 
-ul {
-	list-style-type: none;
-	padding: 0px;
-	margin: 5px;
+.BudgetScreen ul {
+	text-align: center;
 }

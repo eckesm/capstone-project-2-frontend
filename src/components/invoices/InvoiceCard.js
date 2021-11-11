@@ -39,7 +39,7 @@ export default function InvoiceCard({
 	}, []);
 
 	return (
-		<div className="InvoiceCard Card Hover" onClick={handleClick}>
+		<div className="InvoiceCard Card BackgroundHover ShadowHover" onClick={handleClick}>
 			<p className="SectionTitle2">{invoice}</p>
 			<div className="HeadingContainer">
 				<ul className="IgnoreList">

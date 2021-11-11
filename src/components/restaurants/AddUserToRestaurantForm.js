@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
 
-import useFields from '../../hooks/useFields';
-
 import { addUserToRestaurant } from '../../actions/restaurants';
 import { lookupEmailAddressApi } from '../../helpers/api';
+
+import SubmitButton from '../buttons/SubmitButton';
+import ErrorMessages from '../ErrorMessages';
 
 export default function AddUserToRestaurantForm({ restaurantId }) {
 	const dispatch = useDispatch();
@@ -15,7 +16,25 @@ export default function AddUserToRestaurantForm({ restaurantId }) {
 		emailAddress : '',
 		isAdmin      : false
 	};
-	const [ formData, handleChange, resetFormData ] = useFields(initialState);
+	const [ formData, setFormData ] = useState(initialState);
+
+	const handleChange = evt => {
+		const { name, value, checked } = evt.target;
+		if (name === 'isAdmin') {
+			setFormData(data => ({
+				...data,
+				[name] : checked
+			}));
+		}
+		else {
+			setFormData(data => ({
+				...data,
+				[name] : value
+			}));
+		}
+	};
+
+	const [ errors, setErrors ] = useState([]);
 
 	async function handleSubmit(evt) {
 		evt.preventDefault();
@@ -24,6 +43,9 @@ export default function AddUserToRestaurantForm({ restaurantId }) {
 			const userLookupRes = await lookupEmailAddressApi(formData.emailAddress);
 			if (userLookupRes.status === 200) {
 				user = userLookupRes.data.user;
+			}
+			else if (userLookupRes.status === 404) {
+				setErrors([ userLookupRes.message ]);
 			}
 			else {
 				console.log(userLookupRes.message);
@@ -38,6 +60,9 @@ export default function AddUserToRestaurantForm({ restaurantId }) {
 				if (res.status === 201) {
 					history.push(`/restaurants/${restaurantId}/users`);
 				}
+				else if (res.status === 400) {
+					setErrors([ res.message ]);
+				}
 				else {
 					console.log(res.message);
 				}
@@ -49,30 +74,44 @@ export default function AddUserToRestaurantForm({ restaurantId }) {
 
 	return (
 		<div>
-			{/* <h1>Add User to {restaurantName}</h1> */}
 			<form onSubmit={handleSubmit}>
-				<div>
-					<label htmlFor="emailAddress">Email Address:</label>
-					<input
-						type="text"
-						id="emailAddress"
-						value={formData.emailAddress}
-						name="emailAddress"
-						onChange={handleChange}
-					/>
+				<div className="Section">
+					<div>
+						<label htmlFor="emailAddress">Email Address:</label>
+						<input
+							type="text"
+							id="emailAddress"
+							value={formData.emailAddress}
+							name="emailAddress"
+							onChange={handleChange}
+							required
+						/>
+					</div>
+					<div>
+						<label htmlFor="isAdmin">Administrator:</label>
+						<input
+							type="checkbox"
+							id="isAdmin"
+							checked={formData.isAdmin}
+							name="isAdmin"
+							onChange={handleChange}
+						/>
+					</div>
 				</div>
-				<div>
-					<label htmlFor="isAdmin">Administrator:</label>
-					<input
-						type="checkbox"
-						id="isAdmin"
-						value={formData.isAdmin}
-						name="isAdmin"
-						onChange={handleChange}
-					/>
+				<div className="ButtonGroup">
+					<SubmitButton text="Add User" />
 				</div>
-				<button type="submit">Add User</button>
 			</form>
+			{/* <ul className="IgnoreList">
+				{errors.map((e, idx) => {
+					return (
+						<li key={idx} className="ErrorMessage">
+							{e}
+						</li>
+					);
+				})}
+			</ul> */}
+			<ErrorMessages errors={errors} />
 		</div>
 	);
 }
