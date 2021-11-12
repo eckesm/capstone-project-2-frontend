@@ -7,24 +7,30 @@ import AllCategories from './AllCategories';
 import AddButton from '../buttons/AddButton';
 import GoButton from '../buttons/GoButton';
 
+import '../screen.css';
+
 export default function AllCategoriesScreen() {
 	const history = useHistory();
 	const active = useSelector(store => store.active);
 
 	return (
-		<div>
-			<div>
-				<h1>Categories</h1>
-				{active &&
-				active.isAdmin && (
-					<AddButton
-						text="Add Category"
-						onClick={() => history.push(`/restaurants/${active.id}/categories/new`)}
-					/>
-				)}
-				<GoButton text="Restaurant" onClick={() => history.push(`/restaurants/${active.id}`)} />
+		<div className="Window">
+			<div className="AllCategoriesScreen Screen">
+				<p className="ScreenTitle">Categories</p>
+				<div className="ButtonGroup">
+					{active &&
+					active.isAdmin && (
+						<AddButton
+							text="Add Category"
+							onClick={() => history.push(`/restaurants/${active.id}/categories/new`)}
+						/>
+					)}
+					<GoButton text="Restaurant" onClick={() => history.push(`/restaurants/${active.id}`)} />
+				</div>
+				<div className="BasicView">
+					{active && <AllCategories categories={active.categories} catGroups={active.catGroups} />}
+				</div>
 			</div>
-			{active && <AllCategories categories={active.categories} catGroups={active.catGroups} />}
 		</div>
 	);
 }

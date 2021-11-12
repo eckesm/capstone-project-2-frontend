@@ -1,5 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router';
+// import { Link } from 'react-router-dom';
+
+import './categories.css';
 
 export default function CategoryCard({
 	id,
@@ -10,21 +13,32 @@ export default function CategoryCard({
 	cogsPercent = 0,
 	notes = null
 }) {
+	const history = useHistory();
+
 	return (
-		<div>
-			<h2>{name}</h2>
-			<ul>
+		<div
+			className="CategoryCard Card BackgroundHover ShadowHover"
+			onClick={() => history.push(`/restaurants/${restaurantId}/categories/${id}`)}
+		>
+			<p className="SectionTitle2">{name}</p>
+			<ul className="IgnoreList Left">
 				{catGroupName && (
-					<li>
-						Category Group:{' '}
-						<Link to={`/restaurants/${restaurantId}/category-groups/${catGroupId}`}>{catGroupName}</Link>
+					<li className="InputGroup">
+						<label>Category Group:</label>
+						{catGroupName}
 					</li>
 				)}
-				<li>COGS Percentage: {Math.floor(cogsPercent * 10000) / 100}%</li>
-				{notes && <li>Notes: {notes}</li>}
+				<li className="InputGroup">
+					<label>COGS Percentage:</label>
+					<span>{Math.floor(cogsPercent * 10000) / 100}%</span>
+				</li>
 			</ul>
-			<Link to={`/restaurants/${restaurantId}/categories/${id}`}>Go to {name}.</Link>
-			{notes && <p>{notes}</p>}
+			{notes && (
+				<div className="InputGroup">
+					<label>Notes:</label>
+					<span className="Notes">{notes}</span>
+				</div>
+			)}
 		</div>
 	);
 }

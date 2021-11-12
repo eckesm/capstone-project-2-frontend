@@ -5,7 +5,10 @@ import useFields from '../../hooks/useFields';
 
 import { updateCategory } from '../../actions/categories';
 
-import CancelButton from '../buttons/EditButton';
+import CancelButton from '../buttons/CancelButton';
+import SubmitButton from '../buttons/SubmitButton';
+
+import '../screen.css';
 
 export default function EditCategoryForm({
 	id,
@@ -52,24 +55,14 @@ export default function EditCategoryForm({
 	}
 
 	return (
-		<div>
+		<div className="EditCategoryForm">
 			<form onSubmit={handleSubmit}>
-				<div>
+				<div className="InputGroup">
 					<label htmlFor="name">Name:</label>
 					<input type="text" id="name" value={formData.name} name="name" onChange={handleChange} required />
 				</div>
-				{/* <div>
-					<label htmlFor="catGroupId">catGroupId:</label>
-					<input
-						type="text"
-						id="catGroupId"
-						value={formData.catGroupId}
-						name="catGroupId"
-						onChange={handleChange}
-					/>
-				</div> */}
 				{catGroups.length > 0 && (
-					<div>
+					<div className="InputGroup">
 						<label htmlFor="catGroupId">Category Group:</label>
 						<select
 							type="text"
@@ -91,7 +84,7 @@ export default function EditCategoryForm({
 						</select>
 					</div>
 				)}
-				<div>
+				<div className="InputGroup">
 					<label htmlFor="cogsPercent">COGS Percent:</label>
 					<input
 						type="number"
@@ -104,12 +97,22 @@ export default function EditCategoryForm({
 						onChange={handleChange}
 					/>
 				</div>
-				<div>
+				<div className="InputGroup">
 					<label htmlFor="notes">Notes:</label>
-					<input type="text" id="notes" value={formData.notes} name="notes" onChange={handleChange} />
+					<textarea
+						type="text"
+						rows="5"
+						cols="50"
+						id="notes"
+						value={formData.notes}
+						name="notes"
+						onChange={handleChange}
+					/>
 				</div>
-				<button type="submit">Update Category</button>
-				<CancelButton text="Don't Update" onClick={handleCancel} />
+				<div className="ButtonGroup">
+					<SubmitButton text="Update Category" />
+					<CancelButton text="Don't Update" onClick={handleCancel} />
+				</div>
 			</form>
 		</div>
 	);

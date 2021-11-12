@@ -89,6 +89,13 @@
 	display: flex;
 }
 
+.InputGroup.Left {
+	justify-content: left;
+}
+.InputGroup.Centered {
+	justify-content: center;
+}
+
 .InputGroup label {
 	width: auto;
 	min-width: 85px;
@@ -102,11 +109,22 @@
 }
 
 .CardsContainer {
-	margin: 10px;
+	margin: 10px auto;
 	display: flex;
 	width: 100%;
-	justify-content: space-around;
 	flex-wrap: wrap;
+}
+.CardsContainer.Stacked {
+	display: block;
+	justify-content: space-around;
+}
+.CardsContainer.LeftRows {
+	display: flex;
+	justify-content: left;
+}
+.CardsContainer.CenteredRows {
+	display: flex;
+	justify-content: space-evenly;
 }
 
 .Card {
@@ -117,10 +135,6 @@
 	margin: 5px;
 	padding: 10px;
 	overflow: auto;
-}
-
-.Card.Stacked {
-	width: 90%;
 }
 
 .Card .Title {
@@ -157,6 +171,9 @@ ul.IgnoreList {
 	padding: 0px;
 	text-align: left;
 }
+ul.IgnoreList.Centered {
+	text-align: center;
+}
 
 .ErrorMessage {
 	list-style-type: none;
@@ -171,6 +188,14 @@ ul.IgnoreList {
 	margin-top: 5px;
 }
 
-.Left{
+.Left {
 	text-align: left;
+}
+
+.FullFormContainer {
+	border: 1px solid black;
+	background-color: white;
+	margin: 25px;
+	padding: 25px;
+	padding-top: 15px;
 }

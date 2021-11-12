@@ -12,13 +12,15 @@ export default function RestaurantUsersScreen() {
 	const history = useHistory();
 
 	const active = useSelector(store => store.active);
+	const user = useSelector(store => store.auth);
 
 	return (
 		<div className="Window">
-			{active && (
+			{active &&
+			user && (
 				<div className="RestaurantUsersScreen Screen">
 					<p className="ScreenTitle">Users</p>
-					<div className="CardsContinaer">
+					<div className="CardsContainer">
 						{active.users.map(u => {
 							return (
 								<RestaurantUserCard
@@ -28,12 +30,17 @@ export default function RestaurantUsersScreen() {
 									isOwner={active.ownerId == u.id}
 									showAdminControls={active.isAdmin}
 									restaurantId={active.id}
+									self={user.user.userId === u.id}
 								/>
 							);
 						})}
 					</div>
-
-					<AddButton text="Add User" onClick={() => history.push(`/restaurants/${active.id}/users/add`)} />
+					{active.isAdmin && (
+						<AddButton
+							text="Add User"
+							onClick={() => history.push(`/restaurants/${active.id}/users/add`)}
+						/>
+					)}
 				</div>
 			)}
 		</div>

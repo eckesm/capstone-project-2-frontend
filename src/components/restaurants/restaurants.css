@@ -5,13 +5,13 @@
 	display: block;
 }
 
-.FullFormContainer {
+/* .FullFormContainer {
 	border: 1px solid black;
 	background-color: white;
 	margin: 25px;
 	padding: 25px;
 	padding-top: 15px;
-}
+} */
 
 .RestaurantUserCard.Card {
 	width: 250px;

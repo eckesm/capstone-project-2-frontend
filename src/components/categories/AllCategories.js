@@ -6,7 +6,7 @@ import { getNameFromId } from '../../helpers/filterArrays';
 
 export default function AllCategories({ categories = [], catGroups = [] }) {
 	return (
-		<div>
+		<div className="AllCategories CardsContainer Stacked">
 			{categories.map(c => {
 				return (
 					<CategoryCard

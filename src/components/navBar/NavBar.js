@@ -35,6 +35,10 @@ export default function NavBar({ logout }) {
 		];
 	};
 
+	const userLinksArray = () => {
+		return [ { title: 'Restaurant Users', ref: `/restaurants/${active.id}/users` } ];
+	};
+
 	const invoicesLinksArray = () => {
 		return [
 			{ title: 'Invoices', ref: `/restaurants/${active.id}/invoices` },
@@ -80,6 +84,9 @@ export default function NavBar({ logout }) {
 				{active &&
 				active.isAdmin &&
 				active.isOwner && <NavBarDropdown title="Admin/Owner" linksArray={ownerLinksArray()} />}
+				{active &&
+				!active.isAdmin &&
+				!active.isOwner && <NavBarDropdown title="User" linksArray={userLinksArray()} />}
 
 				<li>
 					<NavLink to="/logout" onClick={logout}>

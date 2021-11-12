@@ -6,6 +6,7 @@ import { sortByDate } from '../../helpers/sorting';
 import InvoiceCard from './InvoiceCard';
 
 import './invoices.css';
+import '../screen.css';
 
 export default function AllInvoices({ invoices = [], expenses = [], categories = [] }) {
 	const [ displayInvoices, setDisplayInvoices ] = useState([]);
@@ -18,7 +19,7 @@ export default function AllInvoices({ invoices = [], expenses = [], categories =
 	);
 
 	return (
-		<div className="AllInvoices">
+		<div className="AllInvoices CardsContainer">
 			{displayInvoices.map(i => {
 				return (
 					<InvoiceCard

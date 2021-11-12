@@ -12,16 +12,16 @@ export default function RestaurantUserCard({
 	isAdmin,
 	isOwner,
 	showAdminControls = false,
-	restaurantId
+	restaurantId,
+	self = false
 }) {
 	const dispatch = useDispatch();
 
 	async function handleChangeAccess() {
 		try {
-			const res = await dispatch(changeUserRestaurantAccess(restaurantId, user, {isAdmin:!isAdmin}));
+			const res = await dispatch(changeUserRestaurantAccess(restaurantId, user, { isAdmin: !isAdmin }));
 			if (res.status === 201) {
 				// history.push(`/restaurants/${restaurantId}/users`);
-				console.log(res.message);
 			}
 			else {
 				console.log(res.message);
@@ -42,7 +42,8 @@ export default function RestaurantUserCard({
 				{isAdmin && !isOwner && <li>Administrator</li>}
 				{!isAdmin && !isOwner && <li>User</li>}
 			</ul>
-			{showAdminControls && (
+			{showAdminControls &&
+			!self && (
 				<div className="ButtonGroup">
 					{!isAdmin && !isOwner && <GoButton text="Make Administrator" onClick={handleChangeAccess} />}
 					{isAdmin && !isOwner && <GoButton text="Make User" onClick={handleChangeAccess} />}

@@ -5,7 +5,8 @@ import useFields from '../../hooks/useFields';
 
 import { updateCategoryGroup } from '../../actions/categoryGroups';
 
-import CancelButton from '../buttons/EditButton';
+import CancelButton from '../buttons/CancelButton';
+import SubmitButton from '../buttons/SubmitButton';
 
 export default function EditCategoryGroupForm({ id, name, notes, setCategoryGroup, setEditing }) {
 	const dispatch = useDispatch();
@@ -35,18 +36,28 @@ export default function EditCategoryGroupForm({ id, name, notes, setCategoryGrou
 	}
 
 	return (
-		<div>
+		<div className="EditCategoryGroupForm">
 			<form onSubmit={handleSubmit}>
-				<div>
+				<div className="InputGroup">
 					<label htmlFor="name">Name:</label>
 					<input type="text" id="name" value={formData.name} name="name" onChange={handleChange} required />
 				</div>
-				<div>
+				<div className="InputGroup">
 					<label htmlFor="notes">Notes:</label>
-					<input type="text" id="notes" value={formData.notes} name="notes" onChange={handleChange} />
+					<textarea
+						type="text"
+						rows="5"
+						cols="50"
+						id="notes"
+						value={formData.notes}
+						name="notes"
+						onChange={handleChange}
+					/>
 				</div>
-				<button type="submit">Update Category Group</button>
-				<CancelButton text="Don't Update" onClick={handleCancel} />
+				<div className="ButtonGroup">
+					<SubmitButton text="Update Category Group" />
+					<CancelButton text="Don't Update" onClick={handleCancel} />
+				</div>
 			</form>
 		</div>
 	);

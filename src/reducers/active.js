@@ -137,9 +137,10 @@ export default function active(state = INITIAL_STATE, action) {
 			delete restaurant.expenses;
 			return {
 				...restaurant,
-				mealPeriods : sortByName(restaurant.mealPeriods),
 				categories  : sortByName(restaurant.categories),
-				catGroups   : sortByName(restaurant.catGroups)
+				catGroups   : sortByName(restaurant.catGroups),
+				mealPeriods : sortByName(restaurant.mealPeriods),
+				users       : sortByFirstAndLastName(restaurant.users)
 			};
 
 		case UPDATE_CATEGORY:

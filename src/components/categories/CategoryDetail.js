@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-import { getCategoryApi } from '../../helpers/api';
 import { deleteCategory } from '../../actions/categories';
 import { getNameFromId } from '../../helpers/filterArrays';
 
@@ -12,27 +11,12 @@ import EditButton from '../buttons/EditButton';
 import EditCategoryForm from './EditCategoryForm';
 import GoButton from '../buttons/GoButton';
 
-export default function CategoryDetail() {
+import '../screen.css';
+
+export default function CategoryDetail({ category, catGroups, isAdmin = false, setCategory }) {
 	const dispatch = useDispatch();
 	const history = useHistory();
-
-	const { categoryId } = useParams();
-	const active = useSelector(store => store.active);
-
-	const [ category, setCategory ] = useState(null);
 	const [ editing, setEditing ] = useState(false);
-
-	useEffect(
-		async () => {
-			const res = await getCategoryApi(categoryId);
-			setCategory(res.data.category);
-		},
-		[ categoryId ]
-	);
-
-	// function getNameFromId(catGroupId) {
-	// 	return active.catGroups.filter(cg => cg.id === catGroupId)[0].name;
-	// }
 
 	async function handleDelete() {
 		try {
@@ -46,56 +30,60 @@ export default function CategoryDetail() {
 	}
 
 	return (
-		<div>
-			{category &&
-			!editing && (
-				<div>
-					<h1>{category.name}</h1>
-					<div>
+		<div className="CategoryDetail">
+			{!editing && (
+				<div className="BasicView">
+					<p className="ScreenTitle">{category.name}</p>
+					<ul className="IgnoreList Centered">
 						{category.catGroupId && (
-							<p>
-								Category Group:{' '}
+							<li className="InputGroup Centered">
+								<label>Category Group:</label>
 								<Link
 									to={`/restaurants/${category.restaurantId}/category-groups/${category.catGroupId}`}
 								>
-									{getNameFromId(active.catGroups, category.catGroupId)}
+									{getNameFromId(catGroups, category.catGroupId)}
 								</Link>
-							</p>
+							</li>
 						)}
 						{category.cogsPercent && (
-							<p>COGS Percentage: {Math.floor(category.cogsPercent * 10000) / 100}%</p>
+							<li className="InputGroup">
+								<label>COGS Percentage:</label>
+								{Math.floor(category.cogsPercent * 10000) / 100}%
+							</li>
 						)}
-						{category.notes && <p>Notes: {category.notes}</p>}
+						{category.notes && (
+							<li className="InputGroup">
+								<label>Notes:</label>
+								<span className="Notes">{category.notes}</span>
+							</li>
+						)}
+					</ul>
+					<div className="ButtonGroup">
+						{isAdmin && <EditButton onClick={() => setEditing(true)} text="Edit Category" />}
+						{isAdmin && <DeleteButton text="Delete Category" onClick={handleDelete} />}
+						<GoButton
+							text="All Categories"
+							onClick={() => history.push(`/restaurants/${category.restaurantId}/categories`)}
+						/>
 					</div>
-					{active &&
-					active.isAdmin && (
-						<div>
-							{active.isAdmin && <EditButton onClick={() => setEditing(true)} text="Edit Category" />}
-							{active.isAdmin && <DeleteButton text="Delete Category" onClick={handleDelete} />}
-							<GoButton
-								text="All Categories"
-								onClick={() => history.push(`/restaurants/${category.restaurantId}/categories`)}
-							/>
-						</div>
-					)}
 				</div>
 			)}
 
-			{category &&
-			active &&
-			editing && (
+			{editing && (
 				<div>
-					<h1>Edit Category</h1>
-					<EditCategoryForm
-						id={category.id}
-						name={category.name}
-						catGroupId={category.catGroupId}
-						cogsPercent={category.cogsPercent}
-						notes={category.notes}
-						catGroups={active.catGroups}
-						setCategory={setCategory}
-						setEditing={setEditing}
-					/>
+					<p className="ScreenTitle">Edit Category</p>
+					<div className="FullFormContainer">
+						<EditCategoryForm
+							id={category.id}
+							name={category.name}
+							catGroupId={category.catGroupId}
+							cogsPercent={category.cogsPercent}
+							notes={category.notes}
+							catGroups={catGroups}
+							setCategory={setCategory}
+							setEditing={setEditing}
+						/>
+					</div>
 				</div>
 			)}
 		</div>

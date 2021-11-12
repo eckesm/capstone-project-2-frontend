@@ -1,26 +1,31 @@
 import React from 'react';
+import { useHistory } from 'react-router';
 
-import { Link } from 'react-router-dom';
+import './categoryGroups.css';
+import '../screen.css';
 
 export default function CategoryGroupCard({ id, restaurantId, name, notes = null, categories = [] }) {
+	const history = useHistory();
+
 	return (
-		<div>
-			<h2>{name}</h2>
-			<ul>
-				<Link to={`/restaurants/${restaurantId}/category-groups/${id}`}>Go to {name}.</Link>
-				{categories.length > 0 && (
-					<ul>
-						{categories.map(c => {
-							return (
-								<li key={c.id}>
-									<Link to={`/restaurants/${c.restaurantId}/categories/${c.id}`}>{c.name}</Link>
-								</li>
-							);
-						})}
-					</ul>
-				)}
-				{notes && <li>{notes}</li>}
-			</ul>
+		<div
+			className="CategoryGroupCard Card BackgroundHover ShadowHover"
+			onClick={() => history.push(`/restaurants/${restaurantId}/category-groups/${id}`)}
+		>
+			<p className="SectionTitle2">{name}</p>
+			{categories.length > 0 && (
+				<ul className="IgnoreList Centered">
+					{categories.map(c => {
+						return <li>{c.name}</li>;
+					})}
+				</ul>
+			)}
+			{notes && (
+				<div className="InputGroup Left">
+					<label>Notes:</label>
+					<span className="Notes">{notes}</span>
+				</div>
+			)}
 		</div>
 	);
 }

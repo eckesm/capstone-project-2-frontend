@@ -1,0 +1,11 @@
+.CategoryCard .InputGroup label {
+	min-width: 50px;
+}
+
+.CategoryDetail .InputGroup label {
+	min-width: 150px;
+}
+
+.EditCategoryForm .InputGroup label {
+	min-width: 125px;
+}

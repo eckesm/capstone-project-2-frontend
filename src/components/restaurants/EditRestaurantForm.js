@@ -6,7 +6,7 @@ import useFields from '../../hooks/useFields';
 
 import { updateRestaurant } from '../../actions/restaurants';
 
-import CancelButton from '../buttons/EditButton';
+import CancelButton from '../buttons/CancelButton';
 import SubmitButton from '../buttons/SubmitButton';
 
 export default function EditRestaurantForm({ id, name, address, phone, email, website, notes }) {

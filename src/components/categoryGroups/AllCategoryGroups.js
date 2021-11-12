@@ -6,7 +6,7 @@ import CatGroupCard from './CategoryGroupCard';
 export default function AllCategoryGroups({ catGroups = [], categories = [] }) {
 
 	return (
-		<div>
+		<div className='AllCategoryGroups CardsContainer Stacked'>
 			{catGroups.map(cg => {
 				return (
 					<CatGroupCard

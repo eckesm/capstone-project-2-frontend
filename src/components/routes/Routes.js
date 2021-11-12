@@ -20,11 +20,11 @@ import MealPeriodDetailScreen from '../mealPeriods/MealPeriodDetailScreen';
 import AllMealPeriodsScreen from '../mealPeriods/AllMealPeriodsScreen';
 import NewMealPeriodForm from '../mealPeriods/NewMealPeriodForm';
 
-import CategoryGroupDetail from '../categoryGroups/CategoryGroupDetail';
+import CategoryGroupDetailScreen from '../categoryGroups/CategoryGroupDetailScreen';
 import AllCategoryGroupsScreen from '../categoryGroups/AllCategoryGroupsScreen';
 import NewCategoryGroupForm from '../categoryGroups/NewCategoryGroupForm';
 
-import CategoryDetail from '../categories/CategoryDetail';
+import CategoryDetailScreen from '../categories/CategoryDetailScreen';
 import AllCategoriesScreen from '../categories/AllCategoriesScreen';
 import NewCategoryForm from '../categories/NewCategoryForm';
 
@@ -88,7 +88,7 @@ export default function Routes() {
 				path="/restaurants/:restaurantId/category-groups/new"
 			/>
 			<ProtectedRouteUser
-				component={CategoryGroupDetail}
+				component={CategoryGroupDetailScreen}
 				exact
 				path="/restaurants/:restaurantId/category-groups/:catGroupId"
 			/>
@@ -96,7 +96,7 @@ export default function Routes() {
 			<ProtectedRouteUser component={AllCategoriesScreen} exact path="/restaurants/:restaurantId/categories" />
 			<ProtectedRouteUser component={NewCategoryForm} exact path="/restaurants/:restaurantId/categories/new" />
 			<ProtectedRouteUser
-				component={CategoryDetail}
+				component={CategoryDetailScreen}
 				exact
 				path="/restaurants/:restaurantId/categories/:categoryId"
 			/>
@@ -118,7 +118,11 @@ export default function Routes() {
 
 			<ProtectedRouteUser component={AllInvoicesScreen} exact path="/restaurants/:restaurantId/invoices" />
 			<ProtectedRouteUser component={NewInvoiceScreen} exact path="/restaurants/:restaurantId/invoices/new" />
-			<ProtectedRouteUser component={InvoiceDetailScreen} exact path="/restaurants/:restaurantId/invoices/:invoiceId" />
+			<ProtectedRouteUser
+				component={InvoiceDetailScreen}
+				exact
+				path="/restaurants/:restaurantId/invoices/:invoiceId"
+			/>
 
 			<ProtectedRouteUser component={BudgetScreen} exact path="/restaurants/:restaurantId/budget" />
 			<ProtectedRouteUser component={BudgetScreen} exact path="/restaurants/:restaurantId/budget/date/:date" />

@@ -25,9 +25,15 @@ export default function MealPeriodDetailScreen() {
 	return (
 		<div className="Window">
 			<div className="Screen">
-				{mealPeriod && (
-					<MealPeriodDetail mealPeriod={mealPeriod} isAdmin={active.isAdmin} setMealPeriod={setMealPeriod} />
-				)}
+				{/* <div className="BasicView"> */}
+					{mealPeriod && (
+						<MealPeriodDetail
+							mealPeriod={mealPeriod}
+							isAdmin={active.isAdmin}
+							setMealPeriod={setMealPeriod}
+						/>
+					)}
+				{/* </div> */}
 			</div>
 		</div>
 	);

@@ -4,7 +4,7 @@ import RestaurantCard from './RestaurantCard';
 
 export default function AllRestaurants({ restaurants, userId }) {
 	return (
-		<div className="AllRestaurants CardsContainer">
+		<div className="AllRestaurants CardsContainer Stacked">
 			{restaurants.map(r => {
 				return (
 					<RestaurantCard

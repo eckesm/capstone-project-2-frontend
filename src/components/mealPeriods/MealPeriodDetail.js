@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
-import { useParams } from 'react-router-dom';
 
-import { getMealPeriodApi } from '../../helpers/api';
 import { deleteMealPeriod } from '../../actions/mealPeriods';
 
 import DeleteButton from '../buttons/DeleteButton';
@@ -31,7 +29,7 @@ export default function MealPeriodDetail({ mealPeriod, isAdmin = false, setMealP
 	return (
 		<div className="MealPeriodDetail">
 			{!editing && (
-				<div>
+				<div className="BasicView">
 					<p className="ScreenTitle">{mealPeriod.name}</p>
 					{mealPeriod.notes && (
 						<div>
@@ -40,22 +38,20 @@ export default function MealPeriodDetail({ mealPeriod, isAdmin = false, setMealP
 							</p>
 						</div>
 					)}
-					{isAdmin && (
-						<div className="ButtonGroup">
-							{isAdmin && <EditButton onClick={() => setEditing(true)} text="Edit Meal Period" />}
-							{isAdmin && <DeleteButton text="Delete Meal Period" onClick={handleDelete} />}
-							<GoButton
-								text="All Meal Periods"
-								onClick={() => history.push(`/restaurants/${mealPeriod.restaurantId}/meal-periods`)}
-							/>
-						</div>
-					)}
+					<div className="ButtonGroup">
+						{isAdmin && <EditButton onClick={() => setEditing(true)} text="Edit Meal Period" />}
+						{isAdmin && <DeleteButton text="Delete Meal Period" onClick={handleDelete} />}
+						<GoButton
+							text="All Meal Periods"
+							onClick={() => history.push(`/restaurants/${mealPeriod.restaurantId}/meal-periods`)}
+						/>
+					</div>
 				</div>
 			)}
 
 			{mealPeriod &&
 			editing && (
-				<div>
+				<div className="FullFormContainer">
 					<p className="ScreenTitle">Edit Meal Period</p>
 					<EditMealPeriodForm
 						id={mealPeriod.id}

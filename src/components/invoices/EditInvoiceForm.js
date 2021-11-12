@@ -5,7 +5,7 @@ import useFields from '../../hooks/useFields';
 
 import { updateInvoice } from '../../actions/invoices';
 
-import CancelButton from '../buttons/EditButton';
+import CancelButton from '../buttons/CancelButton';
 import SubmitButton from '../buttons/SubmitButton';
 
 export default function EditInvoiceForm({

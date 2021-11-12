@@ -6,7 +6,7 @@ import useFields from '../../hooks/useFields';
 import { registerExpense } from '../../actions/expenses';
 
 import SubmitButton from '../buttons/SubmitButton';
-import CancelButton from '../buttons/EditButton';
+import CancelButton from '../buttons/CancelButton';
 
 import './expenses.css';
 

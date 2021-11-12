@@ -5,7 +5,7 @@ import useFields from '../../hooks/useFields';
 
 import { updateMealPeriod } from '../../actions/mealPeriods';
 
-import CancelButton from '../buttons/EditButton';
+import CancelButton from '../buttons/CancelButton';
 import SubmitButton from '../buttons/SubmitButton';
 
 import '../screen.css';

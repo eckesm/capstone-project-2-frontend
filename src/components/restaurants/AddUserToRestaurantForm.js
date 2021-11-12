@@ -102,15 +102,6 @@ export default function AddUserToRestaurantForm({ restaurantId }) {
 					<SubmitButton text="Add User" />
 				</div>
 			</form>
-			{/* <ul className="IgnoreList">
-				{errors.map((e, idx) => {
-					return (
-						<li key={idx} className="ErrorMessage">
-							{e}
-						</li>
-					);
-				})}
-			</ul> */}
 			<ErrorMessages errors={errors} />
 		</div>
 	);
