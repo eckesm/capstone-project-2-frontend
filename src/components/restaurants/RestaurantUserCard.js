@@ -1,7 +1,8 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router';
 
-import { changeUserRestaurantAccess } from '../../actions/restaurants';
+import { changeUserRestaurantAccess, deleteUserRestaurantAccess } from '../../actions/restaurants';
 
 import GoButton from '../buttons/GoButton';
 
@@ -16,6 +17,7 @@ export default function RestaurantUserCard({
 	self = false
 }) {
 	const dispatch = useDispatch();
+	const history = useHistory();
 
 	async function handleChangeAccess() {
 		try {
@@ -31,8 +33,30 @@ export default function RestaurantUserCard({
 		}
 	}
 
+	async function handleDeleteAccess() {
+		try {
+			const res = await dispatch(deleteUserRestaurantAccess(restaurantId, user.id));
+			if (res.status === 200) {
+				return res;
+			}
+			else {
+				console.log(res.message);
+			}
+		} catch (err) {
+			console.log('handleSubmit() > deleteUserRestaurantAccess() error:', err);
+		}
+	}
+
+	async function handleRemoveSelf() {
+		const res = await handleDeleteAccess();
+		if (res.status === 200) {
+			history.push('/restaurants');
+			console.log('removed');
+		}
+	}
+
 	return (
-		<div className="RestaurantUserCard Card">
+		<div className="RestaurantUserCard Card ShadowHover">
 			<p className="SectionTitle2">
 				{user.firstName} {user.lastName}
 			</p>
@@ -42,13 +66,21 @@ export default function RestaurantUserCard({
 				{isAdmin && !isOwner && <li>Administrator</li>}
 				{!isAdmin && !isOwner && <li>User</li>}
 			</ul>
-			{showAdminControls &&
-			!self && (
-				<div className="ButtonGroup">
-					{!isAdmin && !isOwner && <GoButton text="Make Administrator" onClick={handleChangeAccess} />}
-					{isAdmin && !isOwner && <GoButton text="Make User" onClick={handleChangeAccess} />}
-				</div>
-			)}
+
+			<div className="ButtonGroup">
+				{showAdminControls &&
+				!self &&
+				!isAdmin &&
+				!isOwner && <GoButton text="Make Administrator" onClick={handleChangeAccess} />}
+				{showAdminControls &&
+				!self &&
+				isAdmin &&
+				!isOwner && <GoButton text="Make User" onClick={handleChangeAccess} />}
+				{showAdminControls &&
+				!self &&
+				!isOwner && <GoButton text="Remove Access" onClick={handleDeleteAccess} />}
+				{self && !isOwner && <GoButton text="Remove Self from Restaurant" onClick={handleRemoveSelf} />}
+			</div>
 		</div>
 	);
 }

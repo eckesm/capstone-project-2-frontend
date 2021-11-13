@@ -9,3 +9,7 @@
 .EditCategoryForm .InputGroup label {
 	min-width: 125px;
 }
+
+.NewCategoryScreen .InputGroup label {
+	min-width: 125px;
+}

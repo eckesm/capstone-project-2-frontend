@@ -25,11 +25,11 @@ export default function AllCategoriesScreen() {
 							onClick={() => history.push(`/restaurants/${active.id}/categories/new`)}
 						/>
 					)}
-					<GoButton text="Restaurant" onClick={() => history.push(`/restaurants/${active.id}`)} />
+					{/* <GoButton text="Restaurant" onClick={() => history.push(`/restaurants/${active.id}`)} /> */}
 				</div>
-				<div className="BasicView">
+				{/* <div className="BasicView"> */}
 					{active && <AllCategories categories={active.categories} catGroups={active.catGroups} />}
-				</div>
+				{/* </div> */}
 			</div>
 		</div>
 	);

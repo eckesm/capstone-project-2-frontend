@@ -16,7 +16,7 @@ export default function CategoryGroupCard({ id, restaurantId, name, notes = null
 			{categories.length > 0 && (
 				<ul className="IgnoreList Centered">
 					{categories.map(c => {
-						return <li>{c.name}</li>;
+						return <li key={c.id}>{c.name}</li>;
 					})}
 				</ul>
 			)}

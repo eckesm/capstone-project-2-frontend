@@ -11,22 +11,22 @@ import RegisterUserScreen from '../users/RegisterUserScreen';
 
 import RestaurantDetailScreen from '../restaurants/RestaurantDetailScreen';
 import AllRestaurantsScreen from '../restaurants/AllRestaurantsScreen';
-import NewRestaurantForm from '../restaurants/NewRestaurantForm';
+import NewRestaurantScreen from '../restaurants/NewRestaurantScreen';
 import EditRestaurantScreen from '../restaurants/EditRestaurantScreen';
 import RestaurantUsersScreen from '../restaurants/RestaurantUsersScreen';
 import AddUserToRestaurantScreen from '../restaurants/AddUserToRestaurantScreen';
 
 import MealPeriodDetailScreen from '../mealPeriods/MealPeriodDetailScreen';
 import AllMealPeriodsScreen from '../mealPeriods/AllMealPeriodsScreen';
-import NewMealPeriodForm from '../mealPeriods/NewMealPeriodForm';
+import NewMealPeriodScreen from '../mealPeriods/NewMealPeriodScreen';
 
 import CategoryGroupDetailScreen from '../categoryGroups/CategoryGroupDetailScreen';
 import AllCategoryGroupsScreen from '../categoryGroups/AllCategoryGroupsScreen';
-import NewCategoryGroupForm from '../categoryGroups/NewCategoryGroupForm';
+import NewCategoryGroupScreen from '../categoryGroups/NewCategoryGroupScreen';
 
 import CategoryDetailScreen from '../categories/CategoryDetailScreen';
 import AllCategoriesScreen from '../categories/AllCategoriesScreen';
-import NewCategoryForm from '../categories/NewCategoryForm';
+import NewCategoryScreen from '../categories/NewCategoryScreen';
 
 import AllDefaultSalesScreen from '../defaultSales/AllDefaultSalesScreen';
 
@@ -55,7 +55,7 @@ export default function Routes() {
 			</Route>
 
 			<ProtectedRoute component={AllRestaurantsScreen} exact path="/restaurants" />
-			<ProtectedRoute component={NewRestaurantForm} exact path="/restaurants/new" />
+			<ProtectedRoute component={NewRestaurantScreen} exact path="/restaurants/new" />
 			<ProtectedRouteUser component={RestaurantDetailScreen} exact path="/restaurants/:restaurantId" />
 			<ProtectedRouteAdmin component={EditRestaurantScreen} exact path="/restaurants/:restaurantId/edit" />
 			<ProtectedRouteUser component={RestaurantUsersScreen} exact path="/restaurants/:restaurantId/users" />
@@ -67,7 +67,7 @@ export default function Routes() {
 
 			<ProtectedRouteUser component={AllMealPeriodsScreen} exact path="/restaurants/:restaurantId/meal-periods" />
 			<ProtectedRouteUser
-				component={NewMealPeriodForm}
+				component={NewMealPeriodScreen}
 				exact
 				path="/restaurants/:restaurantId/meal-periods/new"
 			/>
@@ -83,7 +83,7 @@ export default function Routes() {
 				path="/restaurants/:restaurantId/category-groups"
 			/>
 			<ProtectedRouteUser
-				component={NewCategoryGroupForm}
+				component={NewCategoryGroupScreen}
 				exact
 				path="/restaurants/:restaurantId/category-groups/new"
 			/>
@@ -94,7 +94,7 @@ export default function Routes() {
 			/>
 
 			<ProtectedRouteUser component={AllCategoriesScreen} exact path="/restaurants/:restaurantId/categories" />
-			<ProtectedRouteUser component={NewCategoryForm} exact path="/restaurants/:restaurantId/categories/new" />
+			<ProtectedRouteUser component={NewCategoryScreen} exact path="/restaurants/:restaurantId/categories/new" />
 			<ProtectedRouteUser
 				component={CategoryDetailScreen}
 				exact

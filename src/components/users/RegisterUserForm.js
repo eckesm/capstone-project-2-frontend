@@ -26,7 +26,6 @@ export default function RegisterUserForm() {
 		password2    : ''
 	};
 	const [ formData, handleChange, resetFormData ] = useFields(initialState);
-
 	const [ errors, setErrors ] = useState([]);
 
 	async function handleSubmit(evt) {
@@ -39,7 +38,6 @@ export default function RegisterUserForm() {
 			try {
 				const res = await registerUserApi(formData);
 				setEmailAddress(formData.emailAddress);
-				console.log(res);
 				if (res.status === 201) {
 					try {
 						const userRes = await dispatch(getAndStoreUserInfo());
@@ -119,18 +117,6 @@ export default function RegisterUserForm() {
 				</div>
 			</div>
 			<SubmitButton text={'Register' + ' ' + formData.firstName} />
-			{/* <ul className='IgnoreList'>
-				{errors.map((e, idx) => {
-					let message = e.replace('instance.', '');
-					message = message.replace('emailAddress', 'email address');
-					message = message.charAt(0).toUpperCase() + message.slice(1);
-					return (
-						<li key={idx} className="ErrorMessage">
-							{message}
-						</li>
-					);
-				})}
-			</ul> */}
 			<ErrorMessages errors={errors} />
 		</form>
 	);

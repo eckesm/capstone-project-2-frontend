@@ -3,7 +3,17 @@ import { useDispatch } from 'react-redux';
 
 import { registerDefaultSale, updateDefaultSale, deleteDefaultSale } from '../../actions/defaultSales';
 
-export default function DefaultSalesInputForm({ mealPeriodName, dayName, defaultSale, updateGroupSum }) {
+import SubmitButton from '../buttons/SubmitButton';
+
+import './defaultSales.css';
+
+export default function DefaultSalesInputForm({
+	mealPeriodName,
+	dayName,
+	defaultSale,
+	updateGroupSum,
+	isAdmin = false
+}) {
 	const dispatch = useDispatch();
 
 	const { id = null, restaurantId, mealPeriodId, dayId, total = null, notes = null, status = null } = defaultSale;
@@ -73,10 +83,11 @@ export default function DefaultSalesInputForm({ mealPeriodName, dayName, default
 	}, []);
 
 	return (
-		<div>
-			<form onSubmit={handleSubmit}>
+		<div className="DefaultSalesInputForm">
+			<form onSubmit={handleSubmit} className="InputGroup">
 				<label htmlFor="total">{mealPeriodName}:</label>
 				<input
+					className="BackgroundHover"
 					type="number"
 					min="0"
 					step="1"
@@ -84,9 +95,10 @@ export default function DefaultSalesInputForm({ mealPeriodName, dayName, default
 					value={formData.total}
 					name="total"
 					onChange={handleChange}
+					disabled={isAdmin ? false : true}
 					required
 				/>
-				{hasChanged && <button type="submit">Save</button>}
+				{hasChanged && <SubmitButton text="Save" />}
 			</form>
 		</div>
 	);

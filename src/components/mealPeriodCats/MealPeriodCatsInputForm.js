@@ -3,7 +3,17 @@ import { useDispatch } from 'react-redux';
 
 import { registerMealPeriodCat, updateMealPeriodCat, deleteMealPeriodCat } from '../../actions/mealPeriodCats';
 
-export default function MealPeriodCatsInputForm({ mealPeriodName, categoryName, mealPeriodCat, updateGroupSum }) {
+import SubmitButton from '../buttons/SubmitButton';
+
+import './mealPeriodCats.css';
+
+export default function MealPeriodCatsInputForm({
+	mealPeriodName,
+	categoryName,
+	mealPeriodCat,
+	updateGroupSum,
+	isAdmin = false
+}) {
 	const dispatch = useDispatch();
 
 	const {
@@ -48,21 +58,10 @@ export default function MealPeriodCatsInputForm({ mealPeriodName, categoryName, 
 		try {
 			let res;
 			if (status === 'new') {
-				// if (formData.total !== '0') {
 				res = await dispatch(registerMealPeriodCat(mealPeriodId, categoryId, data));
-				// }
-				// else {
-				// 	console.log('cannot create 0');
-				// 	return false;
-				// }
 			}
 			if (status === 'existing') {
-				// if (formData.salesPercentOfPeriod === '0') {
-				// 	res = await dispatch(deleteMealPeriodCat(mealPeriodId, categoryId));
-				// }
-				// else {
 				res = await dispatch(updateMealPeriodCat(mealPeriodId, categoryId, data));
-				// }
 			}
 
 			if (res.status === 200 || res.status === 201) {
@@ -84,10 +83,11 @@ export default function MealPeriodCatsInputForm({ mealPeriodName, categoryName, 
 	}, []);
 
 	return (
-		<div>
-			<form onSubmit={handleSubmit}>
+		<div className="MealPeriodCatsInputForm">
+			<form onSubmit={handleSubmit} className="InputGroup">
 				<label htmlFor="salesPercentOfPeriod">{categoryName}:</label>
 				<input
+					className="BackgroundHover"
 					type="number"
 					step=".0001"
 					min="0"
@@ -96,9 +96,10 @@ export default function MealPeriodCatsInputForm({ mealPeriodName, categoryName, 
 					value={formData.salesPercentOfPeriod}
 					name="salesPercentOfPeriod"
 					onChange={handleChange}
+					disabled={isAdmin ? false : true}
 					required
 				/>
-				{hasChanged && <button type="submit">Save</button>}
+				{hasChanged && <SubmitButton text="Save" />}
 			</form>
 		</div>
 	);

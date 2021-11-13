@@ -25,22 +25,23 @@ export default function AllMealPeriodCatsScreen() {
 	);
 
 	return (
-		<div>
-			<h1>Sales Percentages by Meal Periods & Category</h1>
-			<div>
-				{active &&
-					mealPeriodCats.map(mp => {
-						return (
-							<MealPeriodCatsGroup
-								key={mp.id}
-								groupArray={mp.categories}
-								mealPeriods={active.mealPeriods}
-								categories={active.categories}
-								mealPeriodId={mp.id}
-								mealPeriodName={mp.name}
-							/>
-						);
-					})}
+		<div className="Window">
+			<div className="AllMealPeriodCatsScreen Screen">
+				<p className='ScreenTitle'>Sales Percentages by Meal Periods & Category</p>
+				<div className='CardsContainer'>
+					{active &&
+						mealPeriodCats.map(mp => {
+							return (
+								<MealPeriodCatsGroup
+									key={mp.id}
+									groupArray={mp.categories}
+									categories={active.categories}
+									mealPeriodName={mp.name}
+									isAdmin={active.isAdmin}
+								/>
+							);
+						})}
+				</div>
 			</div>
 		</div>
 	);

@@ -155,13 +155,13 @@ export default function BudgetScreen() {
 				</div>
 				{active &&
 				budgetFigures && (
-					<div className="BudgetPerformanceCard">
+					<div className="BudgetPerformanceCard ShadowHover">
 						<p className="SectionTitle1">Remaining Budget</p>
 						<ul className="IgnoreList">
 							{active.categories.map(c => {
 								let remainingBudget = budgetFigures[c.id].remainingBudget;
 								let totalBudget = budgetFigures[c.id].totalBudget;
-								let status = remainingBudget < 0 ? 'Negative' : 'positive';
+								let status = remainingBudget < 0 ? 'Negative' : 'Positive';
 								return (
 									<li key={c.id}>
 										<span className="CategoryName">{c.name}</span>:{' '}
@@ -188,7 +188,7 @@ export default function BudgetScreen() {
 				<div className="CardsContainer CenteredRows">
 					{active &&
 					budgetFigures && (
-						<div className="PerformanceCard Card">
+						<div className="PerformanceCard Card ShadowHover">
 							<p className="SectionTitle1">Sales To Date</p>
 							<ul className="IgnoreList">
 								{active.categories.map(c => {
@@ -220,7 +220,7 @@ export default function BudgetScreen() {
 					)}
 					{active &&
 					budgetFigures && (
-						<div className="PerformanceCard Card">
+						<div className="PerformanceCard Card ShadowHover">
 							<p className="SectionTitle1">Expected Remaining Sales</p>
 
 							<ul className="IgnoreList">
@@ -260,7 +260,7 @@ export default function BudgetScreen() {
 					)}
 					{active &&
 					budgetFigures && (
-						<div className="PerformanceCard Card">
+						<div className="PerformanceCard Card ShadowHover">
 							<p className="SectionTitle1">Total Expected Weekly Sales</p>
 							<ul className="IgnoreList">
 								{active.categories.map(c => {
@@ -276,7 +276,7 @@ export default function BudgetScreen() {
 					)}
 					{active &&
 					budgetFigures && (
-						<div className="PerformanceCard Card">
+						<div className="PerformanceCard Card ShadowHover">
 							<p className="SectionTitle1">COGS %</p>
 							<ul className="IgnoreList">
 								{active.categories.map(c => {
@@ -299,7 +299,7 @@ export default function BudgetScreen() {
 					)}
 					{active &&
 					budgetFigures && (
-						<div className="PerformanceCard Card">
+						<div className="PerformanceCard Card ShadowHover">
 							<p className="SectionTitle1">Total Budget</p>
 							<ul className="IgnoreList">
 								{active.categories.map(c => {
@@ -321,7 +321,7 @@ export default function BudgetScreen() {
 					)}
 					{active &&
 					budgetFigures && (
-						<div className="PerformanceCard Card">
+						<div className="PerformanceCard Card ShadowHover">
 							<p className="SectionTitle1">Weekly Spending</p>
 							<ul className="IgnoreList">
 								{active.categories.map(c => {

@@ -158,6 +158,11 @@
 	font-weight: 500;
 	font-style: italic;
 }
+.Error {
+	color: red;
+	font-weight: 500;
+	font-style: italic;
+}
 
 .Notes {
 	font-size: 0.9rem;

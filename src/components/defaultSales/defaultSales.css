@@ -1,0 +1,14 @@
+.DefaultSalesInputForm .InputGroup {
+	height: 25px;
+}
+.DefaultSalesInputForm .InputGroup input {
+	width: 85px;
+    margin-right: 3px;
+}
+
+.DefaultSalesGroup .InputGroup.Total {
+	font-size: 1.1rem;
+}
+.DefaultSalesGroup .InputGroup label {
+	min-width: 175px;
+}

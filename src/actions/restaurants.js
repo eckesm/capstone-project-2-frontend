@@ -5,6 +5,7 @@ import {
 	ADD_USER_TO_RESTAURANT,
 	CHANGE_USER_RESTAURANT_ACCESS,
 	DELETE_RESTAURANT,
+	DELETE_USER_RESTAURANT_ACCESS,
 	REMOVE_ACTIVE,
 	STORE_ACTIVE_RESTAURANT,
 	UPDATE_RESTAURANT
@@ -67,7 +68,6 @@ export function changeUserRestaurantAccess(restaurantId, user, data) {
 	return async function(dispatch) {
 		try {
 			const res = await makePutRequest(`restaurants/${restaurantId}/users/${user.id}`, data);
-			console.log(res)
 			if (res.status === 201) {
 				user.isAdmin = data.isAdmin;
 				await dispatch({
@@ -78,6 +78,23 @@ export function changeUserRestaurantAccess(restaurantId, user, data) {
 			return res;
 		} catch (err) {
 			console.log('changeUserRestaurantAccess() error:', err);
+		}
+	};
+}
+
+export function deleteUserRestaurantAccess(restaurantId, userId) {
+	return async function(dispatch) {
+		try {
+			const res = await makeDeleteRequest(`restaurants/${restaurantId}/users/${userId}`);
+			if (res.status === 200) {
+				await dispatch({
+					type   : DELETE_USER_RESTAURANT_ACCESS,
+					userId
+				});
+			}
+			return res;
+		} catch (err) {
+			console.log('deleteUserRestaurantAccess() error:', err);
 		}
 	};
 }

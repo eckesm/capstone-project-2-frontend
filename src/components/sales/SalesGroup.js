@@ -59,7 +59,7 @@ export default function SalesGroup({ groupArray = [], categories = [], mealPerio
 	);
 
 	return (
-		<div className="SalesGroup Card">
+		<div className="SalesGroup Card ShadowHover">
 			<p className='SectionTitle2'>{mealPeriodName}</p>
 			{groupArray.map((ds, idx) => {
 				return (

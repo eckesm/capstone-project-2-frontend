@@ -1,0 +1,21 @@
+.MealPeriodCatsInputForm .InputGroup {
+	height: 25px;
+}
+.MealPeriodCatsInputForm .InputGroup input {
+	width: 65px;
+	margin-right: 3px;
+}
+
+.MealPeriodCatsGroup {
+	width: 300px;
+    min-width: 300px;
+}
+.MealPeriodCatsGroup .InputGroup label {
+    min-width: 150px;
+}
+.MealPeriodCatsGroup .InputGroup.Total {
+    font-size: 1.1rem;
+}
+/* .MealPeriodCatsGroup .InputGroup.Total .Error {
+    color: red;
+} */

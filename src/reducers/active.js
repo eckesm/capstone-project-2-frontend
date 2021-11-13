@@ -12,6 +12,7 @@ import {
 	DELETE_MEAL_PERIOD,
 	DELETE_MEAL_PERIOD_CATEGORY,
 	DELETE_RESTAURANT,
+	DELETE_USER_RESTAURANT_ACCESS,
 	LOGOUT_USER,
 	REMOVE_ACTIVE,
 	STORE_ACTIVE_RESTAURANT,
@@ -41,7 +42,7 @@ function sortByFirstAndLastName(array) {
 }
 
 export default function active(state = INITIAL_STATE, action) {
-	let restaurant;
+	let restaurant, users;
 
 	switch (action.type) {
 		case ADD_CATEGORY:
@@ -77,14 +78,22 @@ export default function active(state = INITIAL_STATE, action) {
 		case ADD_USER_TO_RESTAURANT:
 			return {
 				...state,
-				users : [ ...state.users, action.user ]
+				users : sortByFirstAndLastName([ ...state.users, action.user ])
 			};
 
 		case CHANGE_USER_RESTAURANT_ACCESS:
-			let users = state.users.filter(u => u.id !== action.user.id);
+			users = state.users.filter(u => u.id !== action.user.id);
 			return {
 				...state,
 				users : sortByFirstAndLastName([ ...users, action.user ])
+			};
+
+		case DELETE_USER_RESTAURANT_ACCESS:
+			// users = state.users.filter(u => u.id !== Number(action.userId));
+			// console.log(users);
+			return {
+				...state,
+				users : state.users.filter(u => u.id != action.userId)
 			};
 
 		case DELETE_CATEGORY:

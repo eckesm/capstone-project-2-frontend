@@ -4,7 +4,10 @@ import { getNameFromId } from '../../helpers/filterArrays';
 
 import MealPeriodCatsInputForm from './MealPeriodCatsInputForm';
 
-export default function MealPeriodCatsGroup({ groupArray = [], mealPeriods = [], categories = [], mealPeriodId, mealPeriodName }) {
+import '../screen.css';
+import './mealPeriodCats.css';
+
+export default function MealPeriodCatsGroup({ groupArray = [], categories = [], mealPeriodName, isAdmin = false }) {
 	const [ groupValues, setGroupValues ] = useState({});
 	const [ groupSum, setGroupSum ] = useState();
 
@@ -35,8 +38,8 @@ export default function MealPeriodCatsGroup({ groupArray = [], mealPeriods = [],
 	}, []);
 
 	return (
-		<div>
-			<h3>{mealPeriodName}</h3>
+		<div className="MealPeriodCatsGroup Card ShadowHover">
+			<p className="SectionTitle2">{mealPeriodName}</p>
 			{groupArray.map(mpc => {
 				return (
 					<MealPeriodCatsInputForm
@@ -45,12 +48,16 @@ export default function MealPeriodCatsGroup({ groupArray = [], mealPeriods = [],
 						categoryName={getNameFromId(categories, mpc.categoryId)}
 						mealPeriodCat={mpc}
 						updateGroupSum={updateGroupSum}
+						isAdmin={isAdmin}
 					/>
 				);
 			})}
-			<p>
-				{mealPeriodName} Total: {Math.round(groupSum * 10000) / 100}%
-			</p>
+			<div className="InputGroup Total">
+				<label>Total:</label>
+				<span className={Math.round(groupSum * 10000000000) / 10000000000 === 1 ? 'Accurate' : 'Negative'}>
+					{Math.round(groupSum * 10000) / 100}%
+				</span>
+			</div>
 		</div>
 	);
 }

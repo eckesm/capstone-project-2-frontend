@@ -6,6 +6,11 @@ import useFields from '../../hooks/useFields';
 
 import { registerCategoryGroup } from '../../actions/categoryGroups';
 
+import SubmitButton from '../buttons/SubmitButton';
+import CancelButton from '../buttons/CancelButton';
+
+import './categoryGroups.css';
+
 export default function NewCategoryGroupForm() {
 	const dispatch = useDispatch();
 	const history = useHistory();
@@ -30,16 +35,32 @@ export default function NewCategoryGroupForm() {
 	}
 
 	return (
-		<form onSubmit={handleSubmit}>
-			<div>
+		<form className="NewCategoryGroupForm BasicView" onSubmit={handleSubmit}>
+			<div className="InputGroup">
 				<label htmlFor="name">Name:</label>
 				<input type="text" id="name" value={formData.name} name="name" onChange={handleChange} required />
 			</div>
-			<div>
+			<div className="InputGroup">
 				<label htmlFor="notes">Notes:</label>
-				<input type="text" id="notes" value={formData.notes} name="notes" onChange={handleChange} />
+				<textarea
+					type="text"
+					rows="5"
+					cols="50"
+					id="notes"
+					value={formData.notes}
+					name="notes"
+					onChange={handleChange}
+				/>
 			</div>
-			<button type="submit">Add Category Group</button>
+			<div className="ButtonGroup">
+				<SubmitButton text="Add Category Group" />
+				{active && (
+					<CancelButton
+						text="Don't Add"
+						onClick={() => history.push(`/restaurants/${active.id}/category-groups`)}
+					/>
+				)}
+			</div>
 		</form>
 	);
 }

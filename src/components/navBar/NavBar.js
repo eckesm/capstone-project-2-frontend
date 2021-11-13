@@ -51,7 +51,7 @@ export default function NavBar({ logout }) {
 			<ul>
 				<li className="Home">
 					<NavLink exact to="/">
-						Home
+						{user.emailAddress}
 					</NavLink>
 				</li>
 				<li>

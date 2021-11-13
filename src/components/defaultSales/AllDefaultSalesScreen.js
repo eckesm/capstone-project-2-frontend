@@ -60,33 +60,24 @@ export default function AllDefaultSalesScreen() {
 	);
 
 	return (
-		<div>
-			<h1>Default Sales by Day & Meal Period</h1>
-			<div>
-				{active &&
-					Object.keys(defaultSales).map(ds => {
-						// defaultSales[d].map(ds => {
-						return (
-							<DefaultSalesGroup
-								key={ds}
-								groupArray={defaultSales[ds]}
-								mealPeriods={active.mealPeriods}
-								dayId={ds}
-								dayName={getDayOfWeekNameFromId(ds)}
-							/>
-						);
-						// });
-
-						// return (
-						// 	<DefaultSalesInputForm
-						// 		// key={uuid()}
-						// 		key={`${ds.dayId}-${ds.mealPeriodId}`}
-						// 		mealPeriodName={getNameFromId(mealPeriods, ds.mealPeriodId)}
-						// 		dayName={getDayOfWeekNameFromId(ds.dayId)}
-						// 		defaultSale={ds}
-						// 	/>
-						// );
-					})}
+		<div className="Window">
+			<div className="AllDefaultSalesScreen Screen">
+				<p className="ScreenTitle">Default Sales by Day & Meal Period</p>
+				<div className='CardsContainer'>
+					{active &&
+						Object.keys(defaultSales).map(ds => {
+							return (
+								<DefaultSalesGroup
+									key={ds}
+									groupArray={defaultSales[ds]}
+									mealPeriods={active.mealPeriods}
+									dayId={ds}
+									dayName={getDayOfWeekNameFromId(ds)}
+									isAdmin={active.isAdmin}
+								/>
+							);
+						})}
+				</div>
 			</div>
 		</div>
 	);

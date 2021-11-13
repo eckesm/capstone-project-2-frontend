@@ -6,10 +6,15 @@ import useFields from '../../hooks/useFields';
 
 import { registerMealPeriod } from '../../actions/mealPeriods';
 
+import SubmitButton from '../buttons/SubmitButton';
+import CancelButton from '../buttons/CancelButton';
+
+import './mealPeriods.css';
+
 export default function NewMealPeriodForm() {
 	const dispatch = useDispatch();
 	const history = useHistory();
-	const active  = useSelector(store => store.active);
+	const active = useSelector(store => store.active);
 
 	const initialState = {
 		name  : '',
@@ -30,16 +35,32 @@ export default function NewMealPeriodForm() {
 	}
 
 	return (
-		<form onSubmit={handleSubmit}>
-			<div>
+		<form className="NewMealPeriodForm BasicView" onSubmit={handleSubmit}>
+			<div className="InputGroup">
 				<label htmlFor="name">Name:</label>
 				<input type="text" id="name" value={formData.name} name="name" onChange={handleChange} required />
 			</div>
-			<div>
+			<div className="InputGroup">
 				<label htmlFor="notes">Notes:</label>
-				<input type="text" id="notes" value={formData.notes} name="notes" onChange={handleChange} />
+				<textarea
+					type="text"
+					rows="5"
+					cols="50"
+					id="notes"
+					value={formData.notes}
+					name="notes"
+					onChange={handleChange}
+				/>
 			</div>
-			<button type="submit">Add Meal Period</button>
+			<div className="ButtonGroup">
+				<SubmitButton text="Add Meal Period" />
+				{active && (
+					<CancelButton
+						text="Don't Add"
+						onClick={() => history.push(`/restaurants/${active.id}/meal-periods`)}
+					/>
+				)}
+			</div>
 		</form>
 	);
 }

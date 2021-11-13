@@ -6,6 +6,11 @@ import useFields from '../../hooks/useFields';
 
 import { registerCategory } from '../../actions/categories';
 
+import SubmitButton from '../buttons/SubmitButton';
+import CancelButton from '../buttons/CancelButton';
+
+import './categories.css';
+
 export default function NewCategoryForm() {
 	const dispatch = useDispatch();
 	const history = useHistory();
@@ -38,14 +43,14 @@ export default function NewCategoryForm() {
 	}
 
 	return (
-		<form onSubmit={handleSubmit}>
-			<div>
+		<form className="NewCategoryScreen BasicView" onSubmit={handleSubmit}>
+			<div className="InputGroup">
 				<label htmlFor="name">Name:</label>
 				<input type="text" id="name" value={formData.name} name="name" onChange={handleChange} required />
 			</div>
 			{active &&
 			active.catGroups.length > 0 && (
-				<div>
+				<div className="InputGroup">
 					<label htmlFor="catGroupId">Category Group:</label>
 					<select
 						type="text"
@@ -67,7 +72,7 @@ export default function NewCategoryForm() {
 					</select>
 				</div>
 			)}
-			<div>
+			<div className="InputGroup">
 				<label htmlFor="cogsPercent">COGS Percent:</label>
 				<input
 					type="number"
@@ -80,11 +85,27 @@ export default function NewCategoryForm() {
 					onChange={handleChange}
 				/>
 			</div>
-			<div>
+			<div className="InputGroup">
 				<label htmlFor="notes">Notes:</label>
-				<input type="text" id="notes" value={formData.notes} name="notes" onChange={handleChange} />
+				<textarea
+					type="text"
+					rows="5"
+					cols="50"
+					id="notes"
+					value={formData.notes}
+					name="notes"
+					onChange={handleChange}
+				/>
 			</div>
-			<button type="submit">Add Category</button>
+			<div className="ButtonGroup">
+				<SubmitButton text="Add Category" />
+				{active && (
+					<CancelButton
+						text="Don't Add"
+						onClick={() => history.push(`/restaurants/${active.id}/categories`)}
+					/>
+				)}
+			</div>
 		</form>
 	);
 }

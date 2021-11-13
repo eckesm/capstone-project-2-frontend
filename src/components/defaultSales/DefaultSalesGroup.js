@@ -5,7 +5,10 @@ import { getDayOfWeekNameFromId } from '../../helpers/filterArrays';
 
 import DefaultSalesInputForm from './DefaultSalesInputForm';
 
-export default function DefaultSalesGroup({ groupArray = [], mealPeriods = [], dayId, dayName }) {
+import '../screen.css';
+import './defaultSales.css';
+
+export default function DefaultSalesGroup({ groupArray = [], mealPeriods = [], dayId, dayName, isAdmin = false }) {
 	const [ groupValues, setGroupValues ] = useState({});
 	const [ groupSum, setGroupSum ] = useState();
 
@@ -36,8 +39,8 @@ export default function DefaultSalesGroup({ groupArray = [], mealPeriods = [], d
 	}, []);
 
 	return (
-		<div>
-			<h3>{dayName}</h3>
+		<div className="DefaultSalesGroup Card ShadowHover">
+			<p className="SectionTitle2">{dayName}</p>
 			{groupArray.map(ds => {
 				return (
 					<DefaultSalesInputForm
@@ -46,12 +49,14 @@ export default function DefaultSalesGroup({ groupArray = [], mealPeriods = [], d
 						dayName={dayName}
 						defaultSale={ds}
 						updateGroupSum={updateGroupSum}
+						isAdmin={isAdmin}
 					/>
 				);
 			})}
-			<p>
-				{getDayOfWeekNameFromId(dayId)} Total: ${Math.round(groupSum * 100) / 100}
-			</p>
+			<div className="InputGroup Total">
+				<label>{getDayOfWeekNameFromId(dayId)} Total:</label>
+				<span>${(Math.round(groupSum * 100) / 100).toLocaleString('en-US')}</span>
+			</div>
 		</div>
 	);
 }
