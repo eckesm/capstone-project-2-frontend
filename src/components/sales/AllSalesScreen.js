@@ -110,6 +110,7 @@ export default function AllSalesScreen() {
 						<ArrowButton text="Next Day" onClick={handleNextDay} direction="right" />
 					</div>
 				</div>
+
 				<div className="MealPeriodCards">
 					{active &&
 						preparedDailySales.map(mp => {

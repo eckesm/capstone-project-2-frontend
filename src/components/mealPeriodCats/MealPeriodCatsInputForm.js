@@ -12,7 +12,8 @@ export default function MealPeriodCatsInputForm({
 	categoryName,
 	mealPeriodCat,
 	updateGroupSum,
-	isAdmin = false
+	isAdmin = false,
+	index
 }) {
 	const dispatch = useDispatch();
 
@@ -31,6 +32,8 @@ export default function MealPeriodCatsInputForm({
 	};
 	const [ formData, setFormData ] = useState(initialState);
 	const [ hasChanged, setHasChanged ] = useState(false);
+	const [ hasSaved, setHasSaved ] = useState(false);
+
 
 	const handleChange = evt => {
 		const { name, value } = evt.target;
@@ -54,27 +57,34 @@ export default function MealPeriodCatsInputForm({
 
 	async function handleSubmit(evt) {
 		evt.preventDefault();
-		const data = { ...formData };
-		try {
-			let res;
-			if (status === 'new') {
-				res = await dispatch(registerMealPeriodCat(mealPeriodId, categoryId, data));
-			}
-			if (status === 'existing') {
-				res = await dispatch(updateMealPeriodCat(mealPeriodId, categoryId, data));
-			}
 
-			if (res.status === 200 || res.status === 201) {
-				setHasChanged(false);
+		if (hasChanged){
+			const data = { ...formData };
+			try {
+				let res;
+				if (status === 'new') {
+					res = await dispatch(registerMealPeriodCat(mealPeriodId, categoryId, data));
+				}
+				if (status === 'existing') {
+					res = await dispatch(updateMealPeriodCat(mealPeriodId, categoryId, data));
+				}
+	
+				if (res.status === 200 || res.status === 201) {
+					setHasChanged(false);
+					setHasSaved(true);
+					setTimeout(() => {
+						setHasSaved(false);
+					}, 1000);
+				}
+				else if (res.status === 400 || res.status === 404 || res.status === 500) {
+					console.log(res.message);
+				}
+				else {
+					console.log(res);
+				}
+			} catch (err) {
+				console.log('handleSubmit() > register/MealPeriodCat() error:', err);
 			}
-			else if (res.status === 400 || res.status === 404 || res.status === 500) {
-				console.log(res.message);
-			}
-			else {
-				console.log(res);
-			}
-		} catch (err) {
-			console.log('handleSubmit() > register/MealPeriodCat() error:', err);
 		}
 	}
 
@@ -82,12 +92,37 @@ export default function MealPeriodCatsInputForm({
 		updateGroupSum(`${mealPeriodId}-${categoryId}`, Number(salesPercentOfPeriod));
 	}, []);
 
+	function determineDivClassName() {
+		if (index === 0) {
+			return `MealPeriodCatsInputForm First`;
+		}
+		else {
+			if (index % 2 === 0) {
+				return `MealPeriodCatsInputForm Even`;
+			}
+			else {
+				return `MealPeriodCatsInputForm Odd`;
+			}
+		}
+	}
+	function determineInputClassName() {
+		if (hasChanged) {
+			return `UnsavedSale BackgroundHover`;
+		}
+		else if (hasSaved) {
+			return `SavedSale BackgroundHover`;
+		}
+		else {
+			return `BackgroundHover`;
+		}
+	}
+
 	return (
-		<div className="MealPeriodCatsInputForm">
-			<form onSubmit={handleSubmit} className="InputGroup">
-				<label htmlFor="salesPercentOfPeriod">{categoryName}:</label>
+		<div className={determineDivClassName()}>
+			<form onSubmit={handleSubmit} onBlur={handleSubmit} className="InputGroup">
+				{/* <label htmlFor="salesPercentOfPeriod">{categoryName}:</label> */}
 				<input
-					className="BackgroundHover"
+					className={determineInputClassName()}
 					type="number"
 					step=".0001"
 					min="0"
@@ -99,7 +134,7 @@ export default function MealPeriodCatsInputForm({
 					disabled={isAdmin ? false : true}
 					required
 				/>
-				{hasChanged && <SubmitButton text="Save" />}
+				{/* {hasChanged && <SubmitButton text="Save" />} */}
 			</form>
 		</div>
 	);

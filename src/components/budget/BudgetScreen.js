@@ -15,7 +15,7 @@ import '../buttons/buttons.css';
 export default function BudgetScreen() {
 	const history = useHistory();
 
-	const routeDate = useParams().date || new Date().toISOString().slice(0, 10);
+	const routeDate = useParams().date || new Date().toISOString().split('T')[0];
 
 	const active = useSelector(store => store.active);
 
@@ -120,15 +120,15 @@ export default function BudgetScreen() {
 	function handlePreviousDay() {
 		let newDate = new Date(date);
 		newDate.setDate(newDate.getDate() - 1);
-		history.push(`/restaurants/${active.id}/budget/date/${newDate.toISOString().slice(0, 10)}`);
+		history.push(`/restaurants/${active.id}/budget/date/${newDate.toISOString().split('T')[0]}`);
 	}
 	function handleToday() {
-		history.push(`/restaurants/${active.id}/budget/date/${new Date().toISOString().slice(0, 10)}`);
+		history.push(`/restaurants/${active.id}/budget/date/${new Date().toISOString().split('T')[0]}`);
 	}
 	function handleNextDay() {
 		let newDate = new Date(date);
 		newDate.setDate(newDate.getDate() + 1);
-		history.push(`/restaurants/${active.id}/budget/date/${newDate.toISOString().slice(0, 10)}`);
+		history.push(`/restaurants/${active.id}/budget/date/${newDate.toISOString().split('T')[0]}`);
 	}
 
 	return (
@@ -154,28 +154,39 @@ export default function BudgetScreen() {
 					</div>
 				</div>
 				{active &&
+				date &&
+				reportDates.length === 7 &&
 				budgetFigures && (
 					<div className="BudgetPerformanceCard ShadowHover">
-						<p className="SectionTitle1">Remaining Budget</p>
-						<ul className="IgnoreList">
+						<p className="SectionTitle1">
+							Remaining Budget <i>(as of {new Date(date).toISOString().split('T')[0]})</i>
+						</p>
+						<p className="SectionTitle5">
+							For the week of {new Date(reportDates[0]).toISOString().split('T')[0]} to{' '}
+							{new Date(reportDates[6]).toISOString().split('T')[0]}
+						</p>
+						<div className="BudgetResults">
 							{active.categories.map(c => {
 								let remainingBudget = budgetFigures[c.id].remainingBudget;
 								let totalBudget = budgetFigures[c.id].totalBudget;
 								let status = remainingBudget < 0 ? 'Negative' : 'Positive';
 								return (
-									<li key={c.id}>
-										<span className="CategoryName">{c.name}</span>:{' '}
-										<span className={status}>{remainingBudget.toLocaleString('en-US')} </span>
+									<div key={c.id} className="ResultGroup">
+										<span className="CategoryName">{c.name}:</span>{' '}
+										<span className={`CategoryTotal ${status}`}>
+											${remainingBudget.toLocaleString('en-US')}{' '}
+										</span>
 										{status === 'Negative' && (
 											<span className="Warning">
-												spending is {-Math.round(remainingBudget / totalBudget * 100)}% over
+												spending is ${-Math.round(remainingBudget / totalBudget * 100)}% over
 												budget!
 											</span>
 										)}
-									</li>
+										{/* </div> */}
+									</div>
 								);
 							})}
-						</ul>
+						</div>
 						<div className="Notes">
 							<p>Weekly budgets start on Monday and end on Sunday.</p>
 							<p>
@@ -190,16 +201,18 @@ export default function BudgetScreen() {
 					budgetFigures && (
 						<div className="PerformanceCard Card ShadowHover">
 							<p className="SectionTitle1">Sales To Date</p>
-							<ul className="IgnoreList">
+							<div className="BudgetResults">
 								{active.categories.map(c => {
 									return (
-										<li key={c.id}>
-											<span className="CategoryName">{c.name}</span>:{' '}
-											{budgetFigures[c.id].toDate.toLocaleString('en-US')}
-										</li>
+										<div key={c.id} className="ResultGroup">
+											<span className="CategoryName">{c.name}:</span>{' '}
+											<span className="CategoryTotal">
+												${budgetFigures[c.id].toDate.toLocaleString('en-US')}
+											</span>
+										</div>
 									);
 								})}
-							</ul>
+							</div>
 							<div className="Notes">
 								<p>
 									<Link to={`/restaurants/${active.id}/sales`}>Today's sales</Link> are based on
@@ -222,17 +235,18 @@ export default function BudgetScreen() {
 					budgetFigures && (
 						<div className="PerformanceCard Card ShadowHover">
 							<p className="SectionTitle1">Expected Remaining Sales</p>
-
-							<ul className="IgnoreList">
+							<div className="BudgetResults">
 								{active.categories.map(c => {
 									return (
-										<li key={c.id}>
-											<span className="CategoryName">{c.name}</span>:{' '}
-											{budgetFigures[c.id].expectedRemaining.toLocaleString('en-US')}
-										</li>
+										<div key={c.id} className="ResultGroup">
+											<span className="CategoryName">{c.name}:</span>{' '}
+											<span className="CategoryTotal">
+												${budgetFigures[c.id].expectedRemaining.toLocaleString('en-US')}
+											</span>
+										</div>
 									);
 								})}
-							</ul>
+							</div>
 							<div className="Notes">
 								<p>
 									Expected remaining sales do not include today's expected sales; today's expected
@@ -262,33 +276,40 @@ export default function BudgetScreen() {
 					budgetFigures && (
 						<div className="PerformanceCard Card ShadowHover">
 							<p className="SectionTitle1">Total Expected Weekly Sales</p>
-							<ul className="IgnoreList">
+							<div className="BudgetResults">
 								{active.categories.map(c => {
 									return (
-										<li key={c.id}>
-											<span className="CategoryName">{c.name}</span>:{' '}
-											{budgetFigures[c.id].totalExpectedWeekly.toLocaleString('en-US')}
-										</li>
+										<div key={c.id} className="ResultGroup">
+											<span className="CategoryName">{c.name}:</span>{' '}
+											<span className="CategoryTotal">
+												${budgetFigures[c.id].totalExpectedWeekly.toLocaleString('en-US')}
+											</span>
+										</div>
 									);
 								})}
-							</ul>
+							</div>
 						</div>
 					)}
 					{active &&
 					budgetFigures && (
 						<div className="PerformanceCard Card ShadowHover">
 							<p className="SectionTitle1">COGS %</p>
-							<ul className="IgnoreList">
+							<div className="BudgetResults">
 								{active.categories.map(c => {
 									return (
-										<li key={c.id}>
-											<Link to={`/restaurants/${active.id}/categories/${c.id}`}>
-												<span className="CategoryName">{c.name}</span>
-											</Link>: {(budgetFigures[c.id].cogsPercent * 100).toFixed(2)}%
-										</li>
+										<div key={c.id} className="ResultGroup">
+											<span className="CategoryName">
+												<Link to={`/restaurants/${active.id}/categories/${c.id}`}>
+													{c.name}
+												</Link>:
+											</span>
+											<span className="CategoryTotal">
+												{(budgetFigures[c.id].cogsPercent * 100).toFixed(2)}%
+											</span>
+										</div>
 									);
 								})}
-							</ul>
+							</div>
 							<div className="Notes">
 								<p>
 									Update COGS percentage settings to change the amount of expense bugeted for each
@@ -301,16 +322,18 @@ export default function BudgetScreen() {
 					budgetFigures && (
 						<div className="PerformanceCard Card ShadowHover">
 							<p className="SectionTitle1">Total Budget</p>
-							<ul className="IgnoreList">
+							<div className="BudgetResults">
 								{active.categories.map(c => {
 									return (
-										<li key={c.id}>
-											<span className="CategoryName">{c.name}</span>:{' '}
-											{budgetFigures[c.id].totalBudget.toLocaleString('en-US')}
-										</li>
+										<div key={c.id} className="ResultGroup">
+											<span className="CategoryName">{c.name}:</span>{' '}
+											<span className="CategoryTotal">
+												${budgetFigures[c.id].totalBudget.toLocaleString('en-US')}
+											</span>
+										</div>
 									);
 								})}
-							</ul>
+							</div>
 							<div className="Notes">
 								<p>
 									The total budget is the product of the Total Expected Weekly Sales and the budgeted
@@ -323,16 +346,18 @@ export default function BudgetScreen() {
 					budgetFigures && (
 						<div className="PerformanceCard Card ShadowHover">
 							<p className="SectionTitle1">Weekly Spending</p>
-							<ul className="IgnoreList">
+							<div className="BudgetResults">
 								{active.categories.map(c => {
 									return (
-										<li key={c.id}>
-											<span className="CategoryName">{c.name}</span>:{' '}
-											{budgetFigures[c.id].weeklySpending.toLocaleString('en-US')}
-										</li>
+										<div key={c.id} className="ResultGroup">
+											<span className="CategoryName">{c.name}:</span>{' '}
+											<span className="CategoryTotal">
+												${budgetFigures[c.id].weeklySpending.toLocaleString('en-US')}
+											</span>
+										</div>
 									);
 								})}
-							</ul>
+							</div>
 							<div className="Notes">
 								<p>
 									Add, update, or delete{' '}

@@ -82,6 +82,7 @@
 
 .Amount {
 	min-width: 100px;
+	text-align: right;
 }
 
 .EditFormText.Amount {
@@ -111,4 +112,12 @@
 .ExpenseButtonGroup {
 	min-width: max-content;
 	margin-left: auto;
+}
+.ExpenseCard input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+.NewExpenseForm input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
 }

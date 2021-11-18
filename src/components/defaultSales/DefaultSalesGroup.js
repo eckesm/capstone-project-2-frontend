@@ -39,22 +39,25 @@ export default function DefaultSalesGroup({ groupArray = [], mealPeriods = [], d
 	}, []);
 
 	return (
-		<div className="DefaultSalesGroup Card ShadowHover">
-			<p className="SectionTitle2">{dayName}</p>
-			{groupArray.map(ds => {
-				return (
-					<DefaultSalesInputForm
-						key={`${ds.mealPeriodId}`}
-						mealPeriodName={getNameFromId(mealPeriods, ds.mealPeriodId)}
-						dayName={dayName}
-						defaultSale={ds}
-						updateGroupSum={updateGroupSum}
-						isAdmin={isAdmin}
-					/>
-				);
-			})}
-			<div className="InputGroup Total">
-				<label>{getDayOfWeekNameFromId(dayId)} Total:</label>
+		<div className="DefaultSalesGroup">
+			<p className="DayName SectionTitle2">{dayName}</p>
+			<div className="GroupContainer">
+				{groupArray.map((ds,idx) => {
+					return (
+						<DefaultSalesInputForm
+							key={`${ds.mealPeriodId}`}
+							mealPeriodName={getNameFromId(mealPeriods, ds.mealPeriodId)}
+							dayName={dayName}
+							defaultSale={ds}
+							updateGroupSum={updateGroupSum}
+							isAdmin={isAdmin}
+							index={idx}
+						/>
+					);
+				})}
+			</div>
+			<div className="Total">
+				{/* <label>{getDayOfWeekNameFromId(dayId)} Total:</label> */}
 				<span>${(Math.round(groupSum * 100) / 100).toLocaleString('en-US')}</span>
 			</div>
 		</div>

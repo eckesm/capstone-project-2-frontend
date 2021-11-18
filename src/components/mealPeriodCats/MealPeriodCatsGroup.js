@@ -38,22 +38,25 @@ export default function MealPeriodCatsGroup({ groupArray = [], categories = [], 
 	}, []);
 
 	return (
-		<div className="MealPeriodCatsGroup Card ShadowHover">
-			<p className="SectionTitle2">{mealPeriodName}</p>
-			{groupArray.map(mpc => {
-				return (
-					<MealPeriodCatsInputForm
-						key={`${mpc.mealPeriodId}-${mpc.categoryId}`}
-						mealPeriodName={mealPeriodName}
-						categoryName={getNameFromId(categories, mpc.categoryId)}
-						mealPeriodCat={mpc}
-						updateGroupSum={updateGroupSum}
-						isAdmin={isAdmin}
-					/>
-				);
-			})}
-			<div className="InputGroup Total">
-				<label>Total:</label>
+		<div className="MealPeriodCatsGroup">
+			<p className="MealPeriodName SectionTitle2">{mealPeriodName}</p>
+			<div className="GroupContainer">
+				{groupArray.map((mpc,idx) => {
+					return (
+						<MealPeriodCatsInputForm
+							key={`${mpc.mealPeriodId}-${mpc.categoryId}`}
+							mealPeriodName={mealPeriodName}
+							categoryName={getNameFromId(categories, mpc.categoryId)}
+							mealPeriodCat={mpc}
+							updateGroupSum={updateGroupSum}
+							isAdmin={isAdmin}
+							index={idx}
+						/>
+					);
+				})}
+			</div>
+			<div className="Total">
+				{/* <label>Total:</label> */}
 				<span className={Math.round(groupSum * 10000000000) / 10000000000 === 1 ? 'Accurate' : 'Negative'}>
 					{Math.round(groupSum * 10000) / 100}%
 				</span>

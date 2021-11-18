@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
-import { getDayOfWeekNameFromId } from '../../helpers/filterArrays';
+import { getDayOfWeekNameFromId, getNameFromId } from '../../helpers/filterArrays';
 
 import DefaultSalesGroup from './DefaultSalesGroup';
+
+import './defaultSales.css';
 
 export default function AllDefaultSalesScreen() {
 	const active = useSelector(store => store.active);
@@ -59,11 +61,38 @@ export default function AllDefaultSalesScreen() {
 		[ mealPeriods, active ]
 	);
 
+	function determineDivClassName(index) {
+		if (index === 0) {
+			return `DefaultSalesInputForm First`;
+		}
+		else {
+			if (index % 2 === 0) {
+				return `DefaultSalesInputForm Even`;
+			}
+			else {
+				return `DefaultSalesInputForm Odd`;
+			}
+		}
+	}
+
 	return (
 		<div className="Window">
 			<div className="AllDefaultSalesScreen Screen">
 				<p className="ScreenTitle">Default Sales by Day & Meal Period</p>
-				<div className='CardsContainer'>
+				<div className="AllContainer">
+					<div className="MealPeriodColumn">
+						<p className="DayName SectionTitle2">Meal Period</p>
+						<ul className="IgnoreList">
+							{mealPeriods.map((mp,idx) => {
+								return <li key={`${mp.id}`} className={determineDivClassName(idx)}>
+									{mp.name}
+								</li>;
+							})}
+							<li className="TotalHeader" key={'total'}>
+								Total
+							</li>
+						</ul>
+					</div>
 					{active &&
 						Object.keys(defaultSales).map(ds => {
 							return (

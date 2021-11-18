@@ -80,6 +80,14 @@
 	text-decoration: underline;
 }
 
+.SectionTitle5 {
+	font-size: 1.05rem;
+	text-align: left;
+	margin: 0px;
+	margin-bottom: 5px;
+	font-style: italic;
+}
+
 .MarinTop10px {
 	margin-top: 10px;
 }
@@ -87,6 +95,11 @@
 .InputGroup {
 	margin: 3px 2px;
 	display: flex;
+}
+
+.InputGroup input {
+	margin: 3px 2px;
+	/* display: flex; */
 }
 
 .InputGroup.Left {

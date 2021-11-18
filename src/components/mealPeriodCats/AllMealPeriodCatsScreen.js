@@ -6,6 +6,9 @@ import { prepareMealPeriodCats } from '../../helpers/mealPeriodCatsCalculations'
 
 import MealPeriodCatsGroup from './MealPeriodCatsGroup';
 
+import './mealPeriodCats.css'
+import '../screen.css'
+
 export default function AllMealPeriodCatsScreen() {
 	const active = useSelector(store => store.active);
 	const [ mealPeriodCats, setMealPeriodCats ] = useState([]);
@@ -24,19 +27,50 @@ export default function AllMealPeriodCatsScreen() {
 		[ active ]
 	);
 
+	function determineDivClassName(index) {
+		if (index === 0) {
+			return `MealPeriodCatsInputForm First`;
+		}
+		else {
+			if (index % 2 === 0) {
+				return `MealPeriodCatsInputForm Even`;
+			}
+			else {
+				return `MealPeriodCatsInputForm Odd`;
+			}
+		}
+	}
+
 	return (
 		<div className="Window">
 			<div className="AllMealPeriodCatsScreen Screen">
-				<p className='ScreenTitle'>Sales Percentages by Meal Periods & Category</p>
-				<div className='CardsContainer'>
+				<p className="ScreenTitle">Sales Percentages by Meal Periods & Category</p>
+				<div className="AllContainer">
+					<div className="CategoryColumn">
+						<p className="MealPeriodName SectionTitle2">Category</p>
+						<ul className="IgnoreList">
+							{active &&
+								active.categories.map((cat, idx) => {
+									return (
+										<li key={`${cat.id}`} className={determineDivClassName(idx)}>
+											{cat.name}
+										</li>
+									);
+								})}
+							<li className="TotalHeader" key={'total'}>
+								Total
+							</li>
+						</ul>
+					</div>
+
 					{active &&
-						mealPeriodCats.map(mp => {
+						mealPeriodCats.map(mpc => {
 							return (
 								<MealPeriodCatsGroup
-									key={mp.id}
-									groupArray={mp.categories}
+									key={mpc.id}
+									groupArray={mpc.categories}
 									categories={active.categories}
-									mealPeriodName={mp.name}
+									mealPeriodName={mpc.name}
 									isAdmin={active.isAdmin}
 								/>
 							);

@@ -75,7 +75,7 @@ export default function InvoiceDetail({ invoice, setInvoice }) {
 							</li>
 							<li className="InputGroup">
 								<label>Total:</label>
-								<span>${(Math.round(total * 100) / 100).toLocaleString('en-US')}</span>
+								<span className='InvoiceTotalResult'>${(Math.round(total * 100) / 100).toLocaleString('en-US')}</span>
 							</li>
 						</ul>
 					</div>

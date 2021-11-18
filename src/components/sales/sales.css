@@ -35,6 +35,7 @@
 
 .SalesInputForm input {
 	width: 75px;
+	text-align: right;
 }
 
 .SalesInputForm  .SaveButtonDiv {
@@ -100,4 +101,9 @@
 .Unsaved {
 	border: 2px solid red;
 	background-color: rgb(255, 225, 225);
+}
+
+.AllSalesScreen input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
 }

@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 
 import { registerDefaultSale, updateDefaultSale, deleteDefaultSale } from '../../actions/defaultSales';
 
-import SubmitButton from '../buttons/SubmitButton';
+// import SubmitButton from '../buttons/SubmitButton';
 
 import './defaultSales.css';
 
@@ -12,7 +12,8 @@ export default function DefaultSalesInputForm({
 	dayName,
 	defaultSale,
 	updateGroupSum,
-	isAdmin = false
+	isAdmin = false,
+	index
 }) {
 	const dispatch = useDispatch();
 
@@ -24,6 +25,7 @@ export default function DefaultSalesInputForm({
 	};
 	const [ formData, setFormData ] = useState(initialState);
 	const [ hasChanged, setHasChanged ] = useState(false);
+	const [ hasSaved, setHasSaved ] = useState(false);
 
 	const handleChange = evt => {
 		const { name, value } = evt.target;
@@ -42,39 +44,46 @@ export default function DefaultSalesInputForm({
 
 	async function handleSubmit(evt) {
 		evt.preventDefault();
-		const data = { ...formData, dayId, mealPeriodId, restaurantId };
-		try {
-			let res;
-			if (status === 'new') {
-				if (formData.total !== '0') {
-					res = await dispatch(registerDefaultSale(data));
-				}
-				else {
-					console.log('cannot create 0');
-					return false;
-				}
-			}
-			if (status === 'existing') {
-				if (formData.total === '0') {
-					res = await dispatch(deleteDefaultSale(id));
-				}
-				else {
-					data.id = id;
-					res = await dispatch(updateDefaultSale(data));
-				}
-			}
 
-			if (res.status === 200 || res.status === 201) {
-				setHasChanged(false);
+		if (hasChanged) {
+			const data = { ...formData, dayId, mealPeriodId, restaurantId };
+			try {
+				let res;
+				if (status === 'new') {
+					if (formData.total !== '0') {
+						res = await dispatch(registerDefaultSale(data));
+					}
+					else {
+						console.log('cannot create 0');
+						return false;
+					}
+				}
+				if (status === 'existing') {
+					if (formData.total === '0') {
+						res = await dispatch(deleteDefaultSale(id));
+					}
+					else {
+						data.id = id;
+						res = await dispatch(updateDefaultSale(data));
+					}
+				}
+
+				if (res.status === 200 || res.status === 201) {
+					setHasChanged(false);
+					setHasSaved(true);
+					setTimeout(() => {
+						setHasSaved(false);
+					}, 1000);
+				}
+				else if (res.status === 400 || res.status === 404 || res.status === 500) {
+					console.log(res.message);
+				}
+				else {
+					console.log(res);
+				}
+			} catch (err) {
+				console.log('handleSubmit() > register/updateCategory() error:', err);
 			}
-			else if (res.status === 400 || res.status === 404 || res.status === 500) {
-				console.log(res.message);
-			}
-			else {
-				console.log(res);
-			}
-		} catch (err) {
-			console.log('handleSubmit() > register/updateCategory() error:', err);
 		}
 	}
 
@@ -82,12 +91,37 @@ export default function DefaultSalesInputForm({
 		updateGroupSum(mealPeriodId, Number(total));
 	}, []);
 
+	function determineDivClassName() {
+		if (index === 0) {
+			return `DefaultSalesInputForm First`;
+		}
+		else {
+			if (index % 2 === 0) {
+				return `DefaultSalesInputForm Even`;
+			}
+			else {
+				return `DefaultSalesInputForm Odd`;
+			}
+		}
+	}
+	function determineInputClassName() {
+		if (hasChanged) {
+			return `UnsavedSale BackgroundHover`;
+		}
+		else if (hasSaved) {
+			return `SavedSale BackgroundHover`;
+		}
+		else {
+			return `BackgroundHover`;
+		}
+	}
+
 	return (
-		<div className="DefaultSalesInputForm">
-			<form onSubmit={handleSubmit} className="InputGroup">
-				<label htmlFor="total">{mealPeriodName}:</label>
+		<div className={determineDivClassName()}>
+			<form onSubmit={handleSubmit} onBlur={handleSubmit} className="InputGroup">
+				{/* <label htmlFor="total">{mealPeriodName}:</label> */}
 				<input
-					className="BackgroundHover"
+					className={determineInputClassName()}
 					type="number"
 					min="0"
 					step="1"
@@ -98,7 +132,7 @@ export default function DefaultSalesInputForm({
 					disabled={isAdmin ? false : true}
 					required
 				/>
-				{hasChanged && <SubmitButton text="Save" />}
+				{/* {hasChanged && <SubmitButton text="Save" />} */}
 			</form>
 		</div>
 	);

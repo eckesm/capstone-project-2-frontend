@@ -35,3 +35,36 @@
 .BudgetScreen ul {
 	text-align: center;
 }
+
+/* .BudgetScreen .BudgetPerformanceCard .InputGroup {
+	width: auto;
+}
+.BudgetScreen .BudgetPerformanceCard .InputGroup label {
+	min-width: 250px;
+} */
+/* .BudgetScreen .IgnoreList{
+	margin-left: auto;
+	margin-right: auto;
+} */
+
+.BudgetResults {
+	width: fit-content;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.BudgetResults .ResultGroup {
+	display: flex;
+}
+
+.ResultGroup .CategoryName {
+	display: block;
+	width: 85px;
+	min-width: fit-content;
+	text-align: left;
+}
+.ResultGroup .CategoryTotal {
+	display: block;
+	width: 65px;
+	text-align: right;
+}
