@@ -11,7 +11,10 @@ export function getAccessToken() {
 export async function makeGetRequest(path = '') {
 	try {
 		const token = getAccessToken();
-		const headers = { 'Content-Type': 'application/json' };
+		const headers = {
+			'Content-Type' : 'application/json'
+			// 'Access-Control-Allow-Origin' : '*'
+		};
 
 		if (token) {
 			headers.authorization = 'bearer ' + token;
@@ -37,7 +40,10 @@ export async function makeGetRequest(path = '') {
 export async function makePostRequest(path = '', data = {}) {
 	try {
 		const token = getAccessToken();
-		const headers = { 'Content-Type': 'application/json' };
+		const headers = {
+			'Content-Type' : 'application/json'
+			// 'Access-Control-Allow-Origin' : '*'
+		};
 
 		if (token) {
 			headers.authorization = 'bearer ' + token;
@@ -61,7 +67,10 @@ export async function makePostRequest(path = '', data = {}) {
 export async function makePutRequest(path = '', data = {}) {
 	try {
 		const token = getAccessToken();
-		const headers = { 'Content-Type': 'application/json' };
+		const headers = {
+			'Content-Type' : 'application/json'
+			// 'Access-Control-Allow-Origin' : '*'
+		};
 
 		if (token) {
 			headers.authorization = 'bearer ' + token;
@@ -85,7 +94,10 @@ export async function makePutRequest(path = '', data = {}) {
 export async function makeDeleteRequest(path = '') {
 	try {
 		const token = getAccessToken();
-		const headers = { 'Content-Type': 'application/json' };
+		const headers = {
+			'Content-Type' : 'application/json'
+			// 'Access-Control-Allow-Origin' : '*'
+		};
 
 		if (token) {
 			headers.authorization = 'bearer ' + token;
