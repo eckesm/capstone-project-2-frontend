@@ -1,6 +1,72 @@
-# Getting Started with Create React App
+# Restaurant Budgeting Application
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project was created with [Create React App](https://github.com/facebook/create-react-app).
+
+## Deployed
+
+The application is deployed at [https://mre-capstone2-frontend.herokuapp.com](https://mre-capstone2-frontend.herokuapp.com/#/).
+
+## Functionality
+
+The website enables users to track variable cost budgets for one or many restaurants.
+
+To set up a restaurant, users add initial restaurant data including:
+* Meal Periods
+* Sales & Expense Categories
+* Default Sales (by meal period and day of week)
+* Sales Percentages (as percent of total meal revenue)
+
+This data can be altered at any time as budget percentages change, sales expectations change, or there are other adjustments made to restaurant service.  These settings create default sales expectations and budgets.
+
+Throughout the week, users can:
+* Update expected sales for future days--for example: if rain is expected on Friday night, expected dinner sales can be reduced--from default settings (on the Daily Sales screen).
+* Enter sales as service periods are completed to replace expected sales with real-time actual revenue figures (on the Daily Sales screen)
+* Enter invoices to track real-time spending (on the Invoices screen)
+
+Users should reference the Budget screen frequently to see how well they are sticking to their spending budgets as they are make purchasing decisions thoughout the week.
+
+## Calculations
+
+**TOTAL BUDGET** is determined by the following formula (by cost sale/cost category):
+
+TOTAL BUDGET = (actual sales to date + remaining sales for the rest of the week) * cost of goods sold percentage
+
+Example: _TOTAL FOOD BUDGET = ($10,000 [M-W actual food sales] + $15,000 [Th-Su expected food sales]) * 30% [food COGS %] = $7,500_
+
+
+**REMAINING BUDGET** is determined by the following formula (by cost sale/cost category):
+
+REMAINING BUDGET = TOTAL BUDGET - sum of invoice expenses in the week
+
+Example: _REMAINING FOOD BUDGET = $7,500 - $4,500 [invoiced food expenses for week] = $3,000_
+
+In this example, the restaurant would still be able to order an additional $3,000 worth of food for the week, assuming their sales expectations are accurate.  By entering actual sales results and invoices, the budget will adjust to help them stay within their spending goals.
+
+Additional notes on calculations:
+* All budgets run from Monday to Sunday
+* On a given day, today's sales are based on expected daily sales until actuals are entered (as opposed to $0 until actual sales are entered)
+
+## Additional features
+
+Restaurant owners (the user who creates the restaurant), can add other users to a restaurant with either user or administrative priveleges.  Administrators have the same access privileges as the owner, but cannot delete the restaurant or remove the owner's access.  Users with user privileges can enter expected sales, actual sales, and invoices, but are prevented from changing settings, default values, and COGS percentages.
+
+## Backend API
+
+The frontend sends requests to a custom backend API located at [https://mre-capstone2-backend.herokuapp.com](https://mre-capstone2-backend.herokuapp.com/)
+
+This API is connected to a Postgres database and is responsible for handling all CRUD features of the website.  When a new restaurant is created, the backend API automatically creates many records with default settings for the new restaurant.
+
+API requests are sent to the following route paths:
+* auth
+* categories
+* catGroups
+* defaultSales
+* expenses
+* invoices
+* mealPeriods
+* restaurants
+* sales
+* user
 
 ## Available Scripts
 
