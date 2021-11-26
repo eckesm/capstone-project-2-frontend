@@ -6,6 +6,8 @@ import useFields from '../../hooks/useFields';
 
 import { registerInvoice } from '../../actions/invoices';
 
+import AddButton from '../buttons/AddButton'
+
 import './invoices.css';
 
 export default function NewInvoiceForm() {
@@ -81,7 +83,7 @@ export default function NewInvoiceForm() {
 					cols="50"
 				/>
 			</div>
-			<button type="submit">Add Invoice</button>
+			<AddButton text='Add Invoice' onClick={handleSubmit} />
 		</form>
 	);
 }

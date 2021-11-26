@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import { useHistory } from 'react-router';
 
 import { getNameFromId } from '../../helpers/filterArrays';
 import { sortByNameFromTag } from '../../helpers/sorting';
+import { shortenWithEllipse } from '../../helpers/textAdjustments';
 
 import '../screen.css';
 import './invoices.css';
@@ -58,15 +58,15 @@ export default function InvoiceCard({
 				</ul>
 			</div>
 			{displayExpenses.length > 0 && (
-				<div>
+				<div className='Expenses'>
 					<p className="SectionTitle4 MarinTop10px">Expenses</p>
 					<ul className="IgnoreList">
 						{displayExpenses.map(e => {
 							return (
 								<li key={e.id} className="InputGroup">
-									<label>{getNameFromId(categories, e.categoryId)}:</label>
+									<label>{shortenWithEllipse(getNameFromId(categories, e.categoryId),30)}:</label>
 									<span>${Number(e.amount).toLocaleString('en-US')}</span>{' '}
-									{e.notes && <span className="Notes">({e.notes})</span>}
+									{/* {e.notes && <span className="Notes">({e.notes})</span>} */}
 								</li>
 							);
 						})}

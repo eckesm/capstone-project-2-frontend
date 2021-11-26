@@ -9,6 +9,8 @@ import DeleteButton from '../buttons/DeleteButton';
 import EditButton from '../buttons/EditButton';
 import EditExpenseForm from './EditExpenseForm';
 
+import { shortenWithEllipse } from '../../helpers/textAdjustments';
+
 import './expenses.css';
 import '../buttons/buttons.css';
 
@@ -38,7 +40,7 @@ export default function ExpenseCard({ index, savedExpense, updateInvoiceTotal })
 			active && (
 				<div className="ExpenseContainer">
 					<div className="ExpenseInfoContainer">
-						<p className="ExpenseText Category">{getNameFromId(active.categories, expense.categoryId)}</p>
+						<p className="ExpenseText Category">{shortenWithEllipse(getNameFromId(active.categories, expense.categoryId),25)}</p>
 						<p className="ExpenseText Amount">
 							${(Math.round(Number(expense.amount) * 100, 2) / 100).toLocaleString('en-US')}
 						</p>

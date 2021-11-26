@@ -4,6 +4,8 @@ import { getNameFromId } from '../../helpers/filterArrays';
 
 import SalesInputForm from './SalesInputForm';
 
+import { shortenWithEllipse } from '../../helpers/textAdjustments';
+
 export default function SalesGroup({ groupArray = [], categories = [], mealPeriodName }) {
 	const [ groupExpectedValues, setGroupExpectedValues ] = useState({});
 	const [ groupActualValues, setGroupActualValues ] = useState({});
@@ -60,7 +62,7 @@ export default function SalesGroup({ groupArray = [], categories = [], mealPerio
 
 	return (
 		<div className="SalesGroup Card ShadowHover">
-			<p className='SectionTitle2'>{mealPeriodName}</p>
+			<p className='SectionTitle2'>{shortenWithEllipse(mealPeriodName,50)}</p>
 			{groupArray.map((ds, idx) => {
 				return (
 					<SalesInputForm

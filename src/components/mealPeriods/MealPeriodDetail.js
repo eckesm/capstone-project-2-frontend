@@ -32,10 +32,10 @@ export default function MealPeriodDetail({ mealPeriod, isAdmin = false, setMealP
 				<div className="BasicView">
 					<p className="ScreenTitle">{mealPeriod.name}</p>
 					{mealPeriod.notes && (
-						<div>
-							<p>
+						<div className='NotesContainer'>
+			
 								<b>Notes</b>: <span className="Notes">{mealPeriod.notes}</span>
-							</p>
+					
 						</div>
 					)}
 					<div className="ButtonGroup">

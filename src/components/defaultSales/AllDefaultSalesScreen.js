@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
-import { getDayOfWeekNameFromId, getNameFromId } from '../../helpers/filterArrays';
+import { getDayOfWeekNameFromId } from '../../helpers/filterArrays';
 
 import DefaultSalesGroup from './DefaultSalesGroup';
+
+import { shortenWithEllipse } from '../../helpers/textAdjustments';
 
 import './defaultSales.css';
 
@@ -22,11 +24,9 @@ export default function AllDefaultSalesScreen() {
 				let existing = defaultSales.filter(ds => ds.dayId == dOfW && ds.mealPeriodId == mp)[0];
 				if (existing) {
 					existing.status = 'existing';
-					// preparingDefaultSales.push(existing);
 					dOfWArray.push(existing);
 				}
 				else {
-					// preparingDefaultSales.push({
 					dOfWArray.push({
 						id           : null,
 						dayId        : dOfW,
@@ -85,7 +85,7 @@ export default function AllDefaultSalesScreen() {
 						<ul className="IgnoreList">
 							{mealPeriods.map((mp,idx) => {
 								return <li key={`${mp.id}`} className={determineDivClassName(idx)}>
-									{mp.name}
+									{shortenWithEllipse(mp.name,25)}
 								</li>;
 							})}
 							<li className="TotalHeader" key={'total'}>

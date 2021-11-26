@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 
@@ -8,6 +8,7 @@ import { registerCategory } from '../../actions/categories';
 
 import SubmitButton from '../buttons/SubmitButton';
 import CancelButton from '../buttons/CancelButton';
+import ErrorMessages from '../ErrorMessages';
 
 import './categories.css';
 
@@ -24,6 +25,8 @@ export default function NewCategoryForm() {
 	};
 	const [ formData, handleChange, resetFormData ] = useFields(initialState);
 
+	const [ errors, setErrors ] = useState([]);
+
 	async function handleSubmit(evt) {
 		evt.preventDefault();
 		try {
@@ -31,8 +34,8 @@ export default function NewCategoryForm() {
 			if (res.status === 201) {
 				history.push(`/restaurants/${active.id}/categories`);
 			}
-			else if (res.status === 400 || res.status === 404 || res.status === 500) {
-				console.log(res.message);
+			else if (res.status === 400) {
+				setErrors(res.message)
 			}
 			else {
 				console.log(res);
@@ -105,6 +108,7 @@ export default function NewCategoryForm() {
 						onClick={() => history.push(`/restaurants/${active.id}/categories`)}
 					/>
 				)}
+				<ErrorMessages errors={errors} />
 			</div>
 		</form>
 	);

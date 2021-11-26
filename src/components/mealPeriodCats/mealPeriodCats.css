@@ -1,3 +1,10 @@
+/* .MealPeriodDetail{
+	width:650px
+}
+.MealPeriodDetail .NotesContainer{
+	margin: 15px 0px
+} */
+
 .MealPeriodCatsInputForm {
 	border-bottom: 1px solid black;
 	justify-content: space-around;
@@ -10,7 +17,6 @@
 .MealPeriodCatsInputForm .InputGroup {
 	height: 26px;
 	width: 100%;
-	/* border-color: unset; */
 	justify-content: space-around;
 	margin-top: 0px;
 	padding-top: 3px;
@@ -34,6 +40,7 @@
 }
 
 .MealPeriodCatsGroup {
+    /* border-left: 1px solid black; */
     border-right: 1px solid black;
 	border-top: 1px solid black;
 	border-bottom: 1px solid black;
@@ -52,8 +59,9 @@
 	margin-right: 5px;
 }
 
-.CategoryColumn {
+.AllMealPeriodCatsScreen .CategoryColumn {
 	border: 1px solid black;
+	padding-right: 5px;
 }
 
 .AllMealPeriodCatsScreen .AllContainer {
@@ -82,6 +90,11 @@
 }
 .AllMealPeriodCatsScreen .Even {
 	background-color: rgb(240, 240, 240);
+	/* border-color: 1px solid black */
+}
+.AllMealPeriodCatsScreen .Odd {
+	background-color: white
+	/* border-color: 1px solid black */
 }
 .AllMealPeriodCatsScreen .CategoryColumn li.TotalHeader {
 	border-bottom: none;

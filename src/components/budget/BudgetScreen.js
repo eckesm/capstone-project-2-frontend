@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 
 import { prepareBudgetReportFigures, generateReportDatesArray } from '../../helpers/budgetCalculations';
 import { getSales, getSavedExpenses } from '../../helpers/api';
+import {shortenWithEllipse} from '../../helpers/textAdjustments'
 
 import ArrowButton from '../buttons/ArrowButton';
 import TodayButton from '../buttons/TodayButton';
@@ -166,29 +167,32 @@ export default function BudgetScreen() {
 							{new Date(reportDates[6]).toISOString().split('T')[0]}
 						</p>
 						<div className="BudgetResults">
-							{active.categories.map(c => {
+							{active.categories.map((c,idx) => {
 								let remainingBudget = budgetFigures[c.id].remainingBudget;
 								let totalBudget = budgetFigures[c.id].totalBudget;
 								let status = remainingBudget < 0 ? 'Negative' : 'Positive';
 								return (
+									<div className={idx === 0 ? 'ResultGroupAndExplanation' : 'ResultGroupAndExplanation TopBorder'}>
 									<div key={c.id} className="ResultGroup">
-										<span className="CategoryName">{c.name}:</span>{' '}
+										<span className="CategoryName">{shortenWithEllipse(c.name,50)}:</span>{' '}
 										<span className={`CategoryTotal ${status}`}>
 											${remainingBudget.toLocaleString('en-US')}{' '}
 										</span>
-										{status === 'Negative' && (
-											<span className="Warning">
-												spending is ${-Math.round(remainingBudget / totalBudget * 100)}% over
-												budget!
-											</span>
-										)}
-										{/* </div> */}
 									</div>
+										{status === 'Negative' && (
+											<p className="NegativeExplanation Warning">
+												spending is {-Math.round(remainingBudget / totalBudget * 100)}% over
+												budget!
+											</p>
+										)}
+										</div>
 								);
 							})}
 						</div>
 						<div className="Notes">
-							<p>Weekly budgets start on Monday and end on Sunday.</p>
+							<p>
+							Weekly budgets start on Monday and end on Sunday.
+							</p>
 							<p>
 								The remaining budget is the difference between the Total Budget and the Weekly Spending
 								(based on entered invoices) for a given category.
@@ -205,7 +209,7 @@ export default function BudgetScreen() {
 								{active.categories.map(c => {
 									return (
 										<div key={c.id} className="ResultGroup">
-											<span className="CategoryName">{c.name}:</span>{' '}
+											<span className="CategoryName">{shortenWithEllipse(c.name,30)}:</span>{' '}
 											<span className="CategoryTotal">
 												${budgetFigures[c.id].toDate.toLocaleString('en-US')}
 											</span>
@@ -239,7 +243,7 @@ export default function BudgetScreen() {
 								{active.categories.map(c => {
 									return (
 										<div key={c.id} className="ResultGroup">
-											<span className="CategoryName">{c.name}:</span>{' '}
+											<span className="CategoryName">{shortenWithEllipse(c.name,30)}:</span>{' '}
 											<span className="CategoryTotal">
 												${budgetFigures[c.id].expectedRemaining.toLocaleString('en-US')}
 											</span>
@@ -280,7 +284,7 @@ export default function BudgetScreen() {
 								{active.categories.map(c => {
 									return (
 										<div key={c.id} className="ResultGroup">
-											<span className="CategoryName">{c.name}:</span>{' '}
+											<span className="CategoryName">{shortenWithEllipse(c.name,30)}:</span>{' '}
 											<span className="CategoryTotal">
 												${budgetFigures[c.id].totalExpectedWeekly.toLocaleString('en-US')}
 											</span>
@@ -300,7 +304,7 @@ export default function BudgetScreen() {
 										<div key={c.id} className="ResultGroup">
 											<span className="CategoryName">
 												<Link to={`/restaurants/${active.id}/categories/${c.id}`}>
-													{c.name}
+													{shortenWithEllipse(c.name,30)}
 												</Link>:
 											</span>
 											<span className="CategoryTotal">
@@ -326,7 +330,7 @@ export default function BudgetScreen() {
 								{active.categories.map(c => {
 									return (
 										<div key={c.id} className="ResultGroup">
-											<span className="CategoryName">{c.name}:</span>{' '}
+											<span className="CategoryName">{shortenWithEllipse(c.name,30)}:</span>{' '}
 											<span className="CategoryTotal">
 												${budgetFigures[c.id].totalBudget.toLocaleString('en-US')}
 											</span>
@@ -350,7 +354,7 @@ export default function BudgetScreen() {
 								{active.categories.map(c => {
 									return (
 										<div key={c.id} className="ResultGroup">
-											<span className="CategoryName">{c.name}:</span>{' '}
+											<span className="CategoryName">{shortenWithEllipse(c.name,30)}:</span>{' '}
 											<span className="CategoryTotal">
 												${budgetFigures[c.id].weeklySpending.toLocaleString('en-US')}
 											</span>

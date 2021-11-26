@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 
@@ -8,6 +8,7 @@ import { registerMealPeriod } from '../../actions/mealPeriods';
 
 import SubmitButton from '../buttons/SubmitButton';
 import CancelButton from '../buttons/CancelButton';
+import ErrorMessages from '../ErrorMessages';
 
 import './mealPeriods.css';
 
@@ -22,12 +23,20 @@ export default function NewMealPeriodForm() {
 	};
 	const [ formData, handleChange, resetFormData ] = useFields(initialState);
 
+	const [ errors, setErrors ] = useState([]);
+
 	async function handleSubmit(evt) {
 		evt.preventDefault();
 		try {
 			const res = await dispatch(registerMealPeriod(active.id, formData));
 			if (res.status === 201) {
 				history.push(`/restaurants/${active.id}/meal-periods`);
+			}
+			else if (res.status === 400) {
+				setErrors(res.message)
+			}
+			else {
+				console.log(res);
 			}
 		} catch (err) {
 			console.log('handleSubmit() > registerMealPeriod() error:', err);
@@ -60,6 +69,7 @@ export default function NewMealPeriodForm() {
 						onClick={() => history.push(`/restaurants/${active.id}/meal-periods`)}
 					/>
 				)}
+				<ErrorMessages errors={errors} />
 			</div>
 		</form>
 	);

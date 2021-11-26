@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 import { useDispatch } from 'react-redux';
 
 import useFields from '../../hooks/useFields';
@@ -7,6 +7,7 @@ import { updateCategory } from '../../actions/categories';
 
 import CancelButton from '../buttons/CancelButton';
 import SubmitButton from '../buttons/SubmitButton';
+import ErrorMessages from '../ErrorMessages';
 
 import '../screen.css';
 
@@ -29,6 +30,8 @@ export default function EditCategoryForm({
 		notes       : notes === null ? '' : notes
 	};
 	const [ formData, handleChange, resetFormData ] = useFields(initialState);
+	
+	const [ errors, setErrors ] = useState([]);
 
 	async function handleSubmit(evt) {
 		evt.preventDefault();
@@ -38,8 +41,8 @@ export default function EditCategoryForm({
 				setCategory(res.data.category);
 				setEditing(false);
 			}
-			else if (res.status === 400 || res.status === 404 || res.status === 500) {
-				console.log(res.message);
+			else if (res.status === 400) {
+				setErrors(res.message)
 			}
 			else {
 				console.log(res);
@@ -111,7 +114,7 @@ export default function EditCategoryForm({
 				</div>
 				<div className="ButtonGroup">
 					<SubmitButton text="Update Category" />
-					<CancelButton text="Don't Update" onClick={handleCancel} />
+					<CancelButton text="Don't Update" onClick={handleCancel} />				<ErrorMessages errors={errors} />
 				</div>
 			</form>
 		</div>

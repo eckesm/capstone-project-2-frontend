@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { registerMealPeriodCat, updateMealPeriodCat, deleteMealPeriodCat } from '../../actions/mealPeriodCats';
-
-import SubmitButton from '../buttons/SubmitButton';
+import { registerMealPeriodCat, updateMealPeriodCat } from '../../actions/mealPeriodCats';
 
 import './mealPeriodCats.css';
 
@@ -120,7 +118,6 @@ export default function MealPeriodCatsInputForm({
 	return (
 		<div className={determineDivClassName()}>
 			<form onSubmit={handleSubmit} onBlur={handleSubmit} className="InputGroup">
-				{/* <label htmlFor="salesPercentOfPeriod">{categoryName}:</label> */}
 				<input
 					className={determineInputClassName()}
 					type="number"
@@ -134,7 +131,6 @@ export default function MealPeriodCatsInputForm({
 					disabled={isAdmin ? false : true}
 					required
 				/>
-				{/* {hasChanged && <SubmitButton text="Save" />} */}
 			</form>
 		</div>
 	);

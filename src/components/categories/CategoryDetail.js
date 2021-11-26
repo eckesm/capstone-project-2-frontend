@@ -11,6 +11,8 @@ import EditButton from '../buttons/EditButton';
 import EditCategoryForm from './EditCategoryForm';
 import GoButton from '../buttons/GoButton';
 
+import { shortenWithEllipse } from '../../helpers/textAdjustments';
+
 import '../screen.css';
 
 export default function CategoryDetail({ category, catGroups, isAdmin = false, setCategory }) {
@@ -34,14 +36,14 @@ export default function CategoryDetail({ category, catGroups, isAdmin = false, s
 			{!editing && (
 				<div className="BasicView">
 					<p className="ScreenTitle">{category.name}</p>
-					<ul className="IgnoreList Centered">
+					<ul className="IgnoreList Left">
 						{category.catGroupId && (
-							<li className="InputGroup Centered">
+							<li className="InputGroup Left">
 								<label>Category Group:</label>
 								<Link
 									to={`/restaurants/${category.restaurantId}/category-groups/${category.catGroupId}`}
 								>
-									{getNameFromId(catGroups, category.catGroupId)}
+									{shortenWithEllipse(getNameFromId(catGroups, category.catGroupId),30)}
 								</Link>
 							</li>
 						)}
@@ -52,9 +54,8 @@ export default function CategoryDetail({ category, catGroups, isAdmin = false, s
 							</li>
 						)}
 						{category.notes && (
-							<li className="InputGroup">
-								<label>Notes:</label>
-								<span className="Notes">{category.notes}</span>
+							<li className="NotesContainer">
+								<b>Notes</b>: <span className="Notes">{category.notes}</span>
 							</li>
 						)}
 					</ul>

@@ -8,6 +8,8 @@ import { updateExpense } from '../../actions/expenses';
 import CancelButton from '../buttons/CancelButton';
 import SubmitButton from '../buttons/SubmitButton';
 
+import { shortenWithEllipse } from '../../helpers/textAdjustments';
+
 import './expenses.css';
 
 export default function EditExpenseForm({
@@ -70,7 +72,7 @@ export default function EditExpenseForm({
 								{categories.map(c => {
 									return (
 										<option key={c.id} value={c.id}>
-											{c.name}
+											{shortenWithEllipse(c.name,25)}
 										</option>
 									);
 								})}

@@ -9,6 +9,7 @@
 	border-top: 1px solid lightgray;
 }
 .NewExpenseForm {
+	border: 1px solid black;
 	background-color: white;
 	padding: 10px;
 }
@@ -29,7 +30,7 @@
 	width: 100%;
 }
 .NewExpenseFormContainer {
-	border: 1px solid black;
+	/* border: 1px solid black; */
 	display: flex;
 	width: 100%;
 }
@@ -63,8 +64,14 @@
 .ExpenseText {
 	margin: 0px 10px;
 }
+.ExpenseText.Notes {
+	margin-top: 0px;
+}
 .EditFormText {
 	margin: 0px 10px;
+}
+.EditFormText.Notes {
+	margin-top: 0px;
 }
 .NewFormText {
 	margin: 0px 10px;
@@ -77,12 +84,16 @@
 }
 
 .Category {
-	min-width: 100px;
+	width: 200px;
 }
 
 .Amount {
-	min-width: 100px;
+	width: 100px;
 	text-align: right;
+}
+
+.ExpenseText.Notes{
+	min-width: 500px;
 }
 
 .EditFormText.Amount {
@@ -97,10 +108,13 @@
 }
 
 .EditFormText.Notes {
+	margin-top: 0px;
 	margin-left: 0px;
 	padding-left: 0px;
+	min-width: 500px;
 }
 .NewFormText.Notes {
+	margin-top: 0px;
 	margin-left: 0px;
 	padding-left: 0px;
 }

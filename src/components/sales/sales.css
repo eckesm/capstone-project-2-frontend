@@ -33,6 +33,10 @@
 	display: inline;
 }
 
+.SalesInputForm span{
+	width: 200px
+}
+
 .SalesInputForm input {
 	width: 75px;
 	text-align: right;
@@ -91,11 +95,11 @@
 }
 
 .Expected {
-	width: 200px;
+	width: 175px;
 }
 
 .Actual {
-	width: 180px;
+	width: 175px;
 }
 
 .Unsaved {

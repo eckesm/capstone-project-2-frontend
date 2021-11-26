@@ -4,6 +4,8 @@ import { getNameFromId } from '../../helpers/filterArrays';
 
 import MealPeriodCatsInputForm from './MealPeriodCatsInputForm';
 
+import { shortenWithEllipse } from '../../helpers/textAdjustments';
+
 import '../screen.css';
 import './mealPeriodCats.css';
 
@@ -39,7 +41,7 @@ export default function MealPeriodCatsGroup({ groupArray = [], categories = [], 
 
 	return (
 		<div className="MealPeriodCatsGroup">
-			<p className="MealPeriodName SectionTitle2">{mealPeriodName}</p>
+			<p className="MealPeriodName SectionTitle2">{shortenWithEllipse(mealPeriodName,15)}</p>
 			<div className="GroupContainer">
 				{groupArray.map((mpc,idx) => {
 					return (

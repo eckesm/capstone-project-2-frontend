@@ -8,6 +8,8 @@ import { registerExpense } from '../../actions/expenses';
 import SubmitButton from '../buttons/SubmitButton';
 import CancelButton from '../buttons/CancelButton';
 
+import { shortenWithEllipse } from '../../helpers/textAdjustments';
+
 import './expenses.css';
 
 export default function NewExpenseForm({ invoiceId, setShowNewExpenseForm, updateInvoiceTotal }) {
@@ -72,7 +74,7 @@ export default function NewExpenseForm({ invoiceId, setShowNewExpenseForm, updat
 								{active.categories.map(c => {
 									return (
 										<option key={c.id} value={c.id}>
-											{c.name}
+											{shortenWithEllipse(c.name,25)}
 										</option>
 									);
 								})}

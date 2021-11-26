@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { useDispatch } from 'react-redux';
 
 import useFields from '../../hooks/useFields';
@@ -7,6 +7,7 @@ import { updateMealPeriod } from '../../actions/mealPeriods';
 
 import CancelButton from '../buttons/CancelButton';
 import SubmitButton from '../buttons/SubmitButton';
+import ErrorMessages from '../ErrorMessages';
 
 import '../screen.css';
 
@@ -19,6 +20,8 @@ export default function EditMealPeriodForm({ id, name, notes, setMealPeriod, set
 	};
 	const [ formData, handleChange, resetFormData ] = useFields(initialState);
 
+	const [ errors, setErrors ] = useState([]);
+
 	async function handleSubmit(evt) {
 		evt.preventDefault();
 		try {
@@ -26,6 +29,12 @@ export default function EditMealPeriodForm({ id, name, notes, setMealPeriod, set
 			if (res.status === 200) {
 				setMealPeriod(res.data.mealPeriod);
 				setEditing(false);
+			}
+			else if (res.status === 400) {
+				setErrors(res.message)
+			}
+			else {
+				console.log(res);
 			}
 		} catch (err) {
 			console.log('handleSubmit() > updateMealPeriod() error:', err);
@@ -59,6 +68,7 @@ export default function EditMealPeriodForm({ id, name, notes, setMealPeriod, set
 				<div className="ButtonGroup">
 					<SubmitButton text="Update Meal Period" />
 					<CancelButton text="Don't Update" onClick={handleCancel} />
+					<ErrorMessages errors={errors} />
 				</div>
 			</form>
 		</div>

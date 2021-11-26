@@ -10,12 +10,34 @@
 	margin-left: 0px;
 }
 
-.InvoiceCard .InputGroup label {
+.InvoiceCard .HeadingContainer .InputGroup label {
 	min-width: 60px;
+}
+.InvoiceCard .Expenses .InputGroup label {
+	width: 275px;
+	text-align: left;
+}
+.InvoiceCard .Expenses .InputGroup span {
+	width: 75px;
+	text-align: right;
+}
+
+.InvoiceCard .Expenses .InputGroup:hover {
+	background-color: rgb(206, 193, 204);
 }
 
 .InvoiceCard .InputGroup .Notes {
 	margin-left: 5px;
+
+}
+.InvoiceCard p.Notes {
+	margin-top: 0px;
+
+}
+
+.InvoiceDetail .TableTitleText.Notes {
+	margin-top: 0px;
+
 }
 
 .NewInvoiceForm {
@@ -30,4 +52,17 @@
 	width: 350px;
 	min-width: unset;
 	height: 200px;
+}
+
+/* .InvoiceDetail .Section.Card.Notes{
+	width:100%;
+} */
+
+.InvoiceDetail .InvoiceNotes{
+	margin: 5px auto;
+	border: 1px solid black;
+	padding: 10px;
+	width: 80vw;
+	background-color: white;
+	text-align: left;
 }

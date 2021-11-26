@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 
@@ -8,6 +8,7 @@ import { registerCategoryGroup } from '../../actions/categoryGroups';
 
 import SubmitButton from '../buttons/SubmitButton';
 import CancelButton from '../buttons/CancelButton';
+import ErrorMessages from '../ErrorMessages';
 
 import './categoryGroups.css';
 
@@ -22,12 +23,20 @@ export default function NewCategoryGroupForm() {
 	};
 	const [ formData, handleChange, resetFormData ] = useFields(initialState);
 
+	const [ errors, setErrors ] = useState([]);
+
 	async function handleSubmit(evt) {
 		evt.preventDefault();
 		try {
 			const res = await dispatch(registerCategoryGroup(active.id, formData));
 			if (res.status === 201) {
 				history.push(`/restaurants/${active.id}/category-groups`);
+			}
+			else if (res.status === 400) {
+				setErrors(res.message)
+			}
+			else {
+				console.log(res);
 			}
 		} catch (err) {
 			console.log('handleSubmit() > registerCategoryGroup() error:', err);
@@ -60,6 +69,7 @@ export default function NewCategoryGroupForm() {
 						onClick={() => history.push(`/restaurants/${active.id}/category-groups`)}
 					/>
 				)}
+				<ErrorMessages errors={errors} />
 			</div>
 		</form>
 	);

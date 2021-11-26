@@ -1,6 +1,15 @@
+.CategoryGroupDetail{
+	width: 650px;
+}
+
 .CategoryGroupCard .InputGroup label {
 	min-width: 50px;
 }
 .CategoryGroupDetail .InputGroup label {
 	min-width: 50px;
 }
+
+/* .CategoryGroupDetail .NotesContainer{
+	margin:15px 0px;
+	text-align: left;
+} */

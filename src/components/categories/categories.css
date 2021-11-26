@@ -1,5 +1,9 @@
+.CategoryDetail{
+	width: 650px;
+}
+
 .CategoryCard .InputGroup label {
-	min-width: 50px;
+	width: 150px;
 }
 
 .CategoryDetail .InputGroup label {

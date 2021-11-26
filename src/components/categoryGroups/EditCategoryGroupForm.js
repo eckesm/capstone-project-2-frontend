@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 import { useDispatch } from 'react-redux';
 
 import useFields from '../../hooks/useFields';
@@ -7,6 +7,7 @@ import { updateCategoryGroup } from '../../actions/categoryGroups';
 
 import CancelButton from '../buttons/CancelButton';
 import SubmitButton from '../buttons/SubmitButton';
+import ErrorMessages from '../ErrorMessages';
 
 export default function EditCategoryGroupForm({ id, name, notes, setCategoryGroup, setEditing }) {
 	const dispatch = useDispatch();
@@ -17,6 +18,8 @@ export default function EditCategoryGroupForm({ id, name, notes, setCategoryGrou
 	};
 	const [ formData, handleChange, resetFormData ] = useFields(initialState);
 
+	const [ errors, setErrors ] = useState([]);
+
 	async function handleSubmit(evt) {
 		evt.preventDefault();
 		try {
@@ -24,6 +27,12 @@ export default function EditCategoryGroupForm({ id, name, notes, setCategoryGrou
 			if (res.status === 200) {
 				setCategoryGroup(res.data.catGroup);
 				setEditing(false);
+			}
+			else if (res.status === 400) {
+				setErrors(res.message)
+			}
+			else {
+				console.log(res);
 			}
 		} catch (err) {
 			console.log('handleSubmit() > updateCategoryGroup() error:', err);
@@ -57,6 +66,7 @@ export default function EditCategoryGroupForm({ id, name, notes, setCategoryGrou
 				<div className="ButtonGroup">
 					<SubmitButton text="Update Category Group" />
 					<CancelButton text="Don't Update" onClick={handleCancel} />
+					<ErrorMessages errors={errors} />
 				</div>
 			</form>
 		</div>

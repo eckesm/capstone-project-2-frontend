@@ -52,6 +52,7 @@
 
 .AllDefaultSalesScreen .MealPeriodColumn {
 	border: 1px solid black;
+	padding-right: 5px;
 }
 
 .AllDefaultSalesScreen .AllContainer {
@@ -81,6 +82,9 @@
 }
 .AllDefaultSalesScreen .Even {
 	background-color: rgb(240, 240, 240);
+}
+.AllDefaultSalesScreen .Odd {
+	background-color: white;
 }
 .AllDefaultSalesScreen .MealPeriodColumn li.TotalHeader {
 	border-bottom: none;

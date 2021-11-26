@@ -91,13 +91,15 @@ export default function InvoiceDetail({ invoice, setInvoice }) {
 						)}
 					</div>
 					{invoice.notes && (
-						<div className="Section Card">
+						<div className="Section">
+							<div className='InvoiceNotes'>
 							<p className="SectionTitle4">Notes:</p>
 							<p>{invoice.notes}</p>
 						</div>
+						</div>
 					)}
 					<div className="ButtonGroup">
-						<AddButton text="Add Expense" onClick={() => setShowNewExpenseForm(true)} />
+						{!showNewExpenseForm && <AddButton text="Add Expense" onClick={() => setShowNewExpenseForm(true)} />}
 						<EditButton onClick={() => setEditing(true)} text="Edit Invoice" />
 						<DeleteButton text="Delete Invoice" onClick={handleDelete} />
 						<GoButton

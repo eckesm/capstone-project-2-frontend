@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
 
-import { getNameFromId } from '../../helpers/filterArrays';
-import { getDayOfWeekNameFromId } from '../../helpers/filterArrays';
-
 import DefaultSalesInputForm from './DefaultSalesInputForm';
+
+import { getNameFromId } from '../../helpers/filterArrays';
 
 import '../screen.css';
 import './defaultSales.css';

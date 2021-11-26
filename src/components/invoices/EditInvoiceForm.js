@@ -96,8 +96,10 @@ export default function EditInvoiceForm({
 						<input type="text" id="notes" value={formData.notes} name="notes" onChange={handleChange} />
 					</div>
 				</div>
+				<div className='ButtonGroup'>
 				<SubmitButton text="Update Invoice" />
 				<CancelButton text="Don't Update" onClick={handleCancel} />
+		</div>
 			</form>
 		</div>
 	);

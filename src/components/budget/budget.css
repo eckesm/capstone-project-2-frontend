@@ -16,55 +16,64 @@
 	width: 400px;
 }
 
-.PerformanceCard p {
+p {
 	margin: 0px;
 	margin-top: 5px;
 }
 
-.CategoryName {
+.BudgetScreen .CategoryName {
 	font-size: 1.1rem;
-	font-weight: 500;
+	/* font-weight: 500; */
+	font-weight: bold;
 }
 
-/* .Notes {
-	font-size: 0.9rem;
-	margin: 0px;
-	font-style: italic;
-} */
+.BudgetScreen .Notes {
+margin-top: 30px;
+}
 
 .BudgetScreen ul {
 	text-align: center;
 }
 
-/* .BudgetScreen .BudgetPerformanceCard .InputGroup {
-	width: auto;
-}
-.BudgetScreen .BudgetPerformanceCard .InputGroup label {
-	min-width: 250px;
-} */
-/* .BudgetScreen .IgnoreList{
-	margin-left: auto;
-	margin-right: auto;
-} */
-
 .BudgetResults {
-	width: fit-content;
-	margin-left: auto;
-	margin-right: auto;
+	margin-right: 10px;
 }
 
 .BudgetResults .ResultGroup {
 	display: flex;
+	justify-content: space-between;
 }
 
 .ResultGroup .CategoryName {
 	display: block;
-	width: 85px;
+	/* width: 85px; */
+	width: 300px;
 	min-width: fit-content;
 	text-align: left;
 }
 .ResultGroup .CategoryTotal {
 	display: block;
-	width: 65px;
+	width: 200px;
 	text-align: right;
+}
+
+.ResultGroupAndExplanation{
+	padding:5px;
+}
+.ResultGroupAndExplanation.TopBorder{
+	border-top: 1px solid rgb(204, 190, 190)
+}
+.ResultGroupAndExplanation:hover {
+	background-color:rgb(206, 193, 204);
+	font-weight: bold;
+
+}
+.BudgetResults .ResultGroup:hover {
+	background-color:rgb(206, 193, 204);
+	font-weight: bold;
+}
+
+.ResultGroupAndExplanation .NegativeExplanation {
+	text-align: right;
+	margin-top: 0px;
 }

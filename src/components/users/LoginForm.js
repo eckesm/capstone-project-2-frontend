@@ -77,15 +77,6 @@ export default function LoginForm() {
 				</div>
 			</div>
 			<SubmitButton text="Login" />
-			{/* <ul className="IgnoreList">
-				{errors.map((e, idx) => {
-					return (
-						<li key={idx} className="ErrorMessage">
-							{e}
-						</li>
-					);
-				})}
-			</ul> */}
 			<ErrorMessages errors={errors} />
 		</form>
 	);

@@ -1,6 +1,7 @@
 import React from 'react';
 import { useHistory } from 'react-router';
-// import { Link } from 'react-router-dom';
+
+import { shortenWithEllipse } from '../../helpers/textAdjustments';
 
 import './categories.css';
 
@@ -20,12 +21,12 @@ export default function CategoryCard({
 			className="CategoryCard Card BackgroundHover ShadowHover"
 			onClick={() => history.push(`/restaurants/${restaurantId}/categories/${id}`)}
 		>
-			<p className="SectionTitle2">{name}</p>
+			<p className="SectionTitle2">{shortenWithEllipse(name,30)}</p>
 			<ul className="IgnoreList Left">
 				{catGroupName && (
 					<li className="InputGroup">
 						<label>Category Group:</label>
-						{catGroupName}
+						{shortenWithEllipse(catGroupName,35)}
 					</li>
 				)}
 				<li className="InputGroup">
@@ -34,9 +35,8 @@ export default function CategoryCard({
 				</li>
 			</ul>
 			{notes && (
-				<div className="InputGroup">
-					<label>Notes:</label>
-					<span className="Notes">{notes}</span>
+				<div className="NotesContainer">
+					<b>Notes</b>: <span className="Notes">{notes}</span>
 				</div>
 			)}
 		</div>

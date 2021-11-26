@@ -10,6 +10,8 @@ import EditButton from '../buttons/EditButton';
 import EditCategoryGroupForm from './EditCategoryGroupForm';
 import GoButton from '../buttons/GoButton';
 
+import { shortenWithEllipse } from '../../helpers/textAdjustments';
+
 export default function CategoryGroupDetail({ categoryGroup, categories, isAdmin = false, setCategoryGroup }) {
 	const dispatch = useDispatch();
 	const history = useHistory();
@@ -37,16 +39,15 @@ export default function CategoryGroupDetail({ categoryGroup, categories, isAdmin
 							{categories.map(c => {
 								return (
 									<li key={c.id}>
-										<Link to={`/restaurants/${c.restaurantId}/categories/${c.id}`}>{c.name}</Link>
+										<Link to={`/restaurants/${c.restaurantId}/categories/${c.id}`}>{ shortenWithEllipse(c.name,30)}</Link>
 									</li>
 								);
 							})}
 						</ul>
 					)}
 					{categoryGroup.notes && (
-						<div className="InputGroup Centered">
-							<label>Notes:</label>
-							<span className="Notes">{categoryGroup.notes}</span>
+						<div className="NotesContainer">
+							<b>Notes</b>: <span className="Notes">{categoryGroup.notes}</span>
 						</div>
 					)}
 					<div className="ButtonGroup">

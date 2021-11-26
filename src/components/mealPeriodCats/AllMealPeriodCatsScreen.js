@@ -6,6 +6,8 @@ import { prepareMealPeriodCats } from '../../helpers/mealPeriodCatsCalculations'
 
 import MealPeriodCatsGroup from './MealPeriodCatsGroup';
 
+import { shortenWithEllipse } from '../../helpers/textAdjustments';
+
 import './mealPeriodCats.css'
 import '../screen.css'
 
@@ -53,7 +55,7 @@ export default function AllMealPeriodCatsScreen() {
 								active.categories.map((cat, idx) => {
 									return (
 										<li key={`${cat.id}`} className={determineDivClassName(idx)}>
-											{cat.name}
+											{shortenWithEllipse(cat.name,25)}
 										</li>
 									);
 								})}

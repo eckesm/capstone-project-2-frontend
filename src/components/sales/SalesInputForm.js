@@ -6,6 +6,8 @@ import { registerMealPeriodCat } from '../../actions/mealPeriodCats';
 
 import SubmitButton from '../buttons/SubmitButton';
 
+import { shortenWithEllipse } from '../../helpers/textAdjustments';
+
 import './sales.css';
 import '../screen.css';
 
@@ -122,7 +124,7 @@ export default function SalesInputForm({
 
 	return (
 		<div className={index === 0 ? 'SalesInputForm' : 'SalesInputForm TopBorder'}>
-			<span>{categoryName}</span>
+			<span>{shortenWithEllipse(categoryName,20)}</span>
 			<form onSubmit={handleSubmit}>
 				<div className="SaleInput Expected">
 					<label htmlFor="expectedSales">Expected:</label>{' '}
