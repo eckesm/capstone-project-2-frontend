@@ -2,7 +2,7 @@ import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 
 import ProtectedRoute from './ProtectedRoute';
-import Home from '../home/Home';
+import HomeScreen from '../home/HomeScreen';
 import LoginScreen from '../users/LoginScreen';
 import ProtectedRouteUser from './ProtectedRouteUser';
 import ProtectedRouteAdmin from './ProtectedRouteAdmin';
@@ -44,7 +44,7 @@ export default function Routes() {
 	return (
 		<Switch>
 			<Route exact path="/">
-				<Home />
+				<HomeScreen />
 			</Route>
 
 			<Route exact path="/login">
