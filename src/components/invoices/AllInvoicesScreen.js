@@ -117,10 +117,12 @@ export default function AllInvoicesScreen() {
 					</div>
 					{invoices &&
 					active && (
-						<AddButton
-							text="Add Invoice"
-							onClick={() => history.push(`/restaurants/${active.id}/invoices/new`)}
-						/>
+						<div className="ButtonGroup">
+							<AddButton
+								text="Add Invoice"
+								onClick={() => history.push(`/restaurants/${active.id}/invoices/new`)}
+							/>
+						</div>
 					)}
 				</div>
 				{invoices &&
