@@ -6,7 +6,6 @@ import { useParams } from 'react-router-dom';
 import { deleteRestaurant } from '../../actions/restaurants';
 
 import EditRestaurantForm from './EditRestaurantForm';
-import DeleteButton from '../buttons/DeleteButton';
 
 import './restaurants.css';
 
@@ -52,12 +51,11 @@ export default function EditRestaurantScreen() {
 							email={restaurant.email}
 							website={restaurant.website}
 							notes={restaurant.notes}
+							enableDelete={active.ownerId === user.userId}
+							handleDelete={handleDelete}
 						/>
 					</div>
 				)}
-				{active &&
-				user &&
-				active.ownerId === user.userId && <DeleteButton text="Delete Restaurant" onClick={handleDelete} />}
 			</div>
 		</div>
 	);

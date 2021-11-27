@@ -20,6 +20,14 @@ export default function RestaurantUsersScreen() {
 			user && (
 				<div className="RestaurantUsersScreen Screen">
 					<p className="ScreenTitle">Users</p>
+					{active.isAdmin && (
+						<div className="ButtonGroup">
+							<AddButton
+								text="Add User"
+								onClick={() => history.push(`/restaurants/${active.id}/users/add`)}
+							/>
+						</div>
+					)}
 					<div className="CardsContainer">
 						{active.users.map(u => {
 							return (
@@ -35,12 +43,6 @@ export default function RestaurantUsersScreen() {
 							);
 						})}
 					</div>
-					{active.isAdmin && (
-						<AddButton
-							text="Add User"
-							onClick={() => history.push(`/restaurants/${active.id}/users/add`)}
-						/>
-					)}
 				</div>
 			)}
 		</div>

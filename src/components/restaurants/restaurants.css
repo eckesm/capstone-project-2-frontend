@@ -26,6 +26,11 @@
 	min-width: 150px;
 }
 
+.RestaurantDetail .Notes {
+	text-align: left;
+	margin: 15px 5px;
+}
+
 .EditRestaurantForm .InputGroup label {
 	min-width: 150px;
 }

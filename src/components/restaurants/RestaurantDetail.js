@@ -63,9 +63,10 @@ export default function RestaurantDetail({ restaurant }) {
 			)}
 
 			{restaurant.notes && (
-				<div className="Section Full">
-					<p className="SectionTitle3">Notes</p>
-					<p className="Notes">{restaurant.notes}</p>
+				<div className="Section Full Notes">
+					{/* <p className="SectionTitle3">Notes</p>
+					<p className="Notes">{restaurant.notes}</p> */}
+					<b>Notes</b>: <span className="Notes">{restaurant.notes}</span>
 				</div>
 			)}
 		</div>

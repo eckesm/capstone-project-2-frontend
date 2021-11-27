@@ -8,8 +8,19 @@ import { updateRestaurant } from '../../actions/restaurants';
 
 import CancelButton from '../buttons/CancelButton';
 import SubmitButton from '../buttons/SubmitButton';
+import DeleteButton from '../buttons/DeleteButton';
 
-export default function EditRestaurantForm({ id, name, address, phone, email, website, notes }) {
+export default function EditRestaurantForm({
+	id,
+	name,
+	address,
+	phone,
+	email,
+	website,
+	notes,
+	enableDelete,
+	handleDelete
+}) {
 	const dispatch = useDispatch();
 	const history = useHistory();
 
@@ -28,8 +39,6 @@ export default function EditRestaurantForm({ id, name, address, phone, email, we
 		try {
 			const res = await dispatch(updateRestaurant(id, formData));
 			if (res.status === 200) {
-				// setRestaurant(res.data.restaurant);
-				// setEditing(false);
 				history.push(`/restaurants/${id}`);
 			}
 		} catch (err) {
@@ -39,7 +48,6 @@ export default function EditRestaurantForm({ id, name, address, phone, email, we
 
 	function handleCancel(evt) {
 		evt.preventDefault();
-		// setEditing(false);
 		history.push(`/restaurants/${id}`);
 	}
 
@@ -90,6 +98,7 @@ export default function EditRestaurantForm({ id, name, address, phone, email, we
 			<div className="ButtonGroup">
 				<SubmitButton text="Update Restaurant" />
 				<CancelButton text="Don't Update" onClick={handleCancel} />
+				{enableDelete && <DeleteButton text="Delete Restaurant" onClick={handleDelete} />}
 			</div>
 		</form>
 	);

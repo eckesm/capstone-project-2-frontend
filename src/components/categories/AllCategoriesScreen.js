@@ -17,19 +17,16 @@ export default function AllCategoriesScreen() {
 		<div className="Window">
 			<div className="AllCategoriesScreen Screen">
 				<p className="ScreenTitle">Categories</p>
-				<div className="ButtonGroup">
-					{active &&
-					active.isAdmin && (
+				{active &&
+				active.isAdmin && (
+					<div className="ButtonGroup">
 						<AddButton
 							text="Add Category"
 							onClick={() => history.push(`/restaurants/${active.id}/categories/new`)}
 						/>
-					)}
-					{/* <GoButton text="Restaurant" onClick={() => history.push(`/restaurants/${active.id}`)} /> */}
-				</div>
-				{/* <div className="BasicView"> */}
-					{active && <AllCategories categories={active.categories} catGroups={active.catGroups} />}
-				{/* </div> */}
+					</div>
+				)}
+				{active && <AllCategories categories={active.categories} catGroups={active.catGroups} />}
 			</div>
 		</div>
 	);

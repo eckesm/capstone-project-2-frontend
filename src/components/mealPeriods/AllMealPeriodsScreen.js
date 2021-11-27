@@ -16,15 +16,15 @@ export default function AllMealPeriodsScreen() {
 		<div className="Window">
 			<div className="Screen">
 				<p className="ScreenTitle">Meal Periods</p>
-				<div className="ButtonGroup">
-					{active &&
-					active.isAdmin && (
+				{active &&
+				active.isAdmin && (
+					<div className="ButtonGroup">
 						<AddButton
 							text="Add Meal Period"
 							onClick={() => history.push(`/restaurants/${active.id}/meal-periods/new`)}
 						/>
-					)}
-				</div>
+					</div>
+				)}
 				{active && <AllMealPeriods mealPeriods={active.mealPeriods} />}
 			</div>
 		</div>
