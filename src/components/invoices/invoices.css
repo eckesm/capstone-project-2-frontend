@@ -28,16 +28,13 @@
 
 .InvoiceCard .InputGroup .Notes {
 	margin-left: 5px;
-
 }
 .InvoiceCard p.Notes {
 	margin-top: 0px;
-
 }
 
 .InvoiceDetail .TableTitleText.Notes {
 	margin-top: 0px;
-
 }
 
 .NewInvoiceForm {
@@ -58,11 +55,31 @@
 	width:100%;
 } */
 
-.InvoiceDetail .InvoiceNotes{
+.InvoiceDetail .InvoiceNotes {
 	margin: 5px auto;
 	border: 1px solid black;
 	padding: 10px;
 	width: 80vw;
 	background-color: white;
 	text-align: left;
+}
+
+.InvoiceExpensesAndNotes {
+	width: 80vw;
+	min-width: 900px;
+	border: 1px solid black;
+	background-color: white;
+	padding: 10px;
+}
+
+.InvoiceDetail .NotesContainer {
+	margin: 5px 8px;
+}
+
+.InvoiceDetail .InvoiceHeadingContainer {
+	display: flex;
+	justify-content: space-between;
+	margin: 20px 5px;
+	margin-bottom: 10px;
+	font-size: larger;
 }

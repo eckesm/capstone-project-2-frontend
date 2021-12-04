@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 import { prepareBudgetReportFigures, generateReportDatesArray } from '../../helpers/budgetCalculations';
 import { getSales, getSavedExpenses } from '../../helpers/api';
-import {shortenWithEllipse} from '../../helpers/textAdjustments'
+import { shortenWithEllipse } from '../../helpers/textAdjustments';
 
 import ArrowButton from '../buttons/ArrowButton';
 import TodayButton from '../buttons/TodayButton';
@@ -167,36 +167,44 @@ export default function BudgetScreen() {
 							{new Date(reportDates[6]).toISOString().split('T')[0]}
 						</p>
 						<div className="BudgetResults">
-							{active.categories.map((c,idx) => {
+							{active.categories.map((c, idx) => {
 								let remainingBudget = budgetFigures[c.id].remainingBudget;
 								let totalBudget = budgetFigures[c.id].totalBudget;
 								let status = remainingBudget < 0 ? 'Negative' : 'Positive';
 								return (
-									<div className={idx === 0 ? 'ResultGroupAndExplanation' : 'ResultGroupAndExplanation TopBorder'}>
-									<div key={c.id} className="ResultGroup">
-										<span className="CategoryName">{shortenWithEllipse(c.name,50)}:</span>{' '}
-										<span className={`CategoryTotal ${status}`}>
-											${remainingBudget.toLocaleString('en-US')}{' '}
-										</span>
-									</div>
+									<div
+										className={
+											idx === 0 ? (
+												'ResultGroupAndExplanation'
+											) : (
+												'ResultGroupAndExplanation TopBorder'
+											)
+										}
+									>
+										<div key={c.id} className="ResultGroup">
+											<span className="CategoryName">{shortenWithEllipse(c.name, 50)}:</span>{' '}
+											<span className={`CategoryTotal ${status}`}>
+												${remainingBudget.toLocaleString('en-US')}{' '}
+											</span>
+										</div>
 										{status === 'Negative' && (
 											<p className="NegativeExplanation Warning">
 												spending is {-Math.round(remainingBudget / totalBudget * 100)}% over
 												budget!
 											</p>
 										)}
-										</div>
+									</div>
 								);
 							})}
 						</div>
 						<div className="Notes">
-							<p>
-							Weekly budgets start on Monday and end on Sunday.
-							</p>
+							<p>Weekly budgets start on Monday and end on Sunday.</p>
 							<p>
 								The remaining budget is the difference between the Total Budget and the Weekly Spending
 								(based on entered invoices) for a given category.
 							</p>
+							<p>REMAINING BUDGET for a given category is calculated by the following formula:</p>
+							<p>REMAINING BUDGET = [Total Budget] - [Weekly Spending]</p>
 						</div>
 					</div>
 				)}
@@ -209,7 +217,7 @@ export default function BudgetScreen() {
 								{active.categories.map(c => {
 									return (
 										<div key={c.id} className="ResultGroup">
-											<span className="CategoryName">{shortenWithEllipse(c.name,30)}:</span>{' '}
+											<span className="CategoryName">{shortenWithEllipse(c.name, 30)}:</span>{' '}
 											<span className="CategoryTotal">
 												${budgetFigures[c.id].toDate.toLocaleString('en-US')}
 											</span>
@@ -243,7 +251,7 @@ export default function BudgetScreen() {
 								{active.categories.map(c => {
 									return (
 										<div key={c.id} className="ResultGroup">
-											<span className="CategoryName">{shortenWithEllipse(c.name,30)}:</span>{' '}
+											<span className="CategoryName">{shortenWithEllipse(c.name, 30)}:</span>{' '}
 											<span className="CategoryTotal">
 												${budgetFigures[c.id].expectedRemaining.toLocaleString('en-US')}
 											</span>
@@ -258,20 +266,16 @@ export default function BudgetScreen() {
 								</p>
 								<p>
 									{' '}
-									Update <Link to={`/restaurants/${active.id}/default-sales`}>
-										default sales
-									</Link>{' '}
-									settings to change the default expected sales for each meal period by day. Overwrite
-									default sales on a given day on the{' '}
-									<Link to={`/restaurants/${active.id}/sales`}>daily sales</Link> screen.
+									Update <Link to={`/restaurants/${active.id}/default-sales`}>Default Sales</Link> to
+									change the default expected sales for each meal period by day. Overwrite default
+									sales on a given day on the{' '}
+									<Link to={`/restaurants/${active.id}/sales`}>Daily sales</Link> screen.
 								</p>
 								<p>
 									{' '}
 									Update{' '}
-									<Link to={`/restaurants/${active.id}/sales-percentages`}>
-										sales percentage
-									</Link>{' '}
-									settings to change how sales are distributed between categories by meal period.
+									<Link to={`/restaurants/${active.id}/sales-percentages`}>Sales Percentages</Link> to
+									change how sales are distributed between categories by meal period.
 								</p>
 							</div>
 						</div>
@@ -284,13 +288,20 @@ export default function BudgetScreen() {
 								{active.categories.map(c => {
 									return (
 										<div key={c.id} className="ResultGroup">
-											<span className="CategoryName">{shortenWithEllipse(c.name,30)}:</span>{' '}
+											<span className="CategoryName">{shortenWithEllipse(c.name, 30)}:</span>{' '}
 											<span className="CategoryTotal">
 												${budgetFigures[c.id].totalExpectedWeekly.toLocaleString('en-US')}
 											</span>
 										</div>
 									);
 								})}
+							</div>
+							<div className="Notes">
+								<p>
+									TOTAL EXPECTED WEEKLY SALES for a given category is calculated by the following
+									formula:
+								</p>
+								<p>TOTAL EXPECTED WEEKLY SALES = [Sales To Date] + [Expected Remaining Sales]</p>
 							</div>
 						</div>
 					)}
@@ -303,9 +314,10 @@ export default function BudgetScreen() {
 									return (
 										<div key={c.id} className="ResultGroup">
 											<span className="CategoryName">
-												<Link to={`/restaurants/${active.id}/categories/${c.id}`}>
+												{/* <Link to={`/restaurants/${active.id}/categories/${c.id}`}>
 													{shortenWithEllipse(c.name,30)}
-												</Link>:
+												</Link>: */}
+												{shortenWithEllipse(c.name, 30)}:
 											</span>
 											<span className="CategoryTotal">
 												{(budgetFigures[c.id].cogsPercent * 100).toFixed(2)}%
@@ -316,8 +328,9 @@ export default function BudgetScreen() {
 							</div>
 							<div className="Notes">
 								<p>
-									Update COGS percentage settings to change the amount of expense bugeted for each
-									sales category.
+									Update COGS percentage settings in{' '}
+									<Link to={`/restaurants/${active.id}/categories`}>Categories</Link> to change the
+									amount of expense bugeted for each sales category.
 								</p>
 							</div>
 						</div>
@@ -330,7 +343,7 @@ export default function BudgetScreen() {
 								{active.categories.map(c => {
 									return (
 										<div key={c.id} className="ResultGroup">
-											<span className="CategoryName">{shortenWithEllipse(c.name,30)}:</span>{' '}
+											<span className="CategoryName">{shortenWithEllipse(c.name, 30)}:</span>{' '}
 											<span className="CategoryTotal">
 												${budgetFigures[c.id].totalBudget.toLocaleString('en-US')}
 											</span>
@@ -339,10 +352,8 @@ export default function BudgetScreen() {
 								})}
 							</div>
 							<div className="Notes">
-								<p>
-									The total budget is the product of the Total Expected Weekly Sales and the budgeted
-									COGS percentage for a given category.
-								</p>
+								<p>TOTAL BUDGET for a given category is calculated by the following formula:</p>
+								<p>TOTAL BUDGET = [Total Expected Weekly Sales] * [COGS Percentage]</p>
 							</div>
 						</div>
 					)}
@@ -354,7 +365,7 @@ export default function BudgetScreen() {
 								{active.categories.map(c => {
 									return (
 										<div key={c.id} className="ResultGroup">
-											<span className="CategoryName">{shortenWithEllipse(c.name,30)}:</span>{' '}
+											<span className="CategoryName">{shortenWithEllipse(c.name, 30)}:</span>{' '}
 											<span className="CategoryTotal">
 												${budgetFigures[c.id].weeklySpending.toLocaleString('en-US')}
 											</span>
@@ -365,7 +376,7 @@ export default function BudgetScreen() {
 							<div className="Notes">
 								<p>
 									Add, update, or delete{' '}
-									<Link to={`/restaurants/${active.id}/invoices`}>invoices</Link> to adjust spending
+									<Link to={`/restaurants/${active.id}/invoices`}>Invoices</Link> to adjust spending
 									for the week.
 								</p>
 							</div>

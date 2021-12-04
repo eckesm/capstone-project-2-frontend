@@ -62,25 +62,25 @@ export default function InvoiceDetail({ invoice, setInvoice }) {
 		<div className="InvoiceDetail">
 			{!editing && (
 				<div>
-					<p className="ScreenTitle">{invoice.invoice}</p>
-					<div className="HeadingContainer">
-						<ul className="IgnoreList">
-							<li className="InputGroup">
-								<label>Vendor:</label>
-								<span>{invoice.vendor}</span>
-							</li>
-							<li className="InputGroup">
-								<label>Date:</label>
-								<span>{new Date(invoice.date).toLocaleDateString('en-US')}</span>
-							</li>
-							<li className="InputGroup">
-								<label>Total:</label>
-								<span className='InvoiceTotalResult'>${(Math.round(total * 100) / 100).toLocaleString('en-US')}</span>
-							</li>
-						</ul>
-					</div>
-					<div className="Section">
-						<p className="SectionTitle1">Expenses</p>
+					<div className="InvoiceExpensesAndNotes Section">
+						<p className="ScreenTitle">{invoice.invoice}</p>
+						{/* <div className="HeadingContainer"> */}
+						<div className="InvoiceHeadingContainer">
+							{/* <ul className="IgnoreList"> */}
+							<span className="">
+								<b>Vendor</b>: <span>{invoice.vendor}</span>
+							</span>
+							<span className="">
+								<b>Date</b>: <span>{new Date(invoice.date).toLocaleDateString('en-US')}</span>
+							</span>
+							<span className="">
+								<b>Total</b>:{' '}
+								<span className="InvoiceTotalResult">
+									${(Math.round(total * 100) / 100).toLocaleString('en-US')}
+								</span>
+							</span>
+							{/* </ul> */}
+						</div>
 						<AllExpenses invoiceId={invoice.id} updateInvoiceTotal={updateTotal} />
 						{showNewExpenseForm && (
 							<NewExpenseForm
@@ -89,17 +89,16 @@ export default function InvoiceDetail({ invoice, setInvoice }) {
 								updateInvoiceTotal={updateTotal}
 							/>
 						)}
+						{invoice.notes && (
+							<div className="NotesContainer">
+								<b>Notes</b>: <span className="Notes">{invoice.notes}</span>
+							</div>
+						)}
 					</div>
-					{invoice.notes && (
-						<div className="Section">
-							<div className='InvoiceNotes'>
-							<p className="SectionTitle4">Notes:</p>
-							<p>{invoice.notes}</p>
-						</div>
-						</div>
-					)}
 					<div className="ButtonGroup">
-						{!showNewExpenseForm && <AddButton text="Add Expense" onClick={() => setShowNewExpenseForm(true)} />}
+						{!showNewExpenseForm && (
+							<AddButton text="Add Expense" onClick={() => setShowNewExpenseForm(true)} />
+						)}
 						<EditButton onClick={() => setEditing(true)} text="Edit Invoice" />
 						<DeleteButton text="Delete Invoice" onClick={handleDelete} />
 						<GoButton
@@ -112,18 +111,20 @@ export default function InvoiceDetail({ invoice, setInvoice }) {
 
 			{editing && (
 				<div>
-					<h1>Edit Invoice</h1>
-					<EditInvoiceForm
-						id={invoice.id}
-						date={invoice.date}
-						invoice={invoice.invoice}
-						vendor={invoice.vendor}
-						total={invoice.total}
-						notes={invoice.notes}
-						expenses={invoice.expenses}
-						setInvoice={setInvoice}
-						setEditing={setEditing}
-					/>
+					<p className="ScreenTitle">Edit Invoice</p>
+					<div className="FullFormContainer">
+						<EditInvoiceForm
+							id={invoice.id}
+							date={invoice.date}
+							invoice={invoice.invoice}
+							vendor={invoice.vendor}
+							total={invoice.total}
+							notes={invoice.notes}
+							expenses={invoice.expenses}
+							setInvoice={setInvoice}
+							setEditing={setEditing}
+						/>
+					</div>
 				</div>
 			)}
 		</div>

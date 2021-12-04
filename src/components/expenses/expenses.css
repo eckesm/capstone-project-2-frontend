@@ -1,10 +1,10 @@
-.AllExpenses {
+/* .AllExpenses {
 	margin: 5px auto;
 	border: 1px solid black;
 	padding: 10px;
 	width: 80vw;
 	background-color: white;
-}
+} */
 .TopBorder {
 	border-top: 1px solid lightgray;
 }
@@ -23,6 +23,7 @@
 .ExpenseContainer {
 	display: flex;
 	width: 100%;
+	min-width: 800px;
 }
 .EditExpenseFormContainer {
 	border: 1px solid black;
@@ -85,15 +86,17 @@
 
 .Category {
 	width: 200px;
+	min-width: 200px;
 }
 
 .Amount {
 	width: 100px;
+	min-width: 100px;
 	text-align: right;
 }
 
-.ExpenseText.Notes{
-	min-width: 500px;
+.ExpenseText.Notes {
+	min-width: 300px;
 }
 
 .EditFormText.Amount {

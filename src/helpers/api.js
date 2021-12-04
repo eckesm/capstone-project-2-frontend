@@ -1,8 +1,5 @@
 import axios from 'axios';
-
 const API_URL = process.env.REACT_APP_API_URL;
-
-// const customAxios = axios.create({});
 
 export function getAccessToken() {
 	return localStorage.getItem('token') || null;
@@ -13,7 +10,6 @@ export async function makeGetRequest(path = '') {
 		const token = getAccessToken();
 		const headers = {
 			'Content-Type' : 'application/json'
-			// 'Access-Control-Allow-Origin' : '*'
 		};
 
 		if (token) {
@@ -69,7 +65,6 @@ export async function makePutRequest(path = '', data = {}) {
 		const token = getAccessToken();
 		const headers = {
 			'Content-Type' : 'application/json'
-			// 'Access-Control-Allow-Origin' : '*'
 		};
 
 		if (token) {
@@ -96,7 +91,6 @@ export async function makeDeleteRequest(path = '') {
 		const token = getAccessToken();
 		const headers = {
 			'Content-Type' : 'application/json'
-			// 'Access-Control-Allow-Origin' : '*'
 		};
 
 		if (token) {

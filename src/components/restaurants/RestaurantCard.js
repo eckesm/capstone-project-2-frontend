@@ -36,9 +36,8 @@ export default function RestaurantCard({ restaurantId, name, notes = null, isAdm
 					)}
 				</li>
 				{notes && (
-					<li className="InputGroup">
-						<label>Notes:</label>
-						<span className="Notes">{notes}</span>
+					<li className="NotesContainer">
+						<b>Notes</b>: <span className="Notes">{notes}</span>
 					</li>
 				)}
 			</ul>

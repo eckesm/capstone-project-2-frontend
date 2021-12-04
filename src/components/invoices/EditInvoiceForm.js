@@ -93,13 +93,21 @@ export default function EditInvoiceForm({
 					</div>
 					<div className="InputGroup">
 						<label htmlFor="notes">Notes:</label>
-						<input type="text" id="notes" value={formData.notes} name="notes" onChange={handleChange} />
+						<textarea
+							type="text"
+							rows="5"
+							cols="50"
+							id="notes"
+							value={formData.notes}
+							name="notes"
+							onChange={handleChange}
+						/>
 					</div>
 				</div>
-				<div className='ButtonGroup'>
-				<SubmitButton text="Update Invoice" />
-				<CancelButton text="Don't Update" onClick={handleCancel} />
-		</div>
+				<div className="ButtonGroup">
+					<SubmitButton text="Update Invoice" />
+					<CancelButton text="Don't Update" onClick={handleCancel} />
+				</div>
 			</form>
 		</div>
 	);

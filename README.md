@@ -1,10 +1,32 @@
-# Restaurant Budgeting Application
+# Restaurant Budgeting Application (_frontend_)
 
+## Stack
 This project was created with [Create React App](https://github.com/facebook/create-react-app).
 
-## Deployed
+The frontend is built on a React framework and makes extensive use of the Redux library.
 
-The application is deployed at [https://mre-capstone2-frontend.herokuapp.com](https://mre-capstone2-frontend.herokuapp.com/#/).
+The backend is built in a Node.js ecosystem with Express.js employed as the routing framework.
+
+## Deployment & Repositories
+
+Heroku deployments:
+* Frontend: [mre-capstone2-frontend.herokuapp.com](https://mre-capstone2-frontend.herokuapp.com)
+* Backend: [mre-capstone2-backend.herokuapp.com](https://mre-capstone2-backend.herokuapp.com)
+
+Git repositories:
+* Frontend: [github.com/eckesm/capstone-project-2-frontend](https://github.com/eckesm/capstone-project-2-frontend)
+* Backend: [github.com/eckesm/capstone-project-2-backend](https://github.com/eckesm/capstone-project-2-backend)
+
+## Local Installation & Starting the Local Server
+
+* Clone project from repository
+* Navigate to teh project folder
+* node is required to run the project; if necessary, run `npm install node`
+* run `npm install` to install project dependancies
+* create a .env file; create a variable `REACT_APP_API_URL` for the backend server address
+* run `npm start` to start the server
+
+
 
 ## Functionality
 

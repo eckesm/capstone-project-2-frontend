@@ -90,7 +90,7 @@ export default function EditExpenseForm({
 						required
 					/>
 					<textarea
-						className="EditFormText Notes"
+						className="EditFormText"
 						type="text"
 						id="notes"
 						rows="1"
