@@ -38,7 +38,16 @@ export default function MealPeriodDetail({ mealPeriod, isAdmin = false, setMealP
 					)}
 					<div className="ButtonGroup">
 						{isAdmin && <EditButton onClick={() => setEditing(true)} text="Edit Meal Period" />}
-						{isAdmin && <ConfirmDangerModalButton onConfirm={handleDelete} text="Delete Meal Period" confirmText={'Are you sure you would like to delete meal period?  This action cannot be undone.'} confirmButtonText='Confirm Delete' />}
+						{isAdmin && (
+							<ConfirmDangerModalButton
+								onConfirm={handleDelete}
+								text="Delete Meal Period"
+								confirmText={
+									'Are you sure you would like to delete meal period?  This action cannot be undone.'
+								}
+								confirmButtonText="Confirm Delete"
+							/>
+						)}
 						<GoButton
 							text="All Meal Periods"
 							onClick={() => history.push(`/restaurants/${mealPeriod.restaurantId}/meal-periods`)}

@@ -16,14 +16,14 @@ export default function ConfirmDangerModalButton({
 }) {
 	const [ showModal, setShowModal ] = useState(false);
 
-	async function onConfirmClick() {
+	function onConfirmClick() {
 		onConfirm();
 		setShowModal(false);
 	}
 
 	return (
 		<div className="ModalButton">
-			<WarningButton text={text} onClick={() => setShowModal(!showModal)} />
+			<WarningButton text={text} onClick={() => setShowModal(true)} />
 			<Modal
 				show={showModal}
 				handleClose={() => setShowModal(false)}

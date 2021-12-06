@@ -8,7 +8,6 @@ import { updateRestaurant } from '../../actions/restaurants';
 
 import CancelButton from '../buttons/CancelButton';
 import SubmitButton from '../buttons/SubmitButton';
-import DeleteButton from '../buttons/DeleteButton';
 import ConfirmDangerModalButton from '../buttons/ConfirmDangerModalButton';
 
 export default function EditRestaurantForm({
@@ -53,63 +52,79 @@ export default function EditRestaurantForm({
 	}
 
 	return (
-		<form className="EditRestaurantForm" onSubmit={handleSubmit}>
-			<div className="Section Centered">
-				<div className="InputGroup">
-					<label htmlFor="name">Name:</label>
-					<input type="text" id="name" value={formData.name} name="name" onChange={handleChange} required />
+		<div>
+			<form className="EditRestaurantForm" onSubmit={handleSubmit}>
+				<div className="Section Centered">
+					<div className="InputGroup">
+						<label htmlFor="name">Name:</label>
+						<input
+							type="text"
+							id="name"
+							value={formData.name}
+							name="name"
+							onChange={handleChange}
+							required
+						/>
+					</div>
+					<div className="InputGroup">
+						<label htmlFor="address">Address:</label>
+						<textarea
+							rows="3"
+							cols="30"
+							type="text"
+							id="address"
+							value={formData.address}
+							name="address"
+							onChange={handleChange}
+						/>
+					</div>
+					<div className="InputGroup">
+						<label htmlFor="phone">Phone Number:</label>
+						<input type="text" id="phone" value={formData.phone} name="phone" onChange={handleChange} />
+					</div>
+					<div className="InputGroup">
+						<label htmlFor="email">Email Address:</label>
+						<input type="text" id="email" value={formData.email} name="email" onChange={handleChange} />
+					</div>
+					<div className="InputGroup">
+						<label htmlFor="website">Website Address:</label>
+						<input
+							type="text"
+							id="website"
+							value={formData.website}
+							name="website"
+							onChange={handleChange}
+						/>
+					</div>
+					<div className="InputGroup">
+						<label htmlFor="notes">Notes:</label>
+						<textarea
+							rows="5"
+							cols="50"
+							type="text"
+							id="notes"
+							value={formData.notes}
+							name="notes"
+							onChange={handleChange}
+						/>
+					</div>
 				</div>
-				<div className="InputGroup">
-					<label htmlFor="address">Address:</label>
-					<textarea
-						rows="3"
-						cols="30"
-						type="text"
-						id="address"
-						value={formData.address}
-						name="address"
-						onChange={handleChange}
-					/>
-				</div>
-				<div className="InputGroup">
-					<label htmlFor="phone">Phone Number:</label>
-					<input type="text" id="phone" value={formData.phone} name="phone" onChange={handleChange} />
-				</div>
-				<div className="InputGroup">
-					<label htmlFor="email">Email Address:</label>
-					<input type="text" id="email" value={formData.email} name="email" onChange={handleChange} />
-				</div>
-				<div className="InputGroup">
-					<label htmlFor="website">Website Address:</label>
-					<input type="text" id="website" value={formData.website} name="website" onChange={handleChange} />
-				</div>
-				<div className="InputGroup">
-					<label htmlFor="notes">Notes:</label>
-					<textarea
-						rows="5"
-						cols="50"
-						type="text"
-						id="notes"
-						value={formData.notes}
-						name="notes"
-						onChange={handleChange}
-					/>
-				</div>
-			</div>
+			</form>
 			<div className="ButtonGroup">
+				{' '}
 				<SubmitButton text="Update Restaurant" />
 				{enableDelete && (
 					<ConfirmDangerModalButton
-					onConfirm={handleDelete}
-					text="Delete Restaurant"
-					confirmText={
-						'Are you sure you would like to delete the restaurant?  This action cannot be undone.'
-					}
-					confirmButtonText="Confirm Delete"
+						onConfirm={handleDelete}
+						text="Delete Restaurant"
+						confirmText={
+							'Are you sure you would like to delete the restaurant?  This action cannot be undone.'
+						}
+						confirmButtonText="Confirm Delete"
 					/>
-					)}
-					<CancelButton text="Back to Restaurant" onClick={handleCancel} />
+				)}
+				<CancelButton text="Back to Restaurant" onClick={handleCancel} />
 			</div>
-		</form>
+		</div>
 	);
 }
