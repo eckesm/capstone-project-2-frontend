@@ -58,7 +58,7 @@ export default function NavBar({ logout }) {
 				</li>
 				<li className="LoggedInUser">
 					{/* <NavLink exact to="/"> */}
-					Logged-in as {shortenWithEllipse(user.emailAddress, 30)}
+					Logged-in as <i>{shortenWithEllipse(user.emailAddress, 30)}</i>
 					{/* </NavLink> */}
 				</li>
 				<li>
