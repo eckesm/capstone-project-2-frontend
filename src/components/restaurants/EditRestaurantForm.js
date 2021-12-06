@@ -9,6 +9,7 @@ import { updateRestaurant } from '../../actions/restaurants';
 import CancelButton from '../buttons/CancelButton';
 import SubmitButton from '../buttons/SubmitButton';
 import DeleteButton from '../buttons/DeleteButton';
+import ConfirmDangerModalButton from '../buttons/ConfirmDangerModalButton';
 
 export default function EditRestaurantForm({
 	id,
@@ -97,8 +98,17 @@ export default function EditRestaurantForm({
 			</div>
 			<div className="ButtonGroup">
 				<SubmitButton text="Update Restaurant" />
-				<CancelButton text="Don't Update" onClick={handleCancel} />
-				{enableDelete && <DeleteButton text="Delete Restaurant" onClick={handleDelete} />}
+				{enableDelete && (
+					<ConfirmDangerModalButton
+					onConfirm={handleDelete}
+					text="Delete Restaurant"
+					confirmText={
+						'Are you sure you would like to delete the restaurant?  This action cannot be undone.'
+					}
+					confirmButtonText="Confirm Delete"
+					/>
+					)}
+					<CancelButton text="Back to Restaurant" onClick={handleCancel} />
 			</div>
 		</form>
 	);
