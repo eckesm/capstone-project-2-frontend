@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
-import { getCategoryGroupApi } from '../../helpers/api';
+import { BackendApi } from '../../api/api';
 import { filterCatGroupId } from '../../helpers/filterArrays';
 
 import CategoryGroupDetail from './CategoryGroupDetail';
@@ -18,7 +18,7 @@ export default function CategoryGroupDetailScreen() {
 
 	useEffect(
 		async () => {
-			const res = await getCategoryGroupApi(catGroupId);
+			const res = await BackendApi.getCategoryGroupApi(catGroupId);
 			setCategoryGroup(res.data.catGroup);
 		},
 		[ catGroupId ]

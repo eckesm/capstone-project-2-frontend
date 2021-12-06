@@ -4,7 +4,7 @@ import { useHistory, useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 
 import { prepareBudgetReportFigures, generateReportDatesArray } from '../../helpers/budgetCalculations';
-import { getSales, getSavedExpenses } from '../../helpers/api';
+import { BackendApi } from '../../api/api';
 import { shortenWithEllipse } from '../../helpers/textAdjustments';
 
 import ArrowButton from '../buttons/ArrowButton';
@@ -67,7 +67,7 @@ export default function BudgetScreen() {
 					const buildSavedSales = {};
 					let count = 0;
 					reportDates.forEach(async d => {
-						const res = await getSales(active.id, d);
+						const res = await BackendApi.getRestaurantSalesApi(active.id, d);
 						if (res.status === 200) {
 							count += 1;
 							buildSavedSales[d] = res.data.sales;
@@ -78,11 +78,11 @@ export default function BudgetScreen() {
 					});
 					setApiSentGetSavedSales(true);
 				} catch (err) {
-					console.log('getSales() error:', err);
+					console.log('getRestaurantSalesApi() error:', err);
 				}
 
 				try {
-					const res = await getSavedExpenses(active.id, reportDates[0], reportDates[6]);
+					const res = await BackendApi.getRestaurantExpensesApi(active.id, reportDates[0], reportDates[6]);
 					if (res.status !== 200) {
 						console.log(res);
 					}
@@ -90,7 +90,7 @@ export default function BudgetScreen() {
 						setSavedExpenses(res.data.expenses);
 					}
 				} catch (err) {
-					console.log('getSavedExpenses() error:', err);
+					console.log('getRestaurantExpensesApi() error:', err);
 				}
 			}
 		},
@@ -180,6 +180,7 @@ export default function BudgetScreen() {
 												'ResultGroupAndExplanation TopBorder'
 											)
 										}
+										key={idx}
 									>
 										<div key={c.id} className="ResultGroup">
 											<span className="CategoryName">{shortenWithEllipse(c.name, 50)}:</span>{' '}

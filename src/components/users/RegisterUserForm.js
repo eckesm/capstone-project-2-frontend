@@ -6,7 +6,7 @@ import useFields from '../../hooks/useFields';
 import useLocalStorageState from '../../hooks/useLocalStorageState';
 
 import { getAndStoreUserInfo } from '../../actions/auth';
-import { registerUserApi } from '../../helpers/api';
+import { BackendApi } from '../../api/api';
 
 import SubmitButton from '../buttons/SubmitButton';
 import ErrorMessages from '../ErrorMessages';
@@ -36,7 +36,7 @@ export default function RegisterUserForm() {
 		}
 		else {
 			try {
-				const res = await registerUserApi(formData);
+				const res = await BackendApi.registerUserApi(formData);
 				setEmailAddress(formData.emailAddress);
 				if (res.status === 201) {
 					try {

@@ -1,5 +1,6 @@
 .CategoryDetail{
 	width: 650px;
+	word-wrap: break-word;
 }
 
 .CategoryCard .InputGroup label {

@@ -1,4 +1,4 @@
-import { makeDeleteRequest, makeGetRequest, makePostRequest, makePutRequest } from '../helpers/api';
+import { BackendApi, makeDeleteRequest, makeGetRequest, makePostRequest, makePutRequest } from '../api/api';
 
 import {
 	ADD_NEW_RESTAURANT,
@@ -13,108 +13,88 @@ import {
 
 export function registerRestaurant(data) {
 	return async function(dispatch) {
-		try {
-			if (data.address === '') {
-				delete data.address;
-			}
-			if (data.phone === '') {
-				delete data.phone;
-			}
-			if (data.email === '') {
-				delete data.email;
-			}
-			if (data.website === '') {
-				delete data.website;
-			}
-			if (data.notes === '') {
-				delete data.notes;
-			}
-
-			const res = await makePostRequest('restaurants', data);
-			if (res.status === 201) {
-				const { restaurant } = res.data;
-				restaurant.isAdmin = true;
-				await dispatch({
-					type       : ADD_NEW_RESTAURANT,
-					restaurant
-				});
-			}
-			return res;
-		} catch (err) {
-			console.log('registerRestaurant() error:', err);
+		if (data.address === '') {
+			delete data.address;
 		}
+		if (data.phone === '') {
+			delete data.phone;
+		}
+		if (data.email === '') {
+			delete data.email;
+		}
+		if (data.website === '') {
+			delete data.website;
+		}
+		if (data.notes === '') {
+			delete data.notes;
+		}
+
+		const res = await BackendApi.postRestaurantApi(data);
+		if (res.status === 201) {
+			const { restaurant } = res.data;
+			restaurant.isAdmin = true;
+			await dispatch({
+				type       : ADD_NEW_RESTAURANT,
+				restaurant
+			});
+		}
+		return res;
 	};
 }
 
 export function addUserToRestaurant(restaurantId, user, data) {
 	return async function(dispatch) {
-		try {
-			const res = await makePostRequest(`restaurants/${restaurantId}/users/${user.id}`, data);
-			if (res.status === 201) {
-				user.isAdmin = data.isAdmin;
-				await dispatch({
-					type : ADD_USER_TO_RESTAURANT,
-					user
-				});
-			}
-			return res;
-		} catch (err) {
-			console.log('addUserToRestaurant() error:', err);
+		const res = await BackendApi.postRestaurantUserApi(restaurantId, user.id, data);
+		if (res.status === 201) {
+			user.isAdmin = data.isAdmin;
+			await dispatch({
+				type : ADD_USER_TO_RESTAURANT,
+				user
+			});
 		}
+		return res;
 	};
 }
 
 export function changeUserRestaurantAccess(restaurantId, user, data) {
 	return async function(dispatch) {
-		try {
-			const res = await makePutRequest(`restaurants/${restaurantId}/users/${user.id}`, data);
-			if (res.status === 201) {
-				user.isAdmin = data.isAdmin;
-				await dispatch({
-					type : CHANGE_USER_RESTAURANT_ACCESS,
-					user
-				});
-			}
-			return res;
-		} catch (err) {
-			console.log('changeUserRestaurantAccess() error:', err);
+		const res = await BackendApi.putRestaurantUserApi(restaurantId, user.id, data);
+		if (res.status === 201) {
+			user.isAdmin = data.isAdmin;
+			await dispatch({
+				type : CHANGE_USER_RESTAURANT_ACCESS,
+				user
+			});
 		}
+		return res;
 	};
 }
 
 export function deleteUserRestaurantAccess(restaurantId, userId) {
 	return async function(dispatch) {
-		try {
-			const res = await makeDeleteRequest(`restaurants/${restaurantId}/users/${userId}`);
-			if (res.status === 200) {
-				await dispatch({
-					type   : DELETE_USER_RESTAURANT_ACCESS,
-					userId
-				});
-			}
-			return res;
-		} catch (err) {
-			console.log('deleteUserRestaurantAccess() error:', err);
+		const res = await BackendApi.deleteRestaurantUserApi(restaurantId, userId);
+		if (res.status === 200) {
+			await dispatch({
+				type   : DELETE_USER_RESTAURANT_ACCESS,
+				userId
+			});
 		}
+		return res;
 	};
 }
 
 export function getAndStoreRestaurantInfo(id) {
 	return async function(dispatch) {
-		try {
-			const res = await makeGetRequest(`restaurants/${id}`);
-			if (res.status === 200) {
-				await dispatch({
-					type       : STORE_ACTIVE_RESTAURANT,
-					restaurant : res.data.restaurant
-				});
-				return res;
-			}
-			else {
-				return res;
-			}
-		} catch (err) {
-			console.log('getAndStoreRestaurantInfo() error:', err);
+		const res = await BackendApi.getRestaurantApi(id);
+		if (res.status === 200) {
+			await dispatch({
+				type       : STORE_ACTIVE_RESTAURANT,
+				restaurant : res.data.restaurant
+			});
+			return res;
+		}
+		else {
+			return res;
 		}
 	};
 }
@@ -129,7 +109,6 @@ export function removeActiveRestaurant() {
 
 export function updateRestaurant(id, data) {
 	return async function(dispatch) {
-		try {
 			if (data.address === '') {
 				delete data.address;
 			}
@@ -146,7 +125,7 @@ export function updateRestaurant(id, data) {
 				delete data.notes;
 			}
 
-			const res = await makePutRequest(`restaurants/${id}`, data);
+			const res = await BackendApi.putRestaurantApi(id, data);
 			if (res.status === 200) {
 				const { restaurant } = res.data;
 				await dispatch({
@@ -155,16 +134,12 @@ export function updateRestaurant(id, data) {
 				});
 			}
 			return res;
-		} catch (err) {
-			console.log('updateRestaurant() error:', err);
-		}
 	};
 }
 
 export function deleteRestaurant(id) {
 	return async function(dispatch) {
-		try {
-			const res = await makeDeleteRequest(`restaurants/${id}`);
+			const res = await BackendApi.deleteRestaurantApi(id);
 			if (res.status === 200) {
 				const { deleted } = res.data;
 				await dispatch({
@@ -173,8 +148,5 @@ export function deleteRestaurant(id) {
 				});
 			}
 			return res;
-		} catch (err) {
-			console.log('deleteRestaurant() error:', err);
-		}
 	};
 }

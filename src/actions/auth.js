@@ -1,4 +1,4 @@
-import { makeGetRequest } from '../helpers/api';
+import { makeGetRequest } from '../api/api';
 import { LOGOUT_USER, STORE_USER_INFO, STORE_USER_RESTAURANTS } from './types';
 
 export function getAndStoreUserInfo() {

@@ -90,7 +90,7 @@ API requests are sent to the following route paths:
 * sales
 * user
 
-## Available Scripts
+## Available Scripts & Testing
 
 In the project directory, you can run:
 

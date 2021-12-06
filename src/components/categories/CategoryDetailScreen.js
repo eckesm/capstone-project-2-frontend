@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
-import { getCategoryApi } from '../../helpers/api';
+import { BackendApi } from '../../api/api';
 
 import CategoryDetail from './CategoryDetail';
 
@@ -17,7 +17,7 @@ export default function CategoryDetailScreen() {
 
 	useEffect(
 		async () => {
-			const res = await getCategoryApi(categoryId);
+			const res = await BackendApi.getCategoryApi(categoryId);
 			setCategory(res.data.category);
 		},
 		[ categoryId ]

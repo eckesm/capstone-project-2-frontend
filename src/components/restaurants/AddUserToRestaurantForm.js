@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
 
 import { addUserToRestaurant } from '../../actions/restaurants';
-import { lookupEmailAddressApi } from '../../helpers/api';
+import { BackendApi } from '../../api/api';
 
 import SubmitButton from '../buttons/SubmitButton';
 import ErrorMessages from '../ErrorMessages';
@@ -40,7 +40,7 @@ export default function AddUserToRestaurantForm({ restaurantId }) {
 		evt.preventDefault();
 		let user = null;
 		try {
-			const userLookupRes = await lookupEmailAddressApi(formData.emailAddress);
+			const userLookupRes = await BackendApi.lookupEmailAddressApi(formData.emailAddress);
 			if (userLookupRes.status === 200) {
 				user = userLookupRes.data.user;
 			}

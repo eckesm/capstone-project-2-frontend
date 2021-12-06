@@ -41,7 +41,8 @@ export default function EditRestaurantScreen() {
 		<div className="Window">
 			<div className="EditRestaurantScreen Screen">
 				<p className="ScreenTitle">Edit Restaurant</p>
-				{restaurant && (
+				{active &&
+				restaurant && (
 					<div className="FullFormContainer">
 						<EditRestaurantForm
 							id={restaurant.id}

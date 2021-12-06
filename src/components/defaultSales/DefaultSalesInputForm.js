@@ -50,23 +50,24 @@ export default function DefaultSalesInputForm({
 			try {
 				let res;
 				if (status === 'new') {
-					if (formData.total !== '0') {
+					if (formData.total !== '' || formData.total !== '0') {
 						res = await dispatch(registerDefaultSale(data));
 					}
 					else {
-						console.log('cannot create 0');
 						return false;
 					}
 				}
 				if (status === 'existing') {
-					if (formData.total === '0') {
+					if (formData.total === '' || formData.total === '0') {
 						res = await dispatch(deleteDefaultSale(id));
 					}
 					else {
 						data.id = id;
-						res = await dispatch(updateDefaultSale(data));
+						res = await dispatch(updateDefaultSale(data.id, data));
 					}
 				}
+
+				console.log(res);
 
 				if (res.status === 200 || res.status === 201) {
 					setHasChanged(false);

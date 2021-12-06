@@ -4,7 +4,7 @@ import './App.css';
 
 import Routes from './components/routes/Routes';
 
-import { getAccessToken } from './helpers/api';
+import { getAccessToken } from './api/api';
 import { getAndStoreUserInfo, logoutUser } from './actions/auth';
 
 import NavBar from './components/navBar/NavBar';

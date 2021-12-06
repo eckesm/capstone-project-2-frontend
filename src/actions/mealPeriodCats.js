@@ -1,4 +1,4 @@
-import { makeDeleteRequest, makePostRequest, makePutRequest } from '../helpers/api';
+import { BackendApi, makeDeleteRequest, makePostRequest, makePutRequest } from '../api/api';
 
 import { ADD_MEAL_PERIOD_CATEGORY, DELETE_MEAL_PERIOD_CATEGORY, UPDATE_MEAL_PERIOD_CATEGORY } from './types';
 
@@ -10,7 +10,7 @@ export function registerMealPeriodCat(mealPeriodId, categoryId, data) {
 				delete data.notes;
 			}
 
-			const res = await makePostRequest(`mealperiods/${mealPeriodId}/categories/${categoryId}`, data);
+			const res = await BackendApi.postMealPeriodCategoryApi(mealPeriodId, categoryId, data);
 			if (res.status === 201) {
 				const mealPeriodCat = res.data.mealPeriodCat;
 				await dispatch({
@@ -33,7 +33,7 @@ export function updateMealPeriodCat(mealPeriodId, categoryId, data) {
 				delete data.notes;
 			}
 
-			const res = await makePutRequest(`mealperiods/${mealPeriodId}/categories/${categoryId}`, data);
+			const res = await BackendApi.putMealPeriodCategoryApi(mealPeriodId, categoryId, data);
 			if (res.status === 200) {
 				const { mealPeriodCat } = res.data;
 				await dispatch({
@@ -51,7 +51,7 @@ export function updateMealPeriodCat(mealPeriodId, categoryId, data) {
 export function deleteMealPeriodCat(mealPeriodId, categoryId) {
 	return async function(dispatch) {
 		try {
-			const res = await makeDeleteRequest(`mealperiods/${mealPeriodId}/categories/${categoryId}`);
+			const res = await BackendApi.deleteMealPeriodCategoryApi(mealPeriodId, categoryId);
 			if (res.status === 200) {
 				const { deleted } = res.data;
 				await dispatch({

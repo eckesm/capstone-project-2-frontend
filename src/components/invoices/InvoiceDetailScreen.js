@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { getInvoiceApi } from '../../helpers/api';
+import { BackendApi } from '../../api/api';
 
 import InvoiceDetail from './InvoiceDetail';
 
@@ -15,7 +15,7 @@ export default function InvoiceDetailScreen() {
 	useEffect(
 		async () => {
 			try {
-				const res = await getInvoiceApi(invoiceId);
+				const res = await BackendApi.getInvoiceApi(invoiceId);
 				if (res.status === 200) {
 					setInvoice(res.data.invoice);
 				}

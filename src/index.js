@@ -14,10 +14,6 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));
 
 ReactDOM.render(
-	// <React.StrictMode>
-	// 	<App />
-	// </React.StrictMode>,
-
 	<Provider store={store}>
 		<HashRouter>
 			<App />

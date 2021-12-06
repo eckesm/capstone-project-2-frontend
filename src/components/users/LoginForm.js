@@ -6,7 +6,7 @@ import useFields from '../../hooks/useFields';
 import useLocalStorageState from '../../hooks/useLocalStorageState';
 
 import { getAndStoreUserInfo } from '../../actions/auth';
-import { getAndStoreTokenApi } from '../../helpers/api';
+import { BackendApi } from '../../api/api';
 
 import SubmitButton from '../buttons/SubmitButton';
 import ErrorMessages from '../ErrorMessages';
@@ -30,7 +30,7 @@ export default function LoginForm() {
 	async function handleSubmit(evt) {
 		evt.preventDefault();
 		try {
-			const res = await getAndStoreTokenApi(formData.emailAddress, formData.password);
+			const res = await BackendApi.getAndStoreTokenApi(formData.emailAddress, formData.password);
 			if (res.status === 200) {
 				setEmailAddress(formData.emailAddress);
 				try {

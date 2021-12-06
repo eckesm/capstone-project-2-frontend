@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
-import { getMealPeriodApi } from '../../helpers/api';
+import { BackendApi } from '../../api/api';
 
 import MealPeriodDetail from './MealPeriodDetail';
 
@@ -16,7 +16,7 @@ export default function MealPeriodDetailScreen() {
 
 	useEffect(
 		async () => {
-			const res = await getMealPeriodApi(mealPeriodId);
+			const res = await BackendApi.getMealPeriodApi(mealPeriodId);
 			setMealPeriod(res.data.mealPeriod);
 		},
 		[ mealPeriodId ]
@@ -25,15 +25,9 @@ export default function MealPeriodDetailScreen() {
 	return (
 		<div className="Window">
 			<div className="Screen">
-				{/* <div className="BasicView"> */}
-					{mealPeriod && (
-						<MealPeriodDetail
-							mealPeriod={mealPeriod}
-							isAdmin={active.isAdmin}
-							setMealPeriod={setMealPeriod}
-						/>
-					)}
-				{/* </div> */}
+				{mealPeriod && (
+					<MealPeriodDetail mealPeriod={mealPeriod} isAdmin={active.isAdmin} setMealPeriod={setMealPeriod} />
+				)}
 			</div>
 		</div>
 	);
