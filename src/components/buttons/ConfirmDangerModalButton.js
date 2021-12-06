@@ -24,9 +24,12 @@ export default function ConfirmDangerModalButton({
 	return (
 		<div className="ModalButton">
 			<WarningButton text={text} onClick={() => setShowModal(!showModal)} />
-			<Modal show={showModal} handleClose={() => setShowModal(false)}>
+			<Modal
+				show={showModal}
+				handleClose={() => setShowModal(false)}
+				confirmButton={<ConfirmDangerButton text={confirmButtonText} onClick={onConfirmClick} />}
+			>
 				<p>{confirmText}</p>
-				<ConfirmDangerButton text={confirmButtonText} onClick={onConfirmClick} />
 			</Modal>
 		</div>
 	);

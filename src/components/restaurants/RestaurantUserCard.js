@@ -93,7 +93,7 @@ export default function RestaurantUserCard({
 				!isOwner && (
 					<ConfirmDangerModalButton
 						onConfirm={handleDeleteAccess}
-						text="Remove from Restaurant"
+						text="Remove"
 						confirmText={'Are you sure you would like to remove this user from the restaurant?'}
 						confirmButtonText="Remove"
 					/>
@@ -102,7 +102,7 @@ export default function RestaurantUserCard({
 				!isOwner && (
 					<ConfirmDangerModalButton
 						onConfirm={handleRemoveSelf}
-						text="Remove Self from Restaurant"
+						text="Remove Me!"
 						confirmText={
 							'Are you sure you would like to remove yourself from this restaurant?  This action cannot be undone.'
 						}

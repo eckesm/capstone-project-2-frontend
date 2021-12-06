@@ -49,7 +49,7 @@ export default function RegisterUserForm() {
 					}
 				}
 				if (res.status === 400) {
-					setErrors(res.message);
+					setErrors([ res.message ]);
 				}
 			} catch (err) {
 				console.log('handleSubmit() > registerUserApi() error:', err);

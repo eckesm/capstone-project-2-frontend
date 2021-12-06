@@ -17,10 +17,8 @@ export class BackendApi {
 		const params = method === 'get' ? data : {};
 
 		try {
-			// return (await axios({ url, method, data, params, headers })).data;
 			return await axios({ url, method, data, params, headers });
 		} catch (err) {
-			// const { error } = err.response.data;
 			const { error } = err.response.data;
 			if (error) {
 				return {
