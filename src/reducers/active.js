@@ -89,12 +89,13 @@ export default function active(state = INITIAL_STATE, action) {
 			};
 
 		case DELETE_USER_RESTAURANT_ACCESS:
-			// users = state.users.filter(u => u.id !== Number(action.userId));
-			// console.log(users);
-			return {
-				...state,
-				users : state.users.filter(u => u.id != action.userId)
-			};
+			if (!action.self) {
+				users = state.users.filter(u => u.id !== Number(action.userId));
+				return {
+					...state,
+					users : state.users.filter(u => u.id != action.userId)
+				};
+			}
 
 		case DELETE_CATEGORY:
 			const deletedCategoryId = Number(action.deleted);

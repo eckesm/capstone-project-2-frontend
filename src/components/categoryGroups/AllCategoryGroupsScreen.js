@@ -4,7 +4,6 @@ import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 
 import AllCategoryGroups from './AllCategoryGroups';
-import AddButton from '../buttons/AddButton';
 import GoButton from '../buttons/GoButton';
 
 import '../screen.css';
@@ -20,7 +19,7 @@ export default function AllCategoryGroupsScreen() {
 				{active &&
 				active.isAdmin && (
 					<div className="ButtonGroup">
-						<AddButton
+						<GoButton
 							text="Add Category Group"
 							onClick={() => history.push(`/restaurants/${active.id}/category-groups/new`)}
 						/>

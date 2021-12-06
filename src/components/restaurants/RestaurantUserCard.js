@@ -4,7 +4,7 @@ import { useHistory } from 'react-router';
 
 import { changeUserRestaurantAccess, deleteUserRestaurantAccess } from '../../actions/restaurants';
 
-import GoButton from '../buttons/GoButton';
+import ConfirmDangerModalButton from '../buttons/ConfirmDangerModalButton';
 
 import './restaurants.css';
 
@@ -23,23 +23,18 @@ export default function RestaurantUserCard({
 		try {
 			const res = await dispatch(changeUserRestaurantAccess(restaurantId, user, { isAdmin: !isAdmin }));
 			if (res.status === 201) {
-				// history.push(`/restaurants/${restaurantId}/users`);
-			}
-			else {
 				console.log(res.message);
 			}
+			return res;
 		} catch (err) {
 			console.log('handleSubmit() > addUserToRestaurant() error:', err);
 		}
 	}
 
-	async function handleDeleteAccess() {
+	async function handleDeleteAccess(self = false) {
 		try {
-			const res = await dispatch(deleteUserRestaurantAccess(restaurantId, user.id));
-			if (res.status === 200) {
-				return res;
-			}
-			else {
+			const res = await dispatch(deleteUserRestaurantAccess(restaurantId, user.id, self));
+			if (res.status !== 200) {
 				console.log(res.message);
 			}
 		} catch (err) {
@@ -48,10 +43,13 @@ export default function RestaurantUserCard({
 	}
 
 	async function handleRemoveSelf() {
-		const res = await handleDeleteAccess();
+		history.push('/restaurants');
+		const res = await dispatch(deleteUserRestaurantAccess(restaurantId, user.id, true));
 		if (res.status === 200) {
-			history.push('/restaurants');
-			console.log('removed');
+			console.log('Successfully removed from restaurant.');
+		}
+		else {
+			console.log('There was a problem removing you from the restaurant.');
 		}
 	}
 
@@ -71,15 +69,46 @@ export default function RestaurantUserCard({
 				{showAdminControls &&
 				!self &&
 				!isAdmin &&
-				!isOwner && <GoButton text="Make Administrator" onClick={handleChangeAccess} />}
+				!isOwner && (
+					<ConfirmDangerModalButton
+						onConfirm={handleChangeAccess}
+						text="Make Administrator"
+						confirmText={'Are you sure you would like to make this user an administrator?'}
+						confirmButtonText="Make Administrator"
+					/>
+				)}
 				{showAdminControls &&
 				!self &&
 				isAdmin &&
-				!isOwner && <GoButton text="Make User" onClick={handleChangeAccess} />}
+				!isOwner && (
+					<ConfirmDangerModalButton
+						onConfirm={handleChangeAccess}
+						text="Make User"
+						confirmText={"Are you sure you would like to downgrade this user's priveleges?"}
+						confirmButtonText="Make User"
+					/>
+				)}
 				{showAdminControls &&
 				!self &&
-				!isOwner && <GoButton text="Remove Access" onClick={handleDeleteAccess} />}
-				{self && !isOwner && <GoButton text="Remove Self from Restaurant" onClick={handleRemoveSelf} />}
+				!isOwner && (
+					<ConfirmDangerModalButton
+						onConfirm={handleDeleteAccess}
+						text="Remove from Restaurant"
+						confirmText={'Are you sure you would like to remove this user from the restaurant?'}
+						confirmButtonText="Remove"
+					/>
+				)}
+				{self &&
+				!isOwner && (
+					<ConfirmDangerModalButton
+						onConfirm={handleRemoveSelf}
+						text="Remove Self from Restaurant"
+						confirmText={
+							'Are you sure you would like to remove yourself from this restaurant?  This action cannot be undone.'
+						}
+						confirmButtonText="Remove Me"
+					/>
+				)}
 			</div>
 		</div>
 	);

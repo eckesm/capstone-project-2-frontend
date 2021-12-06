@@ -8,7 +8,7 @@ import useFields from '../../hooks/useFields';
 import { sortByItem } from '../../helpers/sorting';
 
 import AllInvoices from './AllInvoices';
-import AddButton from '../buttons/AddButton';
+import GoButton from '../buttons/GoButton';
 
 import './invoices.css';
 import '../screen.css';
@@ -118,7 +118,7 @@ export default function AllInvoicesScreen() {
 					{invoices &&
 					active && (
 						<div className="ButtonGroup">
-							<AddButton
+							<GoButton
 								text="Add Invoice"
 								onClick={() => history.push(`/restaurants/${active.id}/invoices/new`)}
 							/>

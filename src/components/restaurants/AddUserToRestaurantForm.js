@@ -5,7 +5,7 @@ import { useHistory } from 'react-router';
 import { addUserToRestaurant } from '../../actions/restaurants';
 import { BackendApi } from '../../api/api';
 
-import SubmitButton from '../buttons/SubmitButton';
+import AddButton from '../buttons/AddButton';
 import ErrorMessages from '../ErrorMessages';
 
 export default function AddUserToRestaurantForm({ restaurantId }) {
@@ -99,7 +99,7 @@ export default function AddUserToRestaurantForm({ restaurantId }) {
 					</div>
 				</div>
 				<div className="ButtonGroup">
-					<SubmitButton text="Add User" />
+					<AddButton text="Add User" />
 				</div>
 			</form>
 			<ErrorMessages errors={errors} />

@@ -6,7 +6,7 @@ import useFields from '../../hooks/useFields';
 
 import { registerRestaurant } from '../../actions/restaurants';
 
-import SubmitButton from '../buttons/SubmitButton';
+import AddButton from '../buttons/AddButton';
 import ErrorMessages from '../ErrorMessages';
 
 export default function NewRestaurantForm() {
@@ -76,7 +76,7 @@ export default function NewRestaurantForm() {
 					/>
 				</div>
 			</div>
-			<SubmitButton text="Add Restaurant" />
+			<AddButton text="Add Restaurant" />
 			<ErrorMessages errors={errors} />
 		</form>
 	);

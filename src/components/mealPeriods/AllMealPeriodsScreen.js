@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 
 import AllMealPeriods from './AllMealPeriods';
-import AddButton from '../buttons/AddButton';
+import GoButton from '../buttons/GoButton';
 
 import '../screen.css';
 
@@ -19,7 +19,7 @@ export default function AllMealPeriodsScreen() {
 				{active &&
 				active.isAdmin && (
 					<div className="ButtonGroup">
-						<AddButton
+						<GoButton
 							text="Add Meal Period"
 							onClick={() => history.push(`/restaurants/${active.id}/meal-periods/new`)}
 						/>

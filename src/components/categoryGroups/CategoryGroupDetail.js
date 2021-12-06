@@ -5,10 +5,10 @@ import { Link } from 'react-router-dom';
 
 import { deleteCategoryGroup } from '../../actions/categoryGroups';
 
-import DeleteButton from '../buttons/DeleteButton';
 import EditButton from '../buttons/EditButton';
 import EditCategoryGroupForm from './EditCategoryGroupForm';
 import GoButton from '../buttons/GoButton';
+import ConfirmDangerModalButton from '../buttons/ConfirmDangerModalButton';
 
 import { shortenWithEllipse } from '../../helpers/textAdjustments';
 
@@ -51,8 +51,8 @@ export default function CategoryGroupDetail({ categoryGroup, categories, isAdmin
 						</div>
 					)}
 					<div className="ButtonGroup">
-						{isAdmin && <EditButton onClick={() => setEditing(true)} text="Edit Category Group" />}
-						{isAdmin && <DeleteButton text="Delete Category Group" onClick={handleDelete} />}
+						{isAdmin && <EditButton onClick={() => setEditing(true)} text="Edit Group" />}
+						{isAdmin && <ConfirmDangerModalButton onConfirm={handleDelete} text="Delete Group" confirmText={'Are you sure you would like to delete category group?  This action cannot be undone.'} confirmButtonText='Confirm Delete' />}
 						<GoButton
 							text="All Groups"
 							onClick={() => history.push(`/restaurants/${categoryGroup.restaurantId}/category-groups`)}

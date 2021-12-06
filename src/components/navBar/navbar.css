@@ -27,9 +27,22 @@
 	padding: 14px 16px;
 }
 
+.NavBar .LoggedInUser {
+	color: whitesmoke;
+	display: block;
+	text-align: center;
+	text-decoration: none;
+	font-style: italic;
+	font-size: smaller;
+	/* padding: 15px 5px; */
+	padding: 5px;
+	word-wrap: normal;
+	width: min-content;
+}
+
 .NavBar a.active {
 	font-weight: bold;
-	background-color: rgb(39, 39, 179);
+	background-color: rgb(40, 40, 180);
 	color: gold;
 }
 
@@ -44,8 +57,10 @@
 }
 
 .NavBar a:hover {
-	background-color: rgb(118, 81, 177);
-	color: gold;
+	/* background-color: rgb(120, 80, 175); */
+	/* color: gold; */
+	background-color: rgb(225, 250, 255);
+	color: rgb(40, 40, 180);
 	transition: all 150ms linear;
 }
 
@@ -76,7 +91,9 @@
 }
 
 .NavBar .Dropdown a:hover {
-	color: gold;
+	/* color: gold; */
+	background-color: rgb(225, 250, 255);
+	color: rgb(40, 40, 180);
 	transition: all 150ms linear;
 }
 
@@ -84,7 +101,7 @@
 .NavBar .DropdownContent {
 	display: none;
 	position: absolute;
-	background-color: rgb(39, 39, 179);
+	background-color: rgb(40, 40, 180);
 	min-width: 160px;
 	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
 	z-index: 1;

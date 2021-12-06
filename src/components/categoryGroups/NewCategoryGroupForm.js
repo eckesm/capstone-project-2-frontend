@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 
@@ -6,7 +6,7 @@ import useFields from '../../hooks/useFields';
 
 import { registerCategoryGroup } from '../../actions/categoryGroups';
 
-import SubmitButton from '../buttons/SubmitButton';
+import AddButton from '../buttons/AddButton';
 import CancelButton from '../buttons/CancelButton';
 import ErrorMessages from '../ErrorMessages';
 
@@ -33,7 +33,7 @@ export default function NewCategoryGroupForm() {
 				history.push(`/restaurants/${active.id}/category-groups`);
 			}
 			else if (res.status === 400) {
-				setErrors(res.message)
+				setErrors(res.message);
 			}
 			else {
 				console.log(res);
@@ -62,7 +62,7 @@ export default function NewCategoryGroupForm() {
 				/>
 			</div>
 			<div className="ButtonGroup">
-				<SubmitButton text="Add Category Group" />
+				<AddButton text="Add Category Group" />
 				{active && (
 					<CancelButton
 						text="Don't Add"

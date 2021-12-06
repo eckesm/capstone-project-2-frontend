@@ -3,14 +3,42 @@
 }
 
 .CustomButton {
-	background-color: rgb(39, 39, 179);
+	background-color: rgb(40, 40, 180);
 	color: whitesmoke;
 	padding: 4px 10px;
 	font-weight: bold;
-	border: none;
+	/* border: none; */
 	border-radius: 4px;
+	border: 1px solid rgb(40, 40, 180);
 }
+
 .CustomButton:hover {
-	color: gold;
+	/* color: gold; */
+	/* background-color: rgb(120, 80, 175); */
+	color: rgb(40, 40, 180);
+	background-color: rgb(225, 250, 255);
 	transition: all 150ms linear;
+	/* border: 1px solid rgb(40, 40, 180); */
+}
+
+.CustomButton.Add:hover {
+	color: white;
+	background-color: green;
+	border: 1px solid darkgreen;
+}
+
+.CustomButton.Warning:hover {
+	color: white;
+	background-color: orange;
+	border: 1px solid darkorange;
+}
+
+.CustomButton.Danger:hover {
+	color: white;
+	background-color: red;
+	border: 1px solid darkred;
+}
+
+.ModalButton {
+	display: inline-block;
 }

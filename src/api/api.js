@@ -6,15 +6,13 @@ export function getAccessToken() {
 }
 
 export class BackendApi {
-	static token = getAccessToken();
-
 	static async request(endpoint, data = {}, method = 'get') {
 		console.debug('API call:', endpoint, data, method);
 
 		const url = `${API_URL}/${endpoint}`;
 		const headers = {
 			'Content-Type' : 'application/json',
-			Authorization  : `bearer ${BackendApi.token}`
+			Authorization  : `bearer ${getAccessToken()}`
 		};
 		const params = method === 'get' ? data : {};
 

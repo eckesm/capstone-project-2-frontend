@@ -2,6 +2,8 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
+import { shortenWithEllipse } from '../../helpers/textAdjustments';
+
 import NavBarDropdown from './NavBarDropdown';
 
 import './navbar.css';
@@ -51,8 +53,13 @@ export default function NavBar({ logout }) {
 			<ul>
 				<li className="Home">
 					<NavLink exact to="/">
-						{user.emailAddress}
+						RestoBudget
 					</NavLink>
+				</li>
+				<li className="LoggedInUser">
+					{/* <NavLink exact to="/"> */}
+					Logged-in as {shortenWithEllipse(user.emailAddress, 30)}
+					{/* </NavLink> */}
 				</li>
 				<li>
 					<NavLink exact to="/restaurants">
@@ -102,7 +109,7 @@ export default function NavBar({ logout }) {
 			<ul>
 				<li className="Home">
 					<NavLink exact to="/">
-						Home
+						RestoBudget
 					</NavLink>
 				</li>
 				<li>

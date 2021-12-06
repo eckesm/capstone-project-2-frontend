@@ -4,10 +4,10 @@ import { useHistory } from 'react-router';
 
 import { deleteMealPeriod } from '../../actions/mealPeriods';
 
-import DeleteButton from '../buttons/DeleteButton';
 import EditButton from '../buttons/EditButton';
 import EditMealPeriodForm from './EditMealPeriodForm';
 import GoButton from '../buttons/GoButton';
+import ConfirmDangerModalButton from '../buttons/ConfirmDangerModalButton';
 
 export default function MealPeriodDetail({ mealPeriod, isAdmin = false, setMealPeriod }) {
 	const dispatch = useDispatch();
@@ -32,15 +32,13 @@ export default function MealPeriodDetail({ mealPeriod, isAdmin = false, setMealP
 				<div className="BasicView">
 					<p className="ScreenTitle">{mealPeriod.name}</p>
 					{mealPeriod.notes && (
-						<div className='NotesContainer'>
-			
-								<b>Notes</b>: <span className="Notes">{mealPeriod.notes}</span>
-					
+						<div className="NotesContainer">
+							<b>Notes</b>: <span className="Notes">{mealPeriod.notes}</span>
 						</div>
 					)}
 					<div className="ButtonGroup">
 						{isAdmin && <EditButton onClick={() => setEditing(true)} text="Edit Meal Period" />}
-						{isAdmin && <DeleteButton text="Delete Meal Period" onClick={handleDelete} />}
+						{isAdmin && <ConfirmDangerModalButton onConfirm={handleDelete} text="Delete Meal Period" confirmText={'Are you sure you would like to delete meal period?  This action cannot be undone.'} confirmButtonText='Confirm Delete' />}
 						<GoButton
 							text="All Meal Periods"
 							onClick={() => history.push(`/restaurants/${mealPeriod.restaurantId}/meal-periods`)}

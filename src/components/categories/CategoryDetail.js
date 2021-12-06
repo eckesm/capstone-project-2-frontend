@@ -6,10 +6,10 @@ import { Link } from 'react-router-dom';
 import { deleteCategory } from '../../actions/categories';
 import { getNameFromId } from '../../helpers/filterArrays';
 
-import DeleteButton from '../buttons/DeleteButton';
 import EditButton from '../buttons/EditButton';
 import EditCategoryForm from './EditCategoryForm';
 import GoButton from '../buttons/GoButton';
+import ConfirmDangerModalButton from '../buttons/ConfirmDangerModalButton';
 
 import { shortenWithEllipse } from '../../helpers/textAdjustments';
 
@@ -43,7 +43,7 @@ export default function CategoryDetail({ category, catGroups, isAdmin = false, s
 								<Link
 									to={`/restaurants/${category.restaurantId}/category-groups/${category.catGroupId}`}
 								>
-									{shortenWithEllipse(getNameFromId(catGroups, category.catGroupId),30)}
+									{shortenWithEllipse(getNameFromId(catGroups, category.catGroupId), 30)}
 								</Link>
 							</li>
 						)}
@@ -61,7 +61,16 @@ export default function CategoryDetail({ category, catGroups, isAdmin = false, s
 					</ul>
 					<div className="ButtonGroup">
 						{isAdmin && <EditButton onClick={() => setEditing(true)} text="Edit Category" />}
-						{isAdmin && <DeleteButton text="Delete Category" onClick={handleDelete} />}
+						{isAdmin && (
+							<ConfirmDangerModalButton
+								onConfirm={handleDelete}
+								text="Delete Category"
+								confirmText={
+									'Are you sure you would like to delete category?  This action cannot be undone.'
+								}
+								confirmButtonText="Confirm Delete"
+							/>
+						)}
 						<GoButton
 							text="All Categories"
 							onClick={() => history.push(`/restaurants/${category.restaurantId}/categories`)}

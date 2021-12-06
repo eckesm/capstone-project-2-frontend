@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 
@@ -6,7 +6,7 @@ import useFields from '../../hooks/useFields';
 
 import { registerMealPeriod } from '../../actions/mealPeriods';
 
-import SubmitButton from '../buttons/SubmitButton';
+import AddButton from '../buttons/AddButton';
 import CancelButton from '../buttons/CancelButton';
 import ErrorMessages from '../ErrorMessages';
 
@@ -33,7 +33,7 @@ export default function NewMealPeriodForm() {
 				history.push(`/restaurants/${active.id}/meal-periods`);
 			}
 			else if (res.status === 400) {
-				setErrors(res.message)
+				setErrors(res.message);
 			}
 			else {
 				console.log(res);
@@ -62,7 +62,7 @@ export default function NewMealPeriodForm() {
 				/>
 			</div>
 			<div className="ButtonGroup">
-				<SubmitButton text="Add Meal Period" />
+				<AddButton text="Add Meal Period" />
 				{active && (
 					<CancelButton
 						text="Don't Add"

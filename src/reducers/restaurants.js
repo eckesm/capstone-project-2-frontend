@@ -9,11 +9,6 @@ import {
 const INITIAL_STATE = {
 	restaurants : []
 };
-// const INITIAL_STATE = {
-// 	restaurants      : [],
-// 	restaurantsAdmin : [],
-// 	restaurantsUser  : []
-// };
 
 function sortByName(array) {
 	// https://stackoverflow.com/questions/8900732/sort-objects-in-an-array-alphabetically-on-one-property-of-the-array for help with sorting objects in an array on a property in the array

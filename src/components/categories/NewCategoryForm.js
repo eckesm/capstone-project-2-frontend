@@ -6,7 +6,7 @@ import useFields from '../../hooks/useFields';
 
 import { registerCategory } from '../../actions/categories';
 
-import SubmitButton from '../buttons/SubmitButton';
+import AddButton from '../buttons/AddButton';
 import CancelButton from '../buttons/CancelButton';
 import ErrorMessages from '../ErrorMessages';
 
@@ -101,7 +101,7 @@ export default function NewCategoryForm() {
 				/>
 			</div>
 			<div className="ButtonGroup">
-				<SubmitButton text="Add Category" />
+				<AddButton text="Add Category" />
 				{active && (
 					<CancelButton
 						text="Don't Add"

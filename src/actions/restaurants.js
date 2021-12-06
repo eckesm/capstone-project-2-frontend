@@ -70,13 +70,14 @@ export function changeUserRestaurantAccess(restaurantId, user, data) {
 	};
 }
 
-export function deleteUserRestaurantAccess(restaurantId, userId) {
+export function deleteUserRestaurantAccess(restaurantId, userId, self = false) {
 	return async function(dispatch) {
 		const res = await BackendApi.deleteRestaurantUserApi(restaurantId, userId);
 		if (res.status === 200) {
 			await dispatch({
 				type   : DELETE_USER_RESTAURANT_ACCESS,
-				userId
+				userId,
+				self
 			});
 		}
 		return res;
@@ -109,44 +110,44 @@ export function removeActiveRestaurant() {
 
 export function updateRestaurant(id, data) {
 	return async function(dispatch) {
-			if (data.address === '') {
-				delete data.address;
-			}
-			if (data.phone === '') {
-				delete data.phone;
-			}
-			if (data.email === '') {
-				delete data.email;
-			}
-			if (data.website === '') {
-				delete data.website;
-			}
-			if (data.notes === '') {
-				delete data.notes;
-			}
+		if (data.address === '') {
+			delete data.address;
+		}
+		if (data.phone === '') {
+			delete data.phone;
+		}
+		if (data.email === '') {
+			delete data.email;
+		}
+		if (data.website === '') {
+			delete data.website;
+		}
+		if (data.notes === '') {
+			delete data.notes;
+		}
 
-			const res = await BackendApi.putRestaurantApi(id, data);
-			if (res.status === 200) {
-				const { restaurant } = res.data;
-				await dispatch({
-					type       : UPDATE_RESTAURANT,
-					restaurant
-				});
-			}
-			return res;
+		const res = await BackendApi.putRestaurantApi(id, data);
+		if (res.status === 200) {
+			const { restaurant } = res.data;
+			await dispatch({
+				type       : UPDATE_RESTAURANT,
+				restaurant
+			});
+		}
+		return res;
 	};
 }
 
 export function deleteRestaurant(id) {
 	return async function(dispatch) {
-			const res = await BackendApi.deleteRestaurantApi(id);
-			if (res.status === 200) {
-				const { deleted } = res.data;
-				await dispatch({
-					type    : DELETE_RESTAURANT,
-					deleted
-				});
-			}
-			return res;
+		const res = await BackendApi.deleteRestaurantApi(id);
+		if (res.status === 200) {
+			const { deleted } = res.data;
+			await dispatch({
+				type    : DELETE_RESTAURANT,
+				deleted
+			});
+		}
+		return res;
 	};
 }

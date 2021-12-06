@@ -5,7 +5,7 @@ import { useHistory } from 'react-router';
 import { removeActiveRestaurant } from '../../actions/restaurants';
 
 import AllRestaurants from '../restaurants/AllRestaurants';
-import AddButton from '../buttons/AddButton';
+import GoButton from '../buttons/GoButton';
 
 import '../screen.css';
 
@@ -28,7 +28,7 @@ export default function AllRestaurantsScreen() {
 					restaurants.length === 0 && (
 						<h3>You don't have any restaurants yet... would you like to add one?</h3>
 					)}
-					<AddButton text="Add Restaurant" onClick={() => history.push(`/restaurants/new`)} />
+					<GoButton text="Add Restaurant" onClick={() => history.push(`/restaurants/new`)} />
 				</div>
 				{restaurants && user && <AllRestaurants restaurants={restaurants} userId={user.userId} />}
 			</div>

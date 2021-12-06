@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 
-import AddButton from '../buttons/AddButton';
+import GoButton from '../buttons/GoButton';
 import RestaurantUserCard from './RestaurantUserCard';
 
 import './restaurants.css';
@@ -22,7 +22,7 @@ export default function RestaurantUsersScreen() {
 					<p className="ScreenTitle">Users</p>
 					{active.isAdmin && (
 						<div className="ButtonGroup">
-							<AddButton
+							<GoButton
 								text="Add User"
 								onClick={() => history.push(`/restaurants/${active.id}/users/add`)}
 							/>
