@@ -28,9 +28,11 @@ export default function LoginForm() {
 	const [ errors, setErrors ] = useState([]);
 
 	async function handleSubmit(evt) {
+		console.log('handleSubmit run');
 		evt.preventDefault();
 		try {
 			const res = await BackendApi.getAndStoreTokenApi(formData.emailAddress, formData.password);
+			console.log('getStoreToken', res);
 			if (res.status === 200) {
 				setEmailAddress(formData.emailAddress);
 				try {

@@ -35,7 +35,9 @@ export class BackendApi {
 	// AUTH & USERS
 
 	static async getAndStoreTokenApi(emailAddress, password) {
+		console.log('API call');
 		let res = await this.request(`auth/token`, { emailAddress, password }, 'post');
+		console.log('API res', res);
 		if (res.data && res.data.hasOwnProperty('token')) {
 			localStorage.setItem('token', res.data.token);
 		}
