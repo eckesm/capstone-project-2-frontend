@@ -118,8 +118,9 @@ export default function Home() {
 	}
 
 	return (
-		<div className="Window">
-			<div className="HomeScreen Screen">{user ? loggedIn() : loggedOut()}</div>
-		</div>
+		// <div className="Window">
+			// <div className="HomeScreen Screen">{user ? loggedIn() : loggedOut()}</div>
+			<div>{user ? loggedIn() : loggedOut()}</div>
+		// </div>
 	);
 }

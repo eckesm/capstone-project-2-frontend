@@ -32,7 +32,7 @@ export default function RestaurantDetail({ restaurant }) {
 
 			{(restaurant.address || restaurant.phone || restaurant.email || restaurant.website) && (
 				<div className="Section Full">
-					<p className="SectionTitle3">Details</p>
+					{/* <p className="SectionTitle3">Details</p> */}
 					<ul className="IgnoreList">
 						{restaurant.address && (
 							<li className="InputGroup">

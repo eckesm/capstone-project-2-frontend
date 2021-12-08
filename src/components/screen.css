@@ -1,13 +1,14 @@
 .Window {
-	/* background-color: whitesmoke; */
-	/* height: 100vh */
+	padding: 50px;
 }
 
 .Screen {
+	background-color: whitesmoke;
 	width: fit-content;
 	padding: 25px;
-	padding-bottom: 50px;
 	margin: auto;
+	border-radius: 5px;
+	box-shadow: 30px 30px rgba(0, 0, 0, .25);
 }
 
 .BasicView {
@@ -219,7 +220,7 @@ ul.IgnoreList.Centered {
 	padding-top: 15px;
 }
 
-.NotesContainer{
-	margin:15px 0px;
+.NotesContainer {
+	margin: 15px 0px;
 	text-align: left;
 }
