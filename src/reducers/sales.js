@@ -4,7 +4,6 @@ import {
 	LOGOUT_USER,
 	REMOVE_ACTIVE,
 	STORE_SALES,
-	// STORE_BLENDED_SALES,
 	UPDATE_SALE
 } from '../actions/types';
 
@@ -50,12 +49,6 @@ export default function sales(state = INITIAL_STATE, action) {
 				...state,
 				sales : action.sales
 			};
-
-		// case STORE_BLENDED_SALES:
-		// 	return {
-		// 		...state,
-		// 		calculated : action.calculated
-		// 	};
 
 		case UPDATE_SALE:
 			const updatedSale = action.sale;

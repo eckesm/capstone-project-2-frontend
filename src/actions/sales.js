@@ -11,12 +11,12 @@ import {
 export function registerSale(data) {
 	return async function(dispatch) {
 		data.expectedSales = Number(data.expectedSales);
-		if (data.actualSales) {
-			data.actualSales = Number(data.actualSales);
-		}
-		else {
-			data.actualSales = null;
-		}
+		// if (data.actualSales) {
+		data.actualSales = Number(data.actualSales);
+		// }
+		// else {
+		// 	data.actualSales = null;
+		// }
 		if (data.notes === '') {
 			delete data.notes;
 		}
@@ -24,9 +24,11 @@ export function registerSale(data) {
 		const res = await BackendApi.postSaleApi(data);
 		if (res.status === 201) {
 			const { sale } = res.data;
+			const newSale = { ...sale, justAdded: true };
+			// console.log(newSale);
 			await dispatch({
 				type : ADD_SALE,
-				sale
+				sale : newSale
 			});
 		}
 		return res;
@@ -36,12 +38,12 @@ export function registerSale(data) {
 export function updateSale(id, data) {
 	return async function(dispatch) {
 		data.expectedSales = Number(data.expectedSales);
-		if (data.actualSales) {
-			data.actualSales = Number(data.actualSales);
-		}
-		else {
-			data.actualSales = null;
-		}
+		// if (data.actualSales) {
+		data.actualSales = Number(data.actualSales);
+		// }
+		// else {
+		// 	data.actualSales = null;
+		// }
 		if (data.notes === '') {
 			delete data.notes;
 		}

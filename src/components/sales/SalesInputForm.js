@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { registerSale, updateSale, deleteSale } from '../../actions/sales';
+import { registerSale, updateSale } from '../../actions/sales';
 import { registerMealPeriodCat } from '../../actions/mealPeriodCats';
 import { shortenWithEllipse } from '../../helpers/textAdjustments';
 
@@ -29,7 +29,8 @@ export default function SalesInputForm({
 		categoryId,
 		mealPeriodCatId,
 		notes = null,
-		status = null
+		status = null,
+		justAdded = false
 	} = dailySale;
 
 	const initialState = {
@@ -40,8 +41,8 @@ export default function SalesInputForm({
 	const [ formData, setFormData ] = useState(initialState);
 	const [ actualChanged, setActualChanged ] = useState(false);
 	const [ expectedChanged, setExpectedChanged ] = useState(false);
-	const [ actualSaved, setActualSaved ] = useState(false);
-	const [ expectedSaved, setExpectedSaved ] = useState(false);
+	const [ actualSaved, setActualSaved ] = useState(justAdded ? true : false);
+	const [ expectedSaved, setExpectedSaved ] = useState(justAdded ? true : false);
 
 	const handleChange = evt => {
 		const { name, value } = evt.target;
@@ -75,7 +76,6 @@ export default function SalesInputForm({
 		evt.preventDefault();
 
 		if (expectedChanged || actualChanged) {
-			console.log('expectedChanged:', expectedChanged, 'actualChanged:', actualChanged);
 			const data = { ...formData, restaurantId, mealPeriodCatId, date };
 			try {
 				let res;
@@ -106,12 +106,14 @@ export default function SalesInputForm({
 					if (actualChanged) {
 						setActualSaved(true);
 					}
-					setExpectedChanged(false);
-					setActualChanged(false);
-					setTimeout(() => {
-						setExpectedSaved(false);
-						setActualSaved(false);
-					}, 1000);
+					if (status === 'existing') {
+						setExpectedChanged(false);
+						setActualChanged(false);
+						setTimeout(() => {
+							setExpectedSaved(false);
+							setActualSaved(false);
+						}, 1000);
+					}
 				}
 				else if (res.status === 400 || res.status === 404 || res.status === 500) {
 					console.log(res.message);
@@ -145,7 +147,7 @@ export default function SalesInputForm({
 	}
 
 	function determineActualInputClassName() {
-		if(formData.actualSales === '' || formData.actualSales === null){
+		if (formData.actualSales === '' || formData.actualSales === null) {
 			return `Missing BackgroundHover`;
 		}
 		if (actualChanged) {
@@ -159,6 +161,17 @@ export default function SalesInputForm({
 		}
 	}
 
+	useEffect(
+		() => {
+			if (justAdded) {
+				setTimeout(() => {
+					setExpectedSaved(false);
+					setActualSaved(false);
+				}, 1000);
+			}
+		},
+		[ justAdded ]
+	);
 	return (
 		<div className={determineDivClassName()}>
 			<span>{shortenWithEllipse(categoryName, 20)}</span>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { getNameFromId } from '../../helpers/filterArrays';
+import { getNameFromId,getDayOfWeekNameFromId } from '../../helpers/filterArrays';
 
 import SalesInputForm from './SalesInputForm';
 
@@ -70,7 +70,7 @@ export default function SalesGroup({ groupArray = [], categories = [], mealPerio
 						index={idx}
 						mealPeriodName={mealPeriodName}
 						categoryName={getNameFromId(categories, ds.categoryId)}
-						dayName={getNameFromId(ds.dayId)}
+						dayName={getDayOfWeekNameFromId(ds.dayId)}
 						dailySale={ds}
 						updateGroupExpectedSum={updateGroupExpectedSum}
 						updateGroupActualSum={updateGroupActualSum}
