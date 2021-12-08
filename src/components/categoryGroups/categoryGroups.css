@@ -1,11 +1,12 @@
+.CategoryGroupCard .InputGroup label {
+	min-width: 50px;
+}
+
 .CategoryGroupDetail {
 	width: 650px;
 	word-wrap: break-word;
 }
 
-.CategoryGroupCard .InputGroup label {
-	min-width: 50px;
-}
 .CategoryGroupDetail .InputGroup label {
 	min-width: 50px;
 }

@@ -1,3 +1,5 @@
+/* AllSalesScreen */
+
 .AllSalesScreen .MealPeriodCards {
 	margin: 0 5px;
 	padding: 5px;
@@ -7,49 +9,15 @@
 	flex-wrap: wrap;
 }
 
-.SalesInputForm {
-	width: max-content;
-	display: flex;
-	justify-content: space-around;
+.AllSalesScreen .Expected {
+	width: 175px;
 }
 
-.SalesInputForm.TopBorder {
-	border-top: 1px solid lightgrey;
+.AllSalesScreen .Actual {
+	width: 175px;
 }
 
-.SalesInputForm span {
-	width: 100px;
-	text-align: left;
-	margin: 2px 5px;
-	margin-left: 10px;
-	font-weight: bold;
-	font-size: 1.05rem;
-}
-
-.SalesInputForm .SaleInput {
-	float: left;
-	text-align: right;
-	margin: 2px 5px;
-	display: inline;
-}
-
-.SalesInputForm span{
-	width: 200px
-}
-
-.SalesInputForm input {
-	width: 75px;
-	text-align: right;
-}
-
-.SalesInputForm  .SaveButtonDiv {
-	float: left;
-	width: 65px;
-	text-align: right;
-	margin: 2px 5px;
-	margin-right: 10px;
-	display: inline;
-}
+/* SalesGroup */
 
 .SalesGroup .TotalsContainer {
 	width: max-content;
@@ -94,20 +62,56 @@
 	padding: 0px 3px;
 }
 
-.Expected {
-	width: 175px;
+/* SalesInputForm */
+
+.SalesInputForm {
+	width: max-content;
+	display: flex;
+	justify-content: space-around;
 }
 
-.Actual {
-	width: 175px;
+.SalesInputForm.TopBorder {
+	border-top: 1px solid lightgrey;
 }
 
-.Unsaved {
-	border: 2px solid red;
-	background-color: rgb(255, 225, 225);
+.SalesInputForm span {
+	width: 200px;
+	text-align: left;
+	margin: 2px 5px;
+	margin-left: 10px;
+	font-weight: bold;
+	font-size: 1.05rem;
 }
 
-.AllSalesScreen input::-webkit-inner-spin-button {
+.SalesInputForm .SaleInput {
+	float: left;
+	text-align: right;
+	margin: 2px 5px;
+	display: inline;
+}
+
+.SalesInputForm .SaleInput input {
+	width: 75px;
+	text-align: right;
+	background-color: white;
+	transition: background-color 2000ms linear;
+	margin-right: 5px;
+}
+
+.SalesInputForm .SaleInput input.Unsaved {
+	background-color: rgb(255, 255, 151);
+	transition: all 250ms linear;
+}
+.SalesInputForm .SaleInput input.Saved {
+	background-color: rgb(154, 230, 154);
+	transition: all 0ms linear;
+}
+.SalesInputForm .SaleInput input.Missing {
+	background-color: rgb(255, 179, 179);
+	transition: all 0ms linear;
+}
+
+.SalesInputForm .SaleInput input::-webkit-inner-spin-button {
 	-webkit-appearance: none;
 	margin: 0;
 }

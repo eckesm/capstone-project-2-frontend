@@ -7,7 +7,7 @@ import { updateMealPeriod } from '../../actions/mealPeriods';
 
 import CancelButton from '../buttons/CancelButton';
 import SubmitButton from '../buttons/SubmitButton';
-import ErrorMessages from '../ErrorMessages';
+import ErrorMessages from '../errorMessages/ErrorMessages';
 
 import '../screen.css';
 

@@ -64,7 +64,7 @@ export default function Home() {
 
 	function loggedIn() {
 		return (
-			<div>
+			<div className="Home">
 				<p className="ScreenTitle">Welcome, {user.firstName}!</p>
 
 				<div className="Section Centered Card">
@@ -101,7 +101,7 @@ export default function Home() {
 
 	function loggedOut() {
 		return (
-			<div>
+			<div className="Home">
 				<p className="ScreenTitle">Home</p>
 				<div className="BasicView">
 					<div className="InstructionsHeadingLoggedOut">

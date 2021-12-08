@@ -8,7 +8,7 @@ import { registerMealPeriod } from '../../actions/mealPeriods';
 
 import AddButton from '../buttons/AddButton';
 import CancelButton from '../buttons/CancelButton';
-import ErrorMessages from '../ErrorMessages';
+import ErrorMessages from '../errorMessages/ErrorMessages';
 
 import './mealPeriods.css';
 

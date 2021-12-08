@@ -7,7 +7,7 @@ import useFields from '../../hooks/useFields';
 import { registerRestaurant } from '../../actions/restaurants';
 
 import AddButton from '../buttons/AddButton';
-import ErrorMessages from '../ErrorMessages';
+import ErrorMessages from '../errorMessages/ErrorMessages';
 
 export default function NewRestaurantForm() {
 	const dispatch = useDispatch();

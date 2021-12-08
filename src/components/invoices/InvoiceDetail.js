@@ -4,13 +4,14 @@ import { useHistory } from 'react-router';
 
 import { deleteInvoice } from '../../actions/invoices';
 
-import AddButton from '../buttons/AddButton';
 import AllExpenses from '../expenses/AllExpenses';
-import DeleteButton from '../buttons/DeleteButton';
-import EditButton from '../buttons/EditButton';
 import EditInvoiceForm from './EditInvoiceForm';
-import GoButton from '../buttons/GoButton';
 import NewExpenseForm from '../expenses/NewExpenseForm';
+
+import AddButton from '../buttons/AddButton';
+import EditButton from '../buttons/EditButton';
+import GoButton from '../buttons/GoButton';
+import ConfirmDangerModalButton from '../buttons/ConfirmDangerModalButton';
 
 import '../screen.css';
 
@@ -64,9 +65,7 @@ export default function InvoiceDetail({ invoice, setInvoice }) {
 				<div>
 					<div className="InvoiceExpensesAndNotes Section">
 						<p className="ScreenTitle">{invoice.invoice}</p>
-						{/* <div className="HeadingContainer"> */}
 						<div className="InvoiceHeadingContainer">
-							{/* <ul className="IgnoreList"> */}
 							<span className="">
 								<b>Vendor</b>: <span>{invoice.vendor}</span>
 							</span>
@@ -79,7 +78,6 @@ export default function InvoiceDetail({ invoice, setInvoice }) {
 									${(Math.round(total * 100) / 100).toLocaleString('en-US')}
 								</span>
 							</span>
-							{/* </ul> */}
 						</div>
 						<AllExpenses invoiceId={invoice.id} updateInvoiceTotal={updateTotal} />
 						{showNewExpenseForm && (
@@ -100,7 +98,14 @@ export default function InvoiceDetail({ invoice, setInvoice }) {
 							<AddButton text="Add Expense" onClick={() => setShowNewExpenseForm(true)} />
 						)}
 						<EditButton onClick={() => setEditing(true)} text="Edit Invoice" />
-						<DeleteButton text="Delete Invoice" onClick={handleDelete} />
+						<ConfirmDangerModalButton
+							onConfirm={handleDelete}
+							text="Delete Invoice"
+							confirmText={
+								'Are you sure you would like to delete this invoice?  This action cannot be undone.'
+							}
+							confirmButtonText="Confirm Delete"
+						/>
 						<GoButton
 							text="All Invoices"
 							onClick={() => history.push(`/restaurants/${invoice.restaurantId}/invoices`)}

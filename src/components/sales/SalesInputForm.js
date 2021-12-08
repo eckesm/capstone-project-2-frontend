@@ -3,9 +3,6 @@ import { useDispatch } from 'react-redux';
 
 import { registerSale, updateSale, deleteSale } from '../../actions/sales';
 import { registerMealPeriodCat } from '../../actions/mealPeriodCats';
-
-import SubmitButton from '../buttons/SubmitButton';
-
 import { shortenWithEllipse } from '../../helpers/textAdjustments';
 
 import './sales.css';
@@ -41,8 +38,10 @@ export default function SalesInputForm({
 		notes         : notes === null ? `${dayName} ${mealPeriodName} ${categoryName} sales.` : notes
 	};
 	const [ formData, setFormData ] = useState(initialState);
-	const [ hasChanged, setHasChanged ] = useState(false);
+	const [ actualChanged, setActualChanged ] = useState(false);
+	const [ expectedChanged, setExpectedChanged ] = useState(false);
 	const [ actualSaved, setActualSaved ] = useState(false);
+	const [ expectedSaved, setExpectedSaved ] = useState(false);
 
 	const handleChange = evt => {
 		const { name, value } = evt.target;
@@ -50,86 +49,124 @@ export default function SalesInputForm({
 			...data,
 			[name] : value
 		}));
-		if (
-			name === 'expectedSales' &&
-			value === initialState.expectedSales &&
-			formData.actualSales === initialState.actualSales
-		) {
-			setHasChanged(false);
+		if (name === 'expectedSales') {
+			if (value === initialState.expectedSales) {
+				setExpectedChanged(false);
+			}
+			else {
+				setExpectedChanged(true);
+			}
 		}
-		else if (
-			name === 'actualSales' &&
-			value === initialState.actualSales &&
-			formData.expectedSales === initialState.expectedSales
-		) {
-			setHasChanged(false);
+
+		if (name === 'actualSales') {
+			if (value === initialState.actualSales) {
+				setActualChanged(false);
+			}
+			else {
+				setActualChanged(true);
+			}
 		}
-		else {
-			setHasChanged(true);
-		}
+
 		if (name === 'expectedSales') updateGroupExpectedSum(categoryId, value);
 		if (name === 'actualSales') updateGroupActualSum(categoryId, value);
 	};
 
 	async function handleSubmit(evt) {
 		evt.preventDefault();
-		const data = { ...formData, restaurantId, mealPeriodCatId, date };
-		try {
-			let res;
-			if (!data.mealPeriodCatId) {
-				const mpcData = {
-					salesPercentOfPeriod : 0,
-					notes                : `${mealPeriodName} ${categoryName} sales percentage.`
-				};
-				const mpcRes = await dispatch(registerMealPeriodCat(mealPeriodId, categoryId, mpcData));
-				if (mpcRes.status === 201) {
-					data.mealPeriodCatId = mpcRes.data.mealPeriodCat.id;
+
+		if (expectedChanged || actualChanged) {
+			console.log('expectedChanged:', expectedChanged, 'actualChanged:', actualChanged);
+			const data = { ...formData, restaurantId, mealPeriodCatId, date };
+			try {
+				let res;
+				if (!data.mealPeriodCatId) {
+					const mpcData = {
+						salesPercentOfPeriod : 0,
+						notes                : `${mealPeriodName} ${categoryName} sales percentage.`
+					};
+					const mpcRes = await dispatch(registerMealPeriodCat(mealPeriodId, categoryId, mpcData));
+					if (mpcRes.status === 201) {
+						data.mealPeriodCatId = mpcRes.data.mealPeriodCat.id;
+					}
+					else {
+						console.log(mpcRes);
+					}
+				}
+				if (status === 'new') {
+					res = await dispatch(registerSale(data));
+				}
+				if (status === 'existing') {
+					res = await dispatch(updateSale(id, data));
+				}
+
+				if (res.status === 200 || res.status === 201) {
+					if (expectedChanged) {
+						setExpectedSaved(true);
+					}
+					if (actualChanged) {
+						setActualSaved(true);
+					}
+					setExpectedChanged(false);
+					setActualChanged(false);
+					setTimeout(() => {
+						setExpectedSaved(false);
+						setActualSaved(false);
+					}, 1000);
+				}
+				else if (res.status === 400 || res.status === 404 || res.status === 500) {
+					console.log(res.message);
 				}
 				else {
-					console.log(mpcRes);
+					console.log(res);
 				}
+			} catch (err) {
+				console.log('handleSubmit() > register/updateCategory() error:', err);
 			}
-			if (status === 'new') {
-				res = await dispatch(registerSale(data));
-			}
-			if (status === 'existing') {
-				res = await dispatch(updateSale(id, data));
-			}
-
-			if (res.status === 200 || res.status === 201) {
-				setHasChanged(false);
-			}
-			else if (res.status === 400 || res.status === 404 || res.status === 500) {
-				console.log(res.message);
-			}
-			else {
-				console.log(res);
-			}
-		} catch (err) {
-			console.log('handleSubmit() > register/updateCategory() error:', err);
 		}
 	}
 
-	useEffect(
-		() => {
-			if (status === 'new' || formData.actualSales === '' || formData.actualSales === null) {
-				setActualSaved(false);
-			}
-			else {
-				setActualSaved(true);
-			}
-		},
-		[ formData, status ]
-	);
+	function determineDivClassName() {
+		if (index === 0) {
+			return `SalesInputForm`;
+		}
+		return `SalesInputForm TopBorder`;
+	}
+
+	function determineExpectedInputClassName() {
+		if (expectedChanged) {
+			return `Unsaved BackgroundHover`;
+		}
+		else if (expectedSaved) {
+			return `Saved BackgroundHover`;
+		}
+		else {
+			return `BackgroundHover`;
+		}
+	}
+
+	function determineActualInputClassName() {
+		if(formData.actualSales === '' || formData.actualSales === null){
+			return `Missing BackgroundHover`;
+		}
+		if (actualChanged) {
+			return `Unsaved BackgroundHover`;
+		}
+		else if (actualSaved) {
+			return `Saved BackgroundHover`;
+		}
+		else {
+			return `BackgroundHover`;
+		}
+	}
 
 	return (
-		<div className={index === 0 ? 'SalesInputForm' : 'SalesInputForm TopBorder'}>
-			<span>{shortenWithEllipse(categoryName,20)}</span>
-			<form onSubmit={handleSubmit}>
+		<div className={determineDivClassName()}>
+			<span>{shortenWithEllipse(categoryName, 20)}</span>
+			<form onSubmit={handleSubmit} onBlur={handleSubmit}>
 				<div className="SaleInput Expected">
 					<label htmlFor="expectedSales">Expected:</label>{' '}
 					<input
-						className="BackgroundHover"
+						className={determineExpectedInputClassName()}
 						type="number"
 						min="0"
 						step=".01"
@@ -142,7 +179,7 @@ export default function SalesInputForm({
 				<div className="SaleInput Actual">
 					<label htmlFor="actualSales">Actual:</label>{' '}
 					<input
-						className={actualSaved ? 'BackgroundHover Saved' : 'BackgroundHover Unsaved'}
+						className={determineActualInputClassName()}
 						type="number"
 						min="0"
 						step=".01"
@@ -152,7 +189,6 @@ export default function SalesInputForm({
 						onChange={handleChange}
 					/>
 				</div>
-				<div className="SaveButtonDiv">{hasChanged && <SubmitButton text="Save" />}</div>
 			</form>
 		</div>
 	);

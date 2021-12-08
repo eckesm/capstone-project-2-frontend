@@ -1,4 +1,4 @@
-.modal {
+.Modal {
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -7,7 +7,15 @@
 	background: rgba(0, 0, 0, 0.6);
 }
 
-.modal-main {
+.Modal.DisplayBlock {
+	display: block;
+}
+
+.Modal.DisplayNone {
+	display: none;
+}
+
+.Modal .ModalMain {
 	position: fixed;
 	background: white;
 	width: auto;
@@ -21,14 +29,6 @@
 	transform: translate(-50%, -50%);
 }
 
-.modal-main .ButtonGroup {
+.Modal .ModalMain .ButtonGroup {
 	margin-top: 10px;
-}
-
-.display-block {
-	display: block;
-}
-
-.display-none {
-	display: none;
 }

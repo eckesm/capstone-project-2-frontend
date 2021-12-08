@@ -9,7 +9,7 @@ import { getAndStoreUserInfo } from '../../actions/auth';
 import { BackendApi } from '../../api/api';
 
 import SubmitButton from '../buttons/SubmitButton';
-import ErrorMessages from '../ErrorMessages';
+import ErrorMessages from '../errorMessages/ErrorMessages';
 
 import '../screen.css';
 import './users.css';

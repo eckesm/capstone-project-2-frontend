@@ -3,6 +3,9 @@ import { useDispatch } from 'react-redux';
 
 import { registerMealPeriodCat, updateMealPeriodCat } from '../../actions/mealPeriodCats';
 
+import ErrorMessages from '../errorMessages/ErrorMessages';
+import Modal from '../modal/Modal';
+
 import './mealPeriodCats.css';
 
 export default function MealPeriodCatsInputForm({
@@ -31,7 +34,8 @@ export default function MealPeriodCatsInputForm({
 	const [ formData, setFormData ] = useState(initialState);
 	const [ hasChanged, setHasChanged ] = useState(false);
 	const [ hasSaved, setHasSaved ] = useState(false);
-
+	const [ errors, setErrors ] = useState([]);
+	const [ showModal, setShowModal ] = useState(false);
 
 	const handleChange = evt => {
 		const { name, value } = evt.target;
@@ -56,8 +60,9 @@ export default function MealPeriodCatsInputForm({
 	async function handleSubmit(evt) {
 		evt.preventDefault();
 
-		if (hasChanged){
+		if (hasChanged) {
 			const data = { ...formData };
+			data.salesPercentOfPeriod = String(Math.round(Number(data.salesPercentOfPeriod) * 10000) / 10000);
 			try {
 				let res;
 				if (status === 'new') {
@@ -66,16 +71,22 @@ export default function MealPeriodCatsInputForm({
 				if (status === 'existing') {
 					res = await dispatch(updateMealPeriodCat(mealPeriodId, categoryId, data));
 				}
-	
+
 				if (res.status === 200 || res.status === 201) {
+					setFormData(data => ({
+						...data,
+						salesPercentOfPeriod : String(Math.round(Number(data.salesPercentOfPeriod) * 10000) / 10000)
+					}));
+					setErrors([]);
 					setHasChanged(false);
 					setHasSaved(true);
 					setTimeout(() => {
 						setHasSaved(false);
 					}, 1000);
 				}
-				else if (res.status === 400 || res.status === 404 || res.status === 500) {
-					console.log(res.message);
+				else if (res.status === 400) {
+					setErrors(res.message);
+					setShowModal(true);
 				}
 				else {
 					console.log(res);
@@ -132,6 +143,12 @@ export default function MealPeriodCatsInputForm({
 					required
 				/>
 			</form>
+			<Modal show={showModal} handleClose={() => setShowModal(false)}>
+				<p className='SectionTitle2'>ERROR!</p>
+				<p>
+					<ErrorMessages errors={errors} />
+				</p>
+			</Modal>
 		</div>
 	);
 }

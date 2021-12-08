@@ -6,7 +6,7 @@ import { addUserToRestaurant } from '../../actions/restaurants';
 import { BackendApi } from '../../api/api';
 
 import AddButton from '../buttons/AddButton';
-import ErrorMessages from '../ErrorMessages';
+import ErrorMessages from '../errorMessages/ErrorMessages';
 
 export default function AddUserToRestaurantForm({ restaurantId }) {
 	const dispatch = useDispatch();

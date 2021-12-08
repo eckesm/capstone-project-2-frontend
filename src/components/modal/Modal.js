@@ -7,11 +7,11 @@ import CancelButton from '../buttons/CancelButton';
 import './modal.css';
 
 export default function Modal({ handleClose, show, children, confirmButton = null }) {
-	const showHideClassName = show ? 'modal display-block' : 'modal display-none';
+	const showHideClassName = show ? 'Modal DisplayBlock' : 'Modal DisplayNone';
 
 	return (
 		<div className={showHideClassName}>
-			<section className="modal-main">
+			<section className="ModalMain">
 				{children}
 				<div className="ButtonGroup">
 					{confirmButton}

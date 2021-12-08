@@ -7,7 +7,7 @@ import { updateCategoryGroup } from '../../actions/categoryGroups';
 
 import CancelButton from '../buttons/CancelButton';
 import SubmitButton from '../buttons/SubmitButton';
-import ErrorMessages from '../ErrorMessages';
+import ErrorMessages from '../errorMessages/ErrorMessages';
 
 export default function EditCategoryGroupForm({ id, name, notes, setCategoryGroup, setEditing }) {
 	const dispatch = useDispatch();

@@ -1,10 +1,10 @@
+.CategoryCard .InputGroup label {
+	width: 150px;
+}
+
 .CategoryDetail{
 	width: 650px;
 	word-wrap: break-word;
-}
-
-.CategoryCard .InputGroup label {
-	width: 150px;
 }
 
 .CategoryDetail .InputGroup label {

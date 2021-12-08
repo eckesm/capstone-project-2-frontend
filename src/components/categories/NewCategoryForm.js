@@ -8,7 +8,7 @@ import { registerCategory } from '../../actions/categories';
 
 import AddButton from '../buttons/AddButton';
 import CancelButton from '../buttons/CancelButton';
-import ErrorMessages from '../ErrorMessages';
+import ErrorMessages from '../errorMessages/ErrorMessages';
 
 import './categories.css';
 

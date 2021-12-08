@@ -1,8 +1,8 @@
-.Instructions {
+.Home .Instructions {
 	margin: 30px 0px;
 }
 
-.InstructionsHeadingLoggedOut {
+.Home .InstructionsHeadingLoggedOut {
 	margin: 15px 0px;
 	/* border: 1px solid black */
     font-size: larger;
@@ -10,7 +10,7 @@
     font-weight: bolder;
 }
 
-.InstructionsLoggedIn {
+.Home .InstructionsLoggedIn {
 	margin-top: 15px;
 	padding: 15px;
 	border: 1px solid black;
@@ -19,7 +19,7 @@
 	width: 50vw;
 }
 
-.Instructions ul {
+.Home .Instructions ul {
 	margin-top: 0px;
 	text-align: left;
 }

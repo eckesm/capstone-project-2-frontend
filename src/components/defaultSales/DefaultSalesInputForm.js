@@ -3,8 +3,6 @@ import { useDispatch } from 'react-redux';
 
 import { registerDefaultSale, updateDefaultSale, deleteDefaultSale } from '../../actions/defaultSales';
 
-// import SubmitButton from '../buttons/SubmitButton';
-
 import './defaultSales.css';
 
 export default function DefaultSalesInputForm({
@@ -66,9 +64,6 @@ export default function DefaultSalesInputForm({
 						res = await dispatch(updateDefaultSale(data.id, data));
 					}
 				}
-
-				console.log(res);
-
 				if (res.status === 200 || res.status === 201) {
 					setHasChanged(false);
 					setHasSaved(true);
@@ -96,15 +91,14 @@ export default function DefaultSalesInputForm({
 		if (index === 0) {
 			return `DefaultSalesInputForm First`;
 		}
+		if (index % 2 === 0) {
+			return `DefaultSalesInputForm Even`;
+		}
 		else {
-			if (index % 2 === 0) {
-				return `DefaultSalesInputForm Even`;
-			}
-			else {
-				return `DefaultSalesInputForm Odd`;
-			}
+			return `DefaultSalesInputForm Odd`;
 		}
 	}
+
 	function determineInputClassName() {
 		if (hasChanged) {
 			return `UnsavedSale BackgroundHover`;
@@ -120,7 +114,6 @@ export default function DefaultSalesInputForm({
 	return (
 		<div className={determineDivClassName()}>
 			<form onSubmit={handleSubmit} onBlur={handleSubmit} className="InputGroup">
-				{/* <label htmlFor="total">{mealPeriodName}:</label> */}
 				<input
 					className={determineInputClassName()}
 					type="number"
@@ -133,7 +126,6 @@ export default function DefaultSalesInputForm({
 					disabled={isAdmin ? false : true}
 					required
 				/>
-				{/* {hasChanged && <SubmitButton text="Save" />} */}
 			</form>
 		</div>
 	);

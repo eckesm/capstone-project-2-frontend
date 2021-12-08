@@ -41,9 +41,9 @@ export default function MealPeriodCatsGroup({ groupArray = [], categories = [], 
 
 	return (
 		<div className="MealPeriodCatsGroup">
-			<p className="MealPeriodName SectionTitle2">{shortenWithEllipse(mealPeriodName,15)}</p>
+			<p className="MealPeriodName SectionTitle2">{shortenWithEllipse(mealPeriodName, 15)}</p>
 			<div className="GroupContainer">
-				{groupArray.map((mpc,idx) => {
+				{groupArray.map((mpc, idx) => {
 					return (
 						<MealPeriodCatsInputForm
 							key={`${mpc.mealPeriodId}-${mpc.categoryId}`}
@@ -58,7 +58,6 @@ export default function MealPeriodCatsGroup({ groupArray = [], categories = [], 
 				})}
 			</div>
 			<div className="Total">
-				{/* <label>Total:</label> */}
 				<span className={Math.round(groupSum * 10000000000) / 10000000000 === 1 ? 'Accurate' : 'Negative'}>
 					{Math.round(groupSum * 10000) / 100}%
 				</span>

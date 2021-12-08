@@ -1,9 +1,15 @@
+/* AllInvoicesScreen */
+
 .AllInvoicesScreen option {
 	text-align: center;
 }
 
-.AllInvoicesForm input {
-	float: left;
+/* InvoiceCard */
+
+.InvoiceCard {
+	width: 350px;
+	min-width: unset;
+	height: 200px;
 }
 
 .InvoiceCard .HeadingContainer {
@@ -33,27 +39,11 @@
 	margin-top: 0px;
 }
 
+/* InvoiceDetail */
+
 .InvoiceDetail .TableTitleText.Notes {
 	margin-top: 0px;
 }
-
-.NewInvoiceForm {
-	margin-top: 10px;
-}
-
-.AllInvoicesForm .InputGroup .Vendor {
-	width: 250px;
-}
-
-.InvoiceCard {
-	width: 350px;
-	min-width: unset;
-	height: 200px;
-}
-
-/* .InvoiceDetail .Section.Card.Notes{
-	width:100%;
-} */
 
 .InvoiceDetail .InvoiceNotes {
 	margin: 5px auto;
@@ -62,14 +52,6 @@
 	width: 80vw;
 	background-color: white;
 	text-align: left;
-}
-
-.InvoiceExpensesAndNotes {
-	width: 80vw;
-	min-width: 900px;
-	border: 1px solid black;
-	background-color: white;
-	padding: 10px;
 }
 
 .InvoiceDetail .NotesContainer {
@@ -83,3 +65,19 @@
 	margin-bottom: 10px;
 	font-size: larger;
 }
+
+.InvoiceDetail .InvoiceExpensesAndNotes {
+	width: 80vw;
+	min-width: 900px;
+	border: 1px solid black;
+	background-color: white;
+	padding: 10px;
+}
+/* NewInvoiceForm */
+
+.NewInvoiceForm {
+	margin-top: 10px;
+}
+
+
+
