@@ -1,26 +1,42 @@
+/* Window */
+
 .Window {
-	padding: 50px;
 }
+
+@media screen and (max-width: 1000px) {
+	.Window {
+		padding: 5px;
+	}
+}
+@media screen and (min-width: 1000px) {
+	.Window {
+		padding: 50px;
+	}
+}
+
+/* Screen */
 
 .Screen {
 	background-color: whitesmoke;
-	width: fit-content;
-	padding: 25px;
-	margin: auto;
 	border-radius: 5px;
-	box-shadow: 30px 30px rgba(0, 0, 0, .25);
+	box-shadow: 30px 30px 30px rgba(0, 0, 0, .25);
+	overflow:auto
 }
 
-.BasicView {
-	border: 1px solid black;
-	background-color: white;
-	margin: 15px;
-	padding: 25px;
-	padding-top: 15px;
+@media screen and (max-width: 1000px) {
+	.Screen {
+		width: auto;
+		margin: 15px 5px;
+		padding: 5px;
+	}
 }
-
-.Screen.Full {
-	width: 100%;
+@media screen and (min-width: 1000px) {
+	.Screen {
+		width: fit-content;
+		max-width: 80%;
+		margin: auto;
+		padding: 25px;
+	}
 }
 
 .ScreenTitle {
@@ -36,18 +52,33 @@
 	padding-bottom: 10px;
 }
 
+/* Section */
+
 .Section {
-	margin: 20px 0px;
-	width: fit-content;
+	width: auto;
+	padding: 10px;
+	word-wrap: break-word;
 }
 
-.Section.Centered {
-	margin: 20px auto;
+@media screen and (max-width: 1000px) {
+	.Section {
+		padding: 5px;
+		margin: 5px;
+	}
+}
+@media screen and (min-width: 1000px) {
+	.Section {
+		padding: 20px;
+		margin: 20px;
+	}
 }
 
-.Section.Full {
-	width: 100%;
+.Section.Border {
+	border: 1px solid black;
+	background-color: white;
 }
+
+/* Section Titles */
 
 .SectionTitle1 {
 	font-size: 1.25rem;
@@ -93,6 +124,8 @@
 	margin-top: 10px;
 }
 
+/* Input Groups */
+
 .InputGroup {
 	margin: 3px 2px;
 	display: flex;
@@ -122,10 +155,12 @@
 	text-align: center;
 }
 
+/* Card Containers */
+
 .CardsContainer {
-	margin: 10px auto;
+	margin: 25px auto;
 	display: flex;
-	width: 100%;
+	width: fit-content;
 	flex-wrap: wrap;
 }
 .CardsContainer.Stacked {
@@ -141,14 +176,26 @@
 	justify-content: space-evenly;
 }
 
+/* Cards */
+
 .Card {
 	border: 1px solid black;
 	background-color: white;
-	width: min-content;
-	min-width: 400px;
 	margin: 5px;
-	padding: 10px;
+	padding: 15px;
 	overflow: auto;
+	width: min-content;
+}
+
+@media screen and (max-width: 1000px) {
+	.Card {
+		width: auto;
+	}
+}
+@media screen and (min-width: 1000px) {
+	.Card {
+		min-width: 400px;
+	}
 }
 
 .Card .Title {
@@ -156,6 +203,8 @@
 	margin: 5px 0px;
 	font-weight: bold;
 }
+
+/* Hover Effects */
 
 .BackgroundHover:hover {
 	transition: all 250ms linear;
@@ -210,14 +259,6 @@ ul.IgnoreList.Centered {
 
 .Left {
 	text-align: left;
-}
-
-.FullFormContainer {
-	border: 1px solid black;
-	background-color: white;
-	margin: 25px;
-	padding: 25px;
-	padding-top: 15px;
 }
 
 .NotesContainer {

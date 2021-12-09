@@ -58,7 +58,7 @@ export default function RegisterUserForm() {
 	}
 
 	return (
-		<form className="RegisterUserForm BasicView" onSubmit={handleSubmit}>
+		<form className="RegisterUserForm" onSubmit={handleSubmit}>
 			<div className="Section">
 				<div className="InputGroup">
 					<label htmlFor="firstName"> First Name:</label>

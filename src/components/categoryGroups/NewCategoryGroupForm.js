@@ -44,7 +44,7 @@ export default function NewCategoryGroupForm() {
 	}
 
 	return (
-		<form className="NewCategoryGroupForm BasicView" onSubmit={handleSubmit}>
+		<form className="NewCategoryGroupForm Section" onSubmit={handleSubmit}>
 			<div className="InputGroup">
 				<label htmlFor="name">Name:</label>
 				<input type="text" id="name" value={formData.name} name="name" onChange={handleChange} required />

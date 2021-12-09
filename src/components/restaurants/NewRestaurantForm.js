@@ -41,7 +41,7 @@ export default function NewRestaurantForm() {
 	}
 
 	return (
-		<form className="NewRestaurantForm BasicView" onSubmit={handleSubmit}>
+		<form className="NewRestaurantForm" onSubmit={handleSubmit}>
 			<div className="Section">
 				<div className="InputGroup">
 					<label htmlFor="name">Name:</label>

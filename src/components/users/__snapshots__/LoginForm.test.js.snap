@@ -3,7 +3,7 @@
 exports[`matches snapshot 1`] = `
 <DocumentFragment>
   <form
-    class="LoginForm BasicView"
+    class="LoginForm"
   >
     <div
       class="Section"

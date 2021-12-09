@@ -8,7 +8,7 @@ export default function NewInvoiceScreen() {
 		<div className="Window">
 			<div className="Screen">
 				<p className="ScreenTitle">New Invoice</p>
-				<div className="FullFormContainer">
+				<div className="Section">
 					<NewInvoiceForm />
 				</div>
 			</div>

@@ -12,7 +12,7 @@ export default function RestaurantDetail({ restaurant }) {
 	return (
 		<div className="RestaurantDetail Card">
 			<p className="ScreenTitle">{restaurant.name}</p>
-			<div className="Section Full">
+			<div className="Section">
 				{/* <p className="SectionTitle3">Actions</p> */}
 				<div className="ActionButtonsGroup">
 					<GoButton
@@ -31,7 +31,7 @@ export default function RestaurantDetail({ restaurant }) {
 			</div>
 
 			{(restaurant.address || restaurant.phone || restaurant.email || restaurant.website) && (
-				<div className="Section Full">
+				<div className="Section">
 					{/* <p className="SectionTitle3">Details</p> */}
 					<ul className="IgnoreList">
 						{restaurant.address && (

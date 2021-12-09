@@ -44,7 +44,7 @@ export default function NewMealPeriodForm() {
 	}
 
 	return (
-		<form className="NewMealPeriodForm BasicView" onSubmit={handleSubmit}>
+		<form className="NewMealPeriodForm Section" onSubmit={handleSubmit}>
 			<div className="InputGroup">
 				<label htmlFor="name">Name:</label>
 				<input type="text" id="name" value={formData.name} name="name" onChange={handleChange} required />

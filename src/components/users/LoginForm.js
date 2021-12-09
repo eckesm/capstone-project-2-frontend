@@ -51,7 +51,7 @@ export default function LoginForm() {
 	}
 
 	return (
-		<form className="LoginForm BasicView" onSubmit={handleSubmit}>
+		<form className="LoginForm" onSubmit={handleSubmit}>
 			<div className="Section">
 				<div className="InputGroup">
 					<label htmlFor="emailAddress">Email Address:</label>

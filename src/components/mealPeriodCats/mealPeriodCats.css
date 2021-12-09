@@ -3,11 +3,14 @@
 .AllMealPeriodCatsScreen .MealPeriodName {
 	margin-left: 5px;
 	margin-right: 5px;
+	width: 120px;
 }
 
 .AllMealPeriodCatsScreen .CategoryColumn {
 	border: 1px solid black;
 	padding-right: 5px;
+	max-width: 225px;
+	width: fit-content;
 }
 
 .AllMealPeriodCatsScreen .AllContainer {
@@ -109,5 +112,3 @@
 	background-color: rgb(154, 230, 154);
 	transition: all 0ms linear;
 }
-
-

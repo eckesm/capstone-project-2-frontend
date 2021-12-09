@@ -8,6 +8,8 @@
 .AllDefaultSalesScreen .MealPeriodColumn {
 	border: 1px solid black;
 	padding-right: 5px;
+	max-width: 150px;
+	width: fit-content;
 }
 
 .AllDefaultSalesScreen .AllContainer {
@@ -104,4 +106,3 @@
 	padding-top: 5px;
 	padding-bottom: 5px;
 }
-

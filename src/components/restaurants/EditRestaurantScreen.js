@@ -43,7 +43,7 @@ export default function EditRestaurantScreen() {
 				<p className="ScreenTitle">Edit Restaurant</p>
 				{active &&
 				restaurant && (
-					<div className="FullFormContainer">
+					<div className="Section">
 						<EditRestaurantForm
 							id={restaurant.id}
 							name={restaurant.name}

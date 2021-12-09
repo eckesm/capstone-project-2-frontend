@@ -73,7 +73,7 @@ export default function AddUserToRestaurantForm({ restaurantId }) {
 	}
 
 	return (
-		<div>
+		<div className='AddUserToRestaurantForm'>
 			<form onSubmit={handleSubmit}>
 				<div className="Section">
 					<div>

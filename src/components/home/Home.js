@@ -67,7 +67,7 @@ export default function Home() {
 			<div className="Home">
 				<p className="ScreenTitle">Welcome, {user.firstName}!</p>
 
-				<div className="Section Centered Card">
+				<div className="MyRestaurants Section Border">
 					{restaurants &&
 					restaurants.length > 0 && (
 						<div>
@@ -91,8 +91,7 @@ export default function Home() {
 						</div>
 					)}
 				</div>
-				<div className="InstructionsLoggedIn">
-					{/* <p className="SectionTitle2">Instructions</p> */}
+				<div className="InstructionsLoggedIn Section Border">
 					{instructions()}
 				</div>
 			</div>
@@ -103,8 +102,8 @@ export default function Home() {
 		return (
 			<div className="Home">
 				<p className="ScreenTitle">Home</p>
-				<div className="BasicView">
-					<div className="InstructionsHeadingLoggedOut">
+				<div className="Section Border">
+					<div className="InstructionsHeadingLoggedOut Section">
 						<p>A budgeting tool for restaurants to help keep track of variable costs in real-time!</p>
 					</div>
 					<div className="ButtonGroup">

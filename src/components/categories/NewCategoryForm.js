@@ -46,7 +46,7 @@ export default function NewCategoryForm() {
 	}
 
 	return (
-		<form className="NewCategoryScreen BasicView" onSubmit={handleSubmit}>
+		<form className="NewCategoryScreen Section" onSubmit={handleSubmit}>
 			<div className="InputGroup">
 				<label htmlFor="name">Name:</label>
 				<input type="text" id="name" value={formData.name} name="name" onChange={handleChange} required />

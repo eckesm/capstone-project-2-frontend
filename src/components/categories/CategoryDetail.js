@@ -34,7 +34,7 @@ export default function CategoryDetail({ category, catGroups, isAdmin = false, s
 	return (
 		<div className="CategoryDetail">
 			{!editing && (
-				<div className="BasicView">
+				<div className='Section Border'>
 					<p className="ScreenTitle">{category.name}</p>
 					<ul className="IgnoreList Left">
 						{category.catGroupId && (
@@ -82,7 +82,7 @@ export default function CategoryDetail({ category, catGroups, isAdmin = false, s
 			{editing && (
 				<div>
 					<p className="ScreenTitle">Edit Category</p>
-					<div className="FullFormContainer">
+					<div className="Section">
 						<EditCategoryForm
 							id={category.id}
 							name={category.name}

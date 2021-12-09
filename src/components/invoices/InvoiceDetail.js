@@ -117,7 +117,7 @@ export default function InvoiceDetail({ invoice, setInvoice }) {
 			{editing && (
 				<div>
 					<p className="ScreenTitle">Edit Invoice</p>
-					<div className="FullFormContainer">
+					<div className="Section">
 						<EditInvoiceForm
 							id={invoice.id}
 							date={invoice.date}

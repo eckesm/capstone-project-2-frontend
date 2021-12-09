@@ -85,7 +85,7 @@ export default function AllDefaultSalesScreen() {
 						<ul className="IgnoreList">
 							{mealPeriods.map((mp,idx) => {
 								return <li key={`${mp.id}`} className={determineDivClassName(idx)}>
-									{shortenWithEllipse(mp.name,25)}
+									{shortenWithEllipse(mp.name,15)}
 								</li>;
 							})}
 							<li className="TotalHeader" key={'total'}>

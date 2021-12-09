@@ -6,7 +6,7 @@ import useFields from '../../hooks/useFields';
 
 import { registerInvoice } from '../../actions/invoices';
 
-import AddButton from '../buttons/AddButton'
+import AddButton from '../buttons/AddButton';
 
 import './invoices.css';
 
@@ -57,7 +57,15 @@ export default function NewInvoiceForm() {
 			</div>
 			<div className="InputGroup">
 				<label htmlFor="date">Date:</label>
-				<input className='Date' type="date" id="date" value={formData.date} name="date" onChange={handleChange} required />
+				<input
+					className="Date"
+					type="date"
+					id="date"
+					value={formData.date}
+					name="date"
+					onChange={handleChange}
+					required
+				/>
 			</div>
 			<div className="InputGroup">
 				<label htmlFor="vendor">Vendor:</label>
@@ -83,7 +91,9 @@ export default function NewInvoiceForm() {
 					cols="50"
 				/>
 			</div>
-			<AddButton text='Add Invoice' onClick={handleSubmit} />
+			<div className="ButtonGroup">
+				<AddButton text="Add Invoice" onClick={handleSubmit} />
+			</div>
 		</form>
 	);
 }

@@ -14,7 +14,7 @@ export default function AddUserToRestaurantScreen() {
 			{active && (
 				<div className="AddUserToRestaurantScreen Screen">
 					<p className="ScreenTitle">Add User to Restaurant</p>
-					<div className="BasicView">
+					<div className='Section'>
 						<AddUserToRestaurantForm restaurantId={active.id} />
 					</div>
 				</div>

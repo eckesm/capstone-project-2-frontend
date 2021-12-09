@@ -29,7 +29,7 @@ export default function MealPeriodDetail({ mealPeriod, isAdmin = false, setMealP
 	return (
 		<div className="MealPeriodDetail">
 			{!editing && (
-				<div className="BasicView">
+				<div className='Section Border'>
 					<p className="ScreenTitle">{mealPeriod.name}</p>
 					{mealPeriod.notes && (
 						<div className="NotesContainer">
@@ -58,15 +58,17 @@ export default function MealPeriodDetail({ mealPeriod, isAdmin = false, setMealP
 
 			{mealPeriod &&
 			editing && (
-				<div className="FullFormContainer">
+				<div>
 					<p className="ScreenTitle">Edit Meal Period</p>
-					<EditMealPeriodForm
-						id={mealPeriod.id}
-						name={mealPeriod.name}
-						notes={mealPeriod.notes}
-						setMealPeriod={setMealPeriod}
-						setEditing={setEditing}
-					/>
+					<div className="Section">
+						<EditMealPeriodForm
+							id={mealPeriod.id}
+							name={mealPeriod.name}
+							notes={mealPeriod.notes}
+							setMealPeriod={setMealPeriod}
+							setEditing={setEditing}
+						/>
+					</div>
 				</div>
 			)}
 		</div>

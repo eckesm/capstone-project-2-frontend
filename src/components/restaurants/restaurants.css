@@ -1,3 +1,9 @@
+/* AddUserToRestaurantForm */
+
+.AddUserToRestaurantForm input {
+	margin-bottom: 10px;
+}
+
 /* EditRestaurantForm */
 
 .EditRestaurantForm .InputGroup label {
@@ -15,7 +21,6 @@
 .RestaurantCard .Notes {
 	font-size: unset;
 }
-
 
 /* RestaurantDetail */
 
@@ -41,4 +46,3 @@
 	width: 250px;
 	min-width: 250px;
 }
-

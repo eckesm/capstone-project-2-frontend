@@ -54,7 +54,7 @@ export default function EditRestaurantForm({
 	return (
 		<div>
 			<form className="EditRestaurantForm" onSubmit={handleSubmit}>
-				<div className="Section Centered">
+				<div className="Section">
 					<div className="InputGroup">
 						<label htmlFor="name">Name:</label>
 						<input

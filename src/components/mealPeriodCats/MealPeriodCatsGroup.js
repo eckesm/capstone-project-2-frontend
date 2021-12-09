@@ -41,7 +41,7 @@ export default function MealPeriodCatsGroup({ groupArray = [], categories = [], 
 
 	return (
 		<div className="MealPeriodCatsGroup">
-			<p className="MealPeriodName SectionTitle2">{shortenWithEllipse(mealPeriodName, 15)}</p>
+			<p className="MealPeriodName SectionTitle2">{shortenWithEllipse(mealPeriodName, 10)}</p>
 			<div className="GroupContainer">
 				{groupArray.map((mpc, idx) => {
 					return (

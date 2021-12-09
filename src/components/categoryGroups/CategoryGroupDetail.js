@@ -32,7 +32,7 @@ export default function CategoryGroupDetail({ categoryGroup, categories, isAdmin
 	return (
 		<div className="CategoryGroupDetail">
 			{!editing && (
-				<div className="BasicView">
+				<div className='Section Border'>
 					<p className="ScreenTitle">{categoryGroup.name}</p>{' '}
 					{categories.length > 0 && (
 						<ul className="IgnoreList Centered">
@@ -64,7 +64,7 @@ export default function CategoryGroupDetail({ categoryGroup, categories, isAdmin
 			{editing && (
 				<div>
 					<p className="ScreenTitle">Edit Category Group</p>
-					<div className="FullFormContainer">
+					<div className='Section'>
 						<EditCategoryGroupForm
 							id={categoryGroup.id}
 							name={categoryGroup.name}
