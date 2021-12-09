@@ -7,6 +7,7 @@ import DefaultSalesGroup from './DefaultSalesGroup';
 
 import { shortenWithEllipse } from '../../helpers/textAdjustments';
 
+import '../screen.css'
 import './defaultSales.css';
 
 export default function AllDefaultSalesScreen() {

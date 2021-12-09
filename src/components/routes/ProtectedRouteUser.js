@@ -6,6 +6,8 @@ import { Route, useParams } from 'react-router-dom';
 
 import { getAndStoreRestaurantInfo } from '../../actions/restaurants';
 
+import '../screen.css';
+
 export default function ProtectedRouteUser({ component: Component, path, ...rest }) {
 	const dispatch = useDispatch();
 
@@ -57,14 +59,26 @@ export default function ProtectedRouteUser({ component: Component, path, ...rest
 		[ restaurantsUser, restaurantId ]
 	);
 
+	function protectedRoutScreen(message) {
+		return (
+			<div className="Window">
+				<div className="Screen">
+					<div className="Section Border">
+						<h1>{message}</h1>
+					</div>
+				</div>
+			</div>
+		);
+	}
+
 	if (loading) {
-		return <Route {...rest} render={props => <h1>...loading...</h1>} />;
+		return <Route {...rest} render={props => protectedRoutScreen('...loading...')} />;
 	}
 	else if (!user) {
-		return <Route {...rest} render={props => <h1>Protected Route! Sign in to access.</h1>} />;
+		return <Route {...rest} render={props => protectedRoutScreen('Protected Route! Sign in to access.')} />;
 	}
 	else if (error) {
-		return <Route {...rest} render={props => <h1>{error}</h1>} />;
+		return <Route {...rest} render={props => protectedRoutScreen(error)} />;
 	}
 	else {
 		return <Route {...rest} render={props => <Component {...props} {...rest} />} />;

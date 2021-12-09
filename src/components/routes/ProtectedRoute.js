@@ -4,14 +4,22 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { Route } from 'react-router-dom';
 
+import '../screen.css';
+
 export default function ProtectedRoute({ component: Component, path, ...rest }) {
 	const { user } = useSelector(store => store.auth);
 
-	// return <Route {...rest} render={props => (user ? <Component {...props} {...rest} /> : <ProtectedRouteScreen />)} />;
-	return (
-		<Route
-			{...rest}
-			render={props => (user ? <Component {...props} {...rest} /> : <h1>Protected Route! Sign in to access.</h1>)}
-		/>
-	);
+	function protectedRoutScreen() {
+		return (
+			<div className="Window">
+				<div className="Screen">
+					<div className="Section Border">
+						<h1>Protected Route! Sign in to access.</h1>
+					</div>
+				</div>
+			</div>
+		);
+	}
+
+	return <Route {...rest} render={props => (user ? <Component {...props} {...rest} /> : protectedRoutScreen())} />;
 }
