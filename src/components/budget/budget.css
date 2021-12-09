@@ -1,5 +1,32 @@
-.BudgetScreen .Card {
+/* .BudgetScreen .Card {
 	width: 400px;
+} */
+
+.BudgetScreen .BudgetPerformanceCard {
+	border: 1px solid black;
+	background-color: white;
+	margin: 50px auto;
+	padding: 10px;
+	font-size: larger;
+}
+
+@media screen and (max-width: 1000px) {
+	.BudgetScreen .PerformanceCard {
+		width: auto;
+	}
+
+	.BudgetScreen .BudgetPerformanceCard {
+		width: auto;
+	}
+}
+@media screen and (min-width: 1000px) {
+	.BudgetScreen .PerformanceCard {
+		width: 400px;
+	}
+
+	.BudgetScreen .BudgetPerformanceCard {
+		width: 600px;
+	}
 }
 
 .BudgetScreen p {
@@ -14,7 +41,7 @@
 }
 
 .BudgetScreen .Notes {
-margin-top: 30px;
+	margin-top: 30px;
 }
 
 .BudgetScreen ul {
@@ -23,26 +50,24 @@ margin-top: 30px;
 
 .BudgetScreen .ResultGroup .CategoryName {
 	display: block;
-	width: 300px;
-	min-width: fit-content;
+	width: fit-content;
 	text-align: left;
 }
 .BudgetScreen .ResultGroup .CategoryTotal {
 	display: block;
-	width: 200px;
+	width: fit-content;
 	text-align: right;
 }
 
-.BudgetScreen  .ResultGroupAndExplanation{
-	padding:5px;
+.BudgetScreen .ResultGroupAndExplanation {
+	padding: 5px;
 }
-.BudgetScreen .ResultGroupAndExplanation.TopBorder{
-	border-top: 1px solid rgb(204, 190, 190)
+.BudgetScreen .ResultGroupAndExplanation.TopBorder {
+	border-top: 1px solid rgb(204, 190, 190);
 }
 .BudgetScreen .ResultGroupAndExplanation:hover {
-	background-color:rgb(206, 193, 204);
+	background-color: rgb(206, 193, 204);
 	font-weight: bold;
-	
 }
 
 .BudgetScreen .ResultGroupAndExplanation .NegativeExplanation {
@@ -50,15 +75,6 @@ margin-top: 30px;
 	margin-top: 0px;
 }
 /* BudgetPerformanceCard */
-
-.BudgetScreen .BudgetPerformanceCard {
-	border: 1px solid black;
-	background-color: white;
-	width: fit-content;
-	margin: 50px auto;
-	padding: 10px;
-   font-size: larger;
-}
 
 .BudgetScreen .BudgetPerformanceCard .Warning {
 	font-size: .8rem;
@@ -77,6 +93,6 @@ margin-top: 30px;
 }
 
 .BudgetScreen .BudgetResults .ResultGroup:hover {
-	background-color:rgb(206, 193, 204);
+	background-color: rgb(206, 193, 204);
 	font-weight: bold;
 }

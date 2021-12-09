@@ -183,7 +183,7 @@ export default function BudgetScreen() {
 										key={idx}
 									>
 										<div key={c.id} className="ResultGroup">
-											<span className="CategoryName">{shortenWithEllipse(c.name, 50)}:</span>{' '}
+											<span className="CategoryName">{shortenWithEllipse(c.name, 30)}:</span>{' '}
 											<span className={`CategoryTotal ${status}`}>
 												${remainingBudget.toLocaleString('en-US')}{' '}
 											</span>

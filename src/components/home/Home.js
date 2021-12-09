@@ -101,7 +101,7 @@ export default function Home() {
 	function loggedOut() {
 		return (
 			<div className="Home">
-				<p className="ScreenTitle">Home</p>
+				{/* <p className="ScreenTitle">Home</p> */}
 				<div className="Section Border">
 					<div className="InstructionsHeadingLoggedOut Section">
 						<p>A budgeting tool for restaurants to help keep track of variable costs in real-time!</p>
