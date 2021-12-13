@@ -33,7 +33,7 @@ export default function Home() {
 					<li>
 						<b>Add sales and cost categories</b> <i>(food, wine, etc.)</i>{' '}
 						<b>and costs of goods sold (COGS) percentages</b> <i>(30% foods COGS)</i>{' '}
-						<b>to establish budget percetnages</b>{' '}
+						<b>to establish budget percentages</b>{' '}
 						<i>(the amount you would like to spend as a percentage of sales by category)</i>
 					</li>
 					<li>
@@ -91,9 +91,7 @@ export default function Home() {
 						</div>
 					)}
 				</div>
-				<div className="InstructionsLoggedIn Section Border">
-					{instructions()}
-				</div>
+				<div className="InstructionsLoggedIn Section Border">{instructions()}</div>
 			</div>
 		);
 	}
@@ -118,8 +116,8 @@ export default function Home() {
 
 	return (
 		// <div className="Window">
-			// <div className="HomeScreen Screen">{user ? loggedIn() : loggedOut()}</div>
-			<div>{user ? loggedIn() : loggedOut()}</div>
+		// <div className="HomeScreen Screen">{user ? loggedIn() : loggedOut()}</div>
+		<div>{user ? loggedIn() : loggedOut()}</div>
 		// </div>
 	);
 }
