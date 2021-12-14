@@ -1,11 +1,11 @@
-# Restaurant Budgeting Application (_frontend_)
+# RestoBudget (_frontend_)
 
 ## Stack
 This project was created with [Create React App](https://github.com/facebook/create-react-app).
 
 The frontend is built on a React framework and makes extensive use of the Redux library.
 
-The backend is built in a Node.js ecosystem with Express.js employed as the routing framework.
+The backend is built in a Node.js ecosystem with Express.js as the routing framework and is connected to a Postgres database
 
 ## Deployment & Repositories
 
